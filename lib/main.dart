@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           '/': (context) => const SplashPage(),
           '/user_login': (context) => const UserLoginPage(),
           '/user_signup': (context) => const UserSignupPage(),
-          '/otp_screen': (context) => const OTPScreen(),
+          // '/otp_screen': (context) => const OTPScreen(),
           '/user_home_screen': (context) => const UserHomeScreen(),
         },
       ),

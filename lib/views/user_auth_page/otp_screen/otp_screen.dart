@@ -1,10 +1,16 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+import 'package:provider/provider.dart';
+import 'package:user_module/control/auth/authentication.dart';
 import 'package:user_module/core/colors/colors.dart';
 
 class OTPScreen extends StatefulWidget {
-  const OTPScreen({super.key});
+  final String varificationId;
+  final String phoneNumber;
+  const OTPScreen(
+      {super.key, required this.varificationId, required this.phoneNumber});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -13,9 +19,11 @@ class OTPScreen extends StatefulWidget {
 
 class _OTPScreenState extends State<OTPScreen> {
   void verifyOTP(BuildContext context, String userOTP) {
-    // ref
-    //     .read(authControllerProvider)
-    //     .verifyOTP(context, widget.verificationId, userOTP);
+    log(widget.varificationId);
+    Provider.of<AuthService>(context, listen: false).verifyOTP(
+        context: context,
+        verificationId: widget.varificationId,
+        userOTP: userOTP);
   }
 
   @override
@@ -86,11 +94,13 @@ class _OTPScreenState extends State<OTPScreen> {
                 borderColor: buttonColor,
                 showFieldAsBox: true,
                 keyboardType: TextInputType.number,
-                onSubmit: (val) {
+                onSubmit: (val) async {
                   if (val.length == 6) {
-                    verifyOTP(context, val.trim());
-                    Navigator.pushReplacementNamed(
-                        context, '/user_home_screen');
+                    final userOtp = val.trim();
+
+                    verifyOTP(context, userOtp);
+                    // Navigator.pushReplacementNamed(
+                    //     context, '/user_home_screen');
                   }
                 },
               ),

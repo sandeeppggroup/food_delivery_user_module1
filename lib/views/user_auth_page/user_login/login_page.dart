@@ -15,8 +15,9 @@ class UserLoginPage extends StatefulWidget {
 }
 
 class _LonginPageState extends State<UserLoginPage> {
-  FocusNode _focusNode = FocusNode();
+  final FocusNode _focusNode = FocusNode();
   final mobilecontroller = TextEditingController();
+  String countryCode = '+91';
   SharedPreferences? sharedPreferences;
 
   @override
@@ -91,10 +92,12 @@ class _LonginPageState extends State<UserLoginPage> {
                               SizedBox(
                                 height: height * .055,
                                 child: TextFormField(
+                                  keyboardType: TextInputType.number,
                                   focusNode: _focusNode,
                                   controller: mobilecontroller,
                                   decoration: InputDecoration(
-                                    hintText: '+91-xxxxxxxxxx',
+                                    // prefixText: '+91',
+                                    hintText: '  Enter your number',
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(
                                         10,
@@ -124,10 +127,12 @@ class _LonginPageState extends State<UserLoginPage> {
                                   ),
                                   onPressed: () {
                                     _focusNode.unfocus();
+                                    String finalNumber =
+                                        countryCode + mobilecontroller.text;
                                     Provider.of<AuthService>(context,
                                             listen: false)
-                                        .signInWithPhone(context,
-                                            mobilecontroller.text.trim());
+                                        .signInWithPhone(
+                                            context, finalNumber.trim());
                                   },
                                 ),
                               ),
@@ -145,6 +150,7 @@ class _LonginPageState extends State<UserLoginPage> {
                                   ),
                                   TextButton(
                                     onPressed: () {
+                                      _focusNode.unfocus();
                                       Navigator.pushNamed(
                                           context, '/user_signup');
                                     },

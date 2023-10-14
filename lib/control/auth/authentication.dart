@@ -2,11 +2,12 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:user_module/views/user_auth_page/otp_screen/otp_screen.dart';
+import 'package:user_module/widget/show_dialog.dart';
 
 class AuthService extends ChangeNotifier {
   // final _auth = FirebaseAuth.instance;
   final FirebaseAuth auth;
-  var varificationId = ' ';
+  // dynamic varificationId;
 
   AuthService({required this.auth});
 
@@ -32,15 +33,23 @@ class AuthService extends ChangeNotifier {
           }
           throw Exception(e.message);
         },
-        codeSent: ((String verificationId, int? resendToken) async {
-          // this.varificationId.value = varificationId;
+        codeSent: ((String? verificationId, int? resendToken) async {
+          // varificationId = await varificationId;
           // Navigator.pushNamed(
           //   context,
           //   OTPScreen.routeName,
           //   arguments: verificationId,
           // );
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => OTPScreen()));
+
+          log('in signin with phone : ${verificationId.toString()}');
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => OTPScreen(
+                phoneNumber: phoneNumber,
+                varificationId: verificationId.toString(),
+              ),
+            ),
+          );
         }),
         codeAutoRetrievalTimeout: (String verificationId) {},
       );
@@ -61,12 +70,16 @@ class AuthService extends ChangeNotifier {
         verificationId: verificationId,
         smsCode: userOTP,
       );
+      log('varification id: ${verificationId.toString()}');
       await auth.signInWithCredential(credential);
+      log('log in verityOtp after credential');
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/user_home_screen');
     } on FirebaseAuthException catch (e) {
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('OTP Failed $e')));
+      showItemSnackBar(context, massage: 'Invalid Otp !', color: Colors.red);
+
+      log('wrong otp ${e.message}');
     }
   }
 }
