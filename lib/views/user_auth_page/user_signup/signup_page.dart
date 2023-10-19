@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:user_module/control/authentication/db_authentication/db_authentication.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/widget/logo.dart';
 import 'package:user_module/widget/shadow.dart';
@@ -13,8 +15,7 @@ class UserSignupPage extends StatefulWidget {
 }
 
 class _LonginPageState extends State<UserSignupPage> {
-  TextEditingController mobile = TextEditingController();
-  SharedPreferences? sharedPreferences;
+  TextEditingController name = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +77,7 @@ class _LonginPageState extends State<UserSignupPage> {
                                 fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
-                            height: height * .04,
+                            height: height * .1,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -97,7 +98,7 @@ class _LonginPageState extends State<UserSignupPage> {
                             height: height * .055,
                             child: TextFormField(
                               keyboardType: TextInputType.name,
-                              controller: mobile,
+                              controller: name,
                               decoration: InputDecoration(
                                 hintText: 'Enter your full name here',
                                 hintStyle: const TextStyle(color: Colors.grey),
@@ -110,37 +111,7 @@ class _LonginPageState extends State<UserSignupPage> {
                             ),
                           ),
                           SizedBox(
-                            height: height * .02,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: width * .02,
-                              ),
-                              const Text(
-                                'Enter phone number',
-                                style: TextStyle(fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: height * .055,
-                            child: TextFormField(
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                hintText: 'Enter your number',
-                                hintStyle: const TextStyle(color: Colors.grey),
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    10,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: height * .065,
+                            height: height * .1,
                           ),
                           SizedBox(
                             width: width * .64,
@@ -153,13 +124,20 @@ class _LonginPageState extends State<UserSignupPage> {
                                 ),
                               ),
                               child: const Text(
-                                'Login',
+                                'Next',
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 18),
                               ),
-                              onPressed: () {
-                                Navigator.pushNamed(
-                                    context, '/user_home_screen');
+                              onPressed: () async {
+                                SharedPreferences prefs =
+                                    await SharedPreferences.getInstance();
+
+                                final token = prefs.getString('token');
+                                // ignore: use_build_context_synchronously
+                                Provider.of<DbAuthService>(context,
+                                        listen: false)
+                                    .saveUserName(
+                                        context, name.text, token.toString());
                               },
                             ),
                           ),

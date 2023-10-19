@@ -12,3 +12,12 @@ LinearGradient linearGradient = const LinearGradient(
     Color.fromARGB(255, 240, 215, 224),
   ],
 );
+
+LinearGradient linearGradientProduct = const LinearGradient(
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+  colors: [
+    Color.fromARGB(255, 221, 0, 74),
+    Color.fromARGB(255, 192, 104, 104),
+  ],
+);

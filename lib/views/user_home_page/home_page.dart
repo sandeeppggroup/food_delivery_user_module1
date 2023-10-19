@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:user_module/control/home_control/category_provider/category_provider.dart';
+import 'package:user_module/core/colors/colors.dart';
+import 'package:user_module/views/user_home_page/widget/category_listview.dart';
+import 'package:user_module/views/user_home_page/widget/product_listview.dart';
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({super.key});
@@ -10,55 +15,193 @@ class UserHomeScreen extends StatefulWidget {
 class _UserHomeScreenState extends State<UserHomeScreen> {
   @override
   Widget build(BuildContext context) {
+    final categoryProvider = context.watch<CategoryProvider>();
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-          leading: Builder(builder: (context) {
-            return InkWell(
-              onTap: () {
-                Scaffold.of(context).openDrawer();
-              },
-              child: Container(
-                height: 20,
-                width: 20,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                  image:
-                      AssetImage('assets/images/burger_cola_frenchfries.png'),
-                )),
-                // child: Image.asset('assets/images/burger_cola_frenchfries.png'),
-              ),
-            );
-          }),
-        ),
-        drawer: Drawer(),
-        body: Column(
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
+          actions: [
+            Stack(
               children: [
-                Row(
-                  children: [
-                    IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.arrow_downward))
-                  ],
+                SizedBox(
+                  width: width * 0.21,
                 ),
-                const Text('Choose Your Taste'),
-                const Text('Food You Love'),
-                Container(
-                  decoration: const BoxDecoration(),
-                  child: TextFormField(
-                    decoration: const InputDecoration(
-                      hintText: 'Search Food Here Foody',
-                      suffixIcon: Icon(Icons.search),
+                const CircleAvatar(
+                  radius: 40,
+                  backgroundColor: Colors.grey,
+                  child: CircleAvatar(
+                    radius: 26,
+                    backgroundColor: Colors.black,
+                    child: Icon(
+                      Icons.person,
+                      size: 52,
+                      color: Colors.white,
                     ),
                   ),
-                )
+                ),
               ],
-            )
+            ),
           ],
+          backgroundColor: Colors.white,
+          elevation: 0,
+          leading: Builder(
+            builder: (context) {
+              return InkWell(
+                onTap: () {
+                  Scaffold.of(context).openDrawer();
+                },
+                child: Container(
+                  height: 15,
+                  width: 10,
+                  decoration: const BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/drawer_user_image1.png'),
+                    ),
+                  ),
+                  // child: Image.asset('assets/images/burger_cola_frenchfries.png'),
+                ),
+              );
+            },
+          ),
+        ),
+        drawer: const Drawer(),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: height * 0.02,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 25),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Choose Your Taste',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    const Text(
+                      'Food You Love',
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: height * 0.02,
+                    ),
+                    Container(
+                      height: height * 0.055,
+                      width: width * 0.85,
+                      decoration: BoxDecoration(
+                        boxShadow: const [
+                          BoxShadow(
+                            color: Color.fromARGB(255, 190, 189, 189),
+                            blurRadius: 1,
+                            offset: Offset(8, 8),
+                          )
+                        ],
+                        color: userAppBar,
+                        // border: Border.all(),
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 65.0),
+                        child: SizedBox(
+                          height: 38,
+                          width: 250,
+                          child: TextFormField(
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'Search Food Here Foody',
+                              hintStyle: TextStyle(
+                                  fontWeight: FontWeight.w700, fontSize: 19),
+                              suffixIcon: Icon(
+                                Icons.search_rounded,
+                                size: 50,
+                                color: Color.fromARGB(179, 190, 192, 192),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: height * 0.06,
+              ),
+              const Align(
+                alignment: Alignment.topLeft,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(left: 40),
+                      child: Text(
+                        'Categories',
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 20,
+                      ),
+                      child: CategoryHomeListView(),
+                    ),
+                  ],
+                ),
+              ),
+              Align(
+                alignment: Alignment.topLeft,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(
+                      height: height * .03,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 40),
+                      child: Text(
+                        Provider.of<CategoryProvider>(context)
+                                .categoryName!
+                                .isNotEmpty
+                            ? categoryProvider.categoryName.toString()
+                            : 'All Products',
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 15, right: 10),
+                      child: ProductHomeListView(),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 310),
+                child: CircleAvatar(
+                  radius: 24,
+                  backgroundColor: Colors.grey,
+                  child: CircleAvatar(
+                    radius: 21,
+                    backgroundColor: buttonColor,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.shopping_cart,
+                        size: 30,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

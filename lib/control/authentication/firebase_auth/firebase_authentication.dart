@@ -2,14 +2,13 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:user_module/views/user_auth_page/otp_screen/otp_screen.dart';
-import 'package:user_module/widget/show_dialog.dart';
 
-class AuthService extends ChangeNotifier {
+class FireBaseAuthService extends ChangeNotifier {
   // final _auth = FirebaseAuth.instance;
   final FirebaseAuth auth;
   // dynamic varificationId;
 
-  AuthService({required this.auth});
+  FireBaseAuthService({required this.auth});
 
   void signInWithPhone(BuildContext context, String phoneNumber) async {
     log(phoneNumber.toString());
@@ -34,14 +33,8 @@ class AuthService extends ChangeNotifier {
           throw Exception(e.message);
         },
         codeSent: ((String? verificationId, int? resendToken) async {
-          // varificationId = await varificationId;
-          // Navigator.pushNamed(
-          //   context,
-          //   OTPScreen.routeName,
-          //   arguments: verificationId,
-          // );
-
           log('in signin with phone : ${verificationId.toString()}');
+
           Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) => OTPScreen(
@@ -60,7 +53,7 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  void verifyOTP({
+  Future<bool> verifyOTP({
     required BuildContext context,
     required String verificationId,
     required String userOTP,
@@ -72,14 +65,16 @@ class AuthService extends ChangeNotifier {
       );
       log('varification id: ${verificationId.toString()}');
       await auth.signInWithCredential(credential);
-      log('log in verityOtp after credential');
+      log('log in verityOtp after credential : ${credential.token.toString()}');
+      return true;
       // ignore: use_build_context_synchronously
-      Navigator.pushReplacementNamed(context, '/user_home_screen');
+      // Navigator.pushReplacementNamed(context, '/user_home_screen');
     } on FirebaseAuthException catch (e) {
       // ignore: use_build_context_synchronously
-      showItemSnackBar(context, massage: 'Invalid Otp !', color: Colors.red);
+      // showItemSnackBar(context, massage: 'Invalid Otp !', color: Colors.red);
 
       log('wrong otp ${e.message}');
+      return false;
     }
   }
 }
