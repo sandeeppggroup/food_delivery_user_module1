@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 
 class CounterWidget extends StatelessWidget {
-  const CounterWidget({super.key});
+  String price;
+  CounterWidget({required this.price, super.key});
 
   @override
   Widget build(BuildContext context) {
+    final productViewProviderWatch = context.watch<ProductViewProvider>();
+    final productViewProvider =
+        Provider.of<ProductViewProvider>(context, listen: false);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Container(
@@ -28,7 +34,10 @@ class CounterWidget extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 3.0),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                productViewProvider.decrementQuantity();
+                productViewProvider.calculateTotalPrice(price);
+              },
               child: Container(
                 height: height * 0.039,
                 width: width * 0.08,
@@ -47,14 +56,17 @@ class CounterWidget extends StatelessWidget {
               ),
             ),
           ),
-          const Text(
-            '2',
-            style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          Text(
+            productViewProviderWatch.quantity,
+            style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
           ),
           Padding(
             padding: const EdgeInsets.only(right: 3.0),
             child: InkWell(
-              onTap: () {},
+              onTap: () {
+                productViewProvider.incrementQuantity();
+                productViewProvider.calculateTotalPrice(price);
+              },
               child: Container(
                 height: height * 0.039,
                 width: width * 0.08,

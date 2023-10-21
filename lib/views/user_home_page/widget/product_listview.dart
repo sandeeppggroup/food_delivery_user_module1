@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/home_model/product_model.dart';
+import 'package:user_module/views/product_view_page/product_view_page.dart';
 
 class ProductHomeListView extends StatelessWidget {
   const ProductHomeListView({super.key});
@@ -23,7 +24,6 @@ class ProductHomeListView extends StatelessWidget {
               ? SizedBox(
                   height: 40,
                   width: 20,
-                  // decoration: BoxDecoration(border: Border.all()),
                   child: Lottie.asset(
                     fit: BoxFit.scaleDown,
                     height: 20,
@@ -40,8 +40,18 @@ class ProductHomeListView extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {
-                            Navigator.pushNamed(
-                                context, '/product_view_screen');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProductViewPage(
+                                  productId: product.id,
+                                  imageUrl: product.image.imageUrl,
+                                  name: product.name,
+                                  description: product.description.toString(),
+                                  price: product.price.toString(),
+                                ),
+                              ),
+                            );
                           },
                           child: Container(
                             height: height * 0.3,

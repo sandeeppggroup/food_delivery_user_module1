@@ -4,4 +4,5 @@ class ApiEndUrl {
   String saveUserName = '/saveUserName';
   String getCategory = '/getCategory';
   String getProduct = '/products?categoryId=&name=&sort=';
+  String addToCart = '/addtocart';
 }

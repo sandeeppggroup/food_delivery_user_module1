@@ -8,6 +8,7 @@ import 'package:user_module/control/authentication/provider_login/login_provider
 import 'package:user_module/control/authentication/provider_otp/otp_provider.dart';
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
+import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/firebase_options.dart';
 import 'package:user_module/views/cart_page/cart_page.dart';
 import 'package:user_module/views/product_view_page/product_view_page.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => OtpProvider()),
         ChangeNotifierProvider(create: (context) => CategoryProvider()),
         ChangeNotifierProvider(create: (context) => ProductProvider()),
+        ChangeNotifierProvider(create: (context) => ProductViewProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -47,7 +49,7 @@ class MyApp extends StatelessWidget {
           '/user_signup': (context) => const UserSignupPage(),
           // '/otp_screen': (context) => const OTPScreen(),
           '/user_home_screen': (context) => const UserHomeScreen(),
-          '/product_view_screen': (context) => const ProductViewPage(),
+          '/product_view_screen': (context) => ProductViewPage(),
           '/cart_screen': (context) => const CartPage(),
         },
       ),

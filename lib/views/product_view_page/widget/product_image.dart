@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class ProductImageContainer extends StatelessWidget {
-  const ProductImageContainer({super.key});
+  String? imageUrl;
+  ProductImageContainer({required this.imageUrl, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class ProductImageContainer extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(
                 left: 5.0, right: 15.0, top: 10, bottom: 5),
-            child: Image.asset('assets/images/burger_three_piece.png'),
+            child: Image.network(imageUrl.toString()),
           ),
         ),
       ),
