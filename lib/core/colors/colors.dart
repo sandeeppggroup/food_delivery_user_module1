@@ -21,3 +21,12 @@ LinearGradient linearGradientProduct = const LinearGradient(
     Color.fromARGB(255, 192, 104, 104),
   ],
 );
+
+LinearGradient linearGradientProductView = const LinearGradient(
+  begin: Alignment.topCenter,
+  end: Alignment.bottomCenter,
+  colors: [
+    Color.fromARGB(255, 250, 149, 185),
+    Color.fromARGB(255, 255, 255, 255),
+  ],
+);

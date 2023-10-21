@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';
 import 'package:user_module/control/home_control/service/home_service.dart';
@@ -17,13 +16,36 @@ class ProductProvider extends ChangeNotifier {
 
   List<ProductModel> get productlist => _productList;
 
-  Future<void> fetchCategoryWiseProduct(String categoryId) async {
+  Future<void> fetchCategoryAndPriceWiseProduct(
+      String categoryId, String categoryName) async {
     log('in fetchCategoryWiseProduct : $categoryId');
-
     _productList.clear();
+    _productList =
+        await homeService.getCategoryWiseProductLowToHigh(categoryId);
+    notifyListeners();
+  }
 
-    _productList = await homeService.getCategoryWiseProduct(categoryId);
-
+  Future<void> fetchSortCategoryAndPriceWiseProduct(
+      {String categoryId = '',
+      String sorturl = '',
+      String searchUrl = ''}) async {
+    log('in fetch sort category and price wise product : $categoryId,   $sorturl');
+    _productList.clear();
+    if (searchUrl != '') {
+      log('Sorturl in ProductProvider : $searchUrl');
+      _productList.clear();
+      _productList = await homeService.getCategoryWiseProductHighToLow(
+          searchUrl: searchUrl);
+      notifyListeners();
+      return;
+    }
+    if (categoryId.isEmpty) {
+      _productList =
+          await homeService.getCategoryWiseProductHighToLow(sortUrl: sorturl);
+    } else {
+      _productList = await homeService.getCategoryWiseProductHighToLow(
+          categoryIdUrl: categoryId, sortUrl: sorturl);
+    }
     notifyListeners();
   }
 

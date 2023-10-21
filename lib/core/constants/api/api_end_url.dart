@@ -3,5 +3,5 @@ class ApiEndUrl {
   String checkToken = '/checkIfUser';
   String saveUserName = '/saveUserName';
   String getCategory = '/getCategory';
-  String getProduct = '/products?categoryId=&name=&sort=lowToHigh';
+  String getProduct = '/products?categoryId=&name=&sort=';
 }

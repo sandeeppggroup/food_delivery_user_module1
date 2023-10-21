@@ -9,6 +9,8 @@ import 'package:user_module/control/authentication/provider_otp/otp_provider.dar
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
 import 'package:user_module/firebase_options.dart';
+import 'package:user_module/views/cart_page/cart_page.dart';
+import 'package:user_module/views/product_view_page/product_view_page.dart';
 import 'package:user_module/views/splash/splash.dart';
 import 'package:user_module/views/user_auth_page/user_login/login_page.dart';
 import 'package:user_module/views/user_auth_page/user_signup/signup_page.dart';
@@ -44,7 +46,9 @@ class MyApp extends StatelessWidget {
           '/user_login': (context) => const UserLoginPage(),
           '/user_signup': (context) => const UserSignupPage(),
           // '/otp_screen': (context) => const OTPScreen(),
-          '/user_home_screen': (context) => UserHomeScreen(),
+          '/user_home_screen': (context) => const UserHomeScreen(),
+          '/product_view_screen': (context) => const ProductViewPage(),
+          '/cart_screen': (context) => const CartPage(),
         },
       ),
     );

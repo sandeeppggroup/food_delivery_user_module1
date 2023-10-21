@@ -7,18 +7,35 @@ class CategoryProvider extends ChangeNotifier {
   HomeService homeService = HomeService();
 
   List<CategoryModel> _categories = [];
-  String? _categoryName = '';
-
-  String? get categoryName => _categoryName;
+  dynamic _categoryName;
+  String? _categoryId;
+  // dynamic _selectedIndex;
 
   List<CategoryModel> get categories => _categories;
+
+  dynamic get categoryName => _categoryName;
+
+  String? get categoryId => _categoryId;
+
+  // dynamic get selectedIndex => _selectedIndex;
 
   CategoryProvider() {
     fetchCategories();
   }
 
+  set setCategoryName(dynamic value) {
+    _categoryName = value;
+    notifyListeners();
+  }
+
+  // set setselectedIndex(dynamic value) {
+  //   _selectedIndex = value;
+  //   notifyListeners();
+  // }
+
   void selectCategory(CategoryModel categoryId) {
     _categoryName = categoryId.name;
+    _categoryId = categoryId.id;
     log('selected category name : $_categoryName');
     notifyListeners();
   }

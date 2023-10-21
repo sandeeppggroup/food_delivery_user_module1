@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';
+import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/views/user_home_page/widget/category_listview.dart';
 import 'package:user_module/views/user_home_page/widget/product_listview.dart';
@@ -13,9 +16,22 @@ class UserHomeScreen extends StatefulWidget {
 }
 
 class _UserHomeScreenState extends State<UserHomeScreen> {
+  FocusNode _focusNode = FocusNode();
+  TextEditingController searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final categoryProvider = context.watch<CategoryProvider>();
+    final productProvider =
+        Provider.of<ProductProvider>(context, listen: false);
+    final categoryProvider =
+        Provider.of<CategoryProvider>(context, listen: false);
+    final categoryProviderWatch = context.watch<CategoryProvider>();
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return SafeArea(
@@ -111,6 +127,18 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                           height: 38,
                           width: 250,
                           child: TextFormField(
+                            onChanged: (value) async {
+                              Future.delayed(const Duration(seconds: 1));
+                              log(value.toString());
+                              String searchUrl = value.toString();
+                              productProvider
+                                  .fetchSortCategoryAndPriceWiseProduct(
+                                      searchUrl: searchUrl);
+                            },
+                            focusNode: _focusNode,
+                            keyboardType: TextInputType.text,
+                            textInputAction: TextInputAction.next,
+                            controller: searchController,
                             decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: 'Search Food Here Foody',
@@ -130,7 +158,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 ),
               ),
               SizedBox(
-                height: height * 0.06,
+                height: height * 0.04,
               ),
               const Align(
                 alignment: Alignment.topLeft,
@@ -159,16 +187,75 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: height * .03,
+                    Row(
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            productProvider.fetchAllProducts();
+                            categoryProvider.setCategoryName = null;
+                          },
+                          child: const Padding(
+                            padding: EdgeInsets.only(left: 15.0),
+                            child: Text('All products'),
+                          ),
+                        ),
+                        const Spacer(),
+                        const Text(
+                          'Price Sort :',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextButton(
+                            onPressed: () {
+                              dynamic categoryName =
+                                  categoryProvider.categoryName;
+                              String urlLowToHigh = 'lowToHigh';
+                              String? categoryId = categoryProvider.categoryId;
+                              if (categoryName != null) {
+                                productProvider
+                                    .fetchSortCategoryAndPriceWiseProduct(
+                                        categoryId: categoryId!,
+                                        sorturl: urlLowToHigh);
+                              } else {
+                                productProvider
+                                    .fetchSortCategoryAndPriceWiseProduct(
+                                        sorturl: urlLowToHigh);
+                              }
+                            },
+                            child: const Icon(
+                              Icons.arrow_upward,
+                              size: 25,
+                            )),
+                        TextButton(
+                          onPressed: () {
+                            dynamic categoryName =
+                                categoryProvider.categoryName;
+                            String urlHighToLow = 'highToLow';
+                            String? categoryid = categoryProvider.categoryId;
+
+                            if (categoryName != null) {
+                              productProvider
+                                  .fetchSortCategoryAndPriceWiseProduct(
+                                      categoryId: categoryid!,
+                                      sorturl: urlHighToLow);
+                            } else {
+                              productProvider
+                                  .fetchSortCategoryAndPriceWiseProduct(
+                                      sorturl: urlHighToLow);
+                            }
+                          },
+                          child: const Icon(
+                            Icons.arrow_downward,
+                            size: 25,
+                          ),
+                        )
+                      ],
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 40),
                       child: Text(
-                        Provider.of<CategoryProvider>(context)
-                                .categoryName!
-                                .isNotEmpty
-                            ? categoryProvider.categoryName.toString()
+                        Provider.of<CategoryProvider>(context).categoryName !=
+                                null
+                            ? categoryProviderWatch.categoryName.toString()
                             : 'All Products',
                         style: const TextStyle(
                             fontSize: 20, fontWeight: FontWeight.w500),
@@ -190,7 +277,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                     radius: 21,
                     backgroundColor: buttonColor,
                     child: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/cart_screen');
+                      },
                       icon: const Icon(
                         Icons.shopping_cart,
                         size: 30,
