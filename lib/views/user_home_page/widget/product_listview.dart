@@ -39,7 +39,7 @@ class ProductHomeListView extends StatelessWidget {
                     return Row(
                       children: [
                         InkWell(
-                          onDoubleTap: () {
+                          onTap: () {
                             Navigator.pushNamed(
                                 context, '/product_view_screen');
                           },
