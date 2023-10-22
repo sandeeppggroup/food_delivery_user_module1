@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
+import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/home_model/product_model.dart';
 import 'package:user_module/views/product_view_page/product_view_page.dart';
+import 'package:user_module/widget/show_dialog.dart';
 
 class ProductHomeListView extends StatelessWidget {
   const ProductHomeListView({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final productViewProvider =
+        Provider.of<ProductViewProvider>(context, listen: false);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return SizedBox(
@@ -69,7 +73,22 @@ class ProductHomeListView extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 110),
                                     child: IconButton(
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        Provider.of<ProductViewProvider>(
+                                                context,
+                                                listen: false)
+                                            .initialQuantity = '1';
+
+                                        final result = await productViewProvider
+                                            .addToCart(product.id.toString());
+                                        if (result == true) {
+                                          // ignore: use_build_context_synchronously
+                                          showItemSnackBar(context,
+                                              massage:
+                                                  'Item added to cart successfully',
+                                              color: Colors.green);
+                                        }
+                                      },
                                       icon: const Icon(
                                         Icons.shopping_cart_outlined,
                                         color: Colors.white,

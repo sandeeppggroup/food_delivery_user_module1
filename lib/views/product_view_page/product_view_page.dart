@@ -163,7 +163,8 @@ class ProductViewPage extends StatelessWidget {
                                 if (result == true) {
                                   // ignore: use_build_context_synchronously
                                   showItemSnackBar(context,
-                                      massage: 'Product added successfully',
+                                      massage:
+                                          'Item added to cart successfully',
                                       color: Colors.green);
 
                                   // ignore: use_build_context_synchronously
