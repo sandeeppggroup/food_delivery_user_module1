@@ -57,9 +57,10 @@ class ProductViewProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<dynamic> addToCart(String productId) async {
+  Future<bool> addToCart(String productId) async {
     int quantity = int.parse(_quantity);
+    log('log in productview provider productId : $productId  , $quantity');
     dynamic result = await productViewService.addToCart(productId, quantity);
-    return result['success'];
+    return result;
   }
 }

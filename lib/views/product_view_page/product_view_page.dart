@@ -160,23 +160,28 @@ class ProductViewPage extends StatelessWidget {
                                             listen: false)
                                         .addToCart(productId.toString());
 
-                                if (result['success'] == true) {
+                                if (result == true) {
+                                  // ignore: use_build_context_synchronously
                                   showItemSnackBar(context,
-                                      massage: result['message'],
+                                      massage: 'Product added successfully',
                                       color: Colors.green);
 
+                                  // ignore: use_build_context_synchronously
                                   Provider.of<ProductViewProvider>(context,
                                           listen: false)
                                       .initialQuantity = '1';
+                                  // ignore: use_build_context_synchronously
                                   Provider.of<ProductViewProvider>(context,
                                           listen: false)
                                       .initialPrize = null;
 
+                                  // ignore: use_build_context_synchronously
                                   Navigator.pushReplacementNamed(
                                       context, '/cart_screen');
                                 } else {
+                                  // ignore: use_build_context_synchronously
                                   showItemSnackBar(context,
-                                      massage: result['message'],
+                                      massage: 'something went wrong',
                                       color: Colors.red);
                                   return;
                                 }
