@@ -196,7 +196,7 @@ class ProductViewPage extends StatelessWidget {
                                     MainAxisAlignment.spaceEvenly,
                                 children: [
                                   const Text(
-                                    'Add Item ',
+                                    'Add to cart ',
                                     style: TextStyle(fontSize: 16),
                                   ),
                                   Text(

@@ -5,4 +5,5 @@ class ApiEndUrl {
   String getCategory = '/getCategory';
   String getProduct = '/products?categoryId=&name=&sort=';
   String addToCart = '/addtocart';
+  String getAllCartItems = '/cart';
 }

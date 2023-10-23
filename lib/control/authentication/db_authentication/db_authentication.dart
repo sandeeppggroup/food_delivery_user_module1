@@ -26,6 +26,11 @@ class DbAuthService extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         log(' if case : ${response.statusCode}');
+
+        final token = response.data['data'];
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('token', token);
+
         // ignore: use_build_context_synchronously
         Provider.of<LoginProvider>(context, listen: false).setProgress(false);
 

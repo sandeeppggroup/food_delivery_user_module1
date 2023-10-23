@@ -6,6 +6,7 @@ import 'package:user_module/control/authentication/db_authentication/db_authenti
 import 'package:user_module/control/authentication/firebase_auth/firebase_authentication.dart';
 import 'package:user_module/control/authentication/provider_login/login_provider.dart';
 import 'package:user_module/control/authentication/provider_otp/otp_provider.dart';
+import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CategoryProvider()),
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => ProductViewProvider()),
+        ChangeNotifierProvider(create: (context) => CartProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
