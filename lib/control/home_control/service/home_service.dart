@@ -59,8 +59,7 @@ class HomeService {
     return [];
   }
 
-  Future<List<ProductModel>> getCategoryWiseProductLowToHigh(
-      String categoryId) async {
+  Future<List<ProductModel>> getCategoryWiseProduct(String categoryId) async {
     String categoryWiseProductUrl =
         '/products?categoryId=$categoryId&name=&sort=';
     String finalUrl = ApiBaseUrl().baseUrl + categoryWiseProductUrl;

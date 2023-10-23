@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/views/product_view_page/widget/counter_widget.dart';
@@ -171,10 +172,16 @@ class ProductViewPage extends StatelessWidget {
                                   Provider.of<ProductViewProvider>(context,
                                           listen: false)
                                       .initialQuantity = '1';
+
                                   // ignore: use_build_context_synchronously
                                   Provider.of<ProductViewProvider>(context,
                                           listen: false)
                                       .initialPrize = null;
+
+                                  // ignore: use_build_context_synchronously
+                                  Provider.of<CartProvider>(context,
+                                          listen: false)
+                                      .fetchCartData();
 
                                   // ignore: use_build_context_synchronously
                                   Navigator.pushReplacementNamed(

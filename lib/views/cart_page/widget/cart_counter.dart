@@ -5,8 +5,8 @@ import 'package:user_module/core/colors/colors.dart';
 
 // ignore: must_be_immutable
 class CounterWidgetCartPage extends StatelessWidget {
-  String price;
-  CounterWidgetCartPage({required this.price, super.key});
+  String quantity;
+  CounterWidgetCartPage({required this.quantity, super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class CounterWidgetCartPage extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   productViewProvider.decrementQuantity();
-                  productViewProvider.calculateTotalPrice(price);
+                  // productViewProvider.calculateTotalPrice(price);
                 },
                 child: Container(
                   height: height * 0.039,
@@ -61,7 +61,7 @@ class CounterWidgetCartPage extends StatelessWidget {
               ),
             ),
             Text(
-              productViewProviderWatch.quantity,
+              quantity,
               style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
             ),
             Padding(
@@ -69,7 +69,7 @@ class CounterWidgetCartPage extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   productViewProvider.incrementQuantity();
-                  productViewProvider.calculateTotalPrice(price);
+                  // productViewProvider.calculateTotalPrice(price);
                 },
                 child: Container(
                   height: height * 0.039,

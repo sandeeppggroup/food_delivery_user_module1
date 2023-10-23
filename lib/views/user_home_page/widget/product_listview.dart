@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
@@ -82,6 +83,11 @@ class ProductHomeListView extends StatelessWidget {
                                         final result = await productViewProvider
                                             .addToCart(product.id.toString());
                                         if (result == true) {
+                                          // ignore: use_build_context_synchronously
+                                          Provider.of<CartProvider>(context,
+                                                  listen: false)
+                                              .fetchCartData();
+
                                           // ignore: use_build_context_synchronously
                                           showItemSnackBar(context,
                                               massage:

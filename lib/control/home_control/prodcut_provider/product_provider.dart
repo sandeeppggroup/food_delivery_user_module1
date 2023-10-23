@@ -20,8 +20,7 @@ class ProductProvider extends ChangeNotifier {
       String categoryId, String categoryName) async {
     log('in fetchCategoryWiseProduct : $categoryId');
     _productList.clear();
-    _productList =
-        await homeService.getCategoryWiseProductLowToHigh(categoryId);
+    _productList = await homeService.getCategoryWiseProduct(categoryId);
     notifyListeners();
   }
 
