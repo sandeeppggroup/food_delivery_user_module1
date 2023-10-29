@@ -11,12 +11,13 @@ import 'package:user_module/control/home_control/category_provider/category_prov
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/firebase_options.dart';
-import 'package:user_module/views/cart_page/cart_page.dart';
-import 'package:user_module/views/product_view_page/product_view_page.dart';
-import 'package:user_module/views/splash/splash.dart';
-import 'package:user_module/views/user_auth_page/user_login/login_page.dart';
-import 'package:user_module/views/user_auth_page/user_signup/signup_page.dart';
-import 'package:user_module/views/user_home_page/home_page.dart';
+import 'package:user_module/views/cart_screen/cart_page.dart';
+import 'package:user_module/views/product_view_screen/product_view_screen.dart';
+import 'package:user_module/views/search_screen/search_screen.dart';
+import 'package:user_module/views/splash_screen/splash_screen.dart';
+import 'package:user_module/views/user_auth_screen/user_login_screen/login_screen.dart';
+import 'package:user_module/views/user_auth_screen/user_signup_screen/signup_page.dart';
+import 'package:user_module/views/user_home_screen/home_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,10 +50,10 @@ class MyApp extends StatelessWidget {
           '/': (context) => const SplashPage(),
           '/user_login': (context) => const UserLoginPage(),
           '/user_signup': (context) => const UserSignupPage(),
-          // '/otp_screen': (context) => const OTPScreen(),
           '/user_home_screen': (context) => const UserHomeScreen(),
           '/product_view_screen': (context) => ProductViewPage(),
           '/cart_screen': (context) => const CartPage(),
+          '/search_screen': (context) => SearchScreen()
         },
       ),
     );

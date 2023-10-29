@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/cart_model/cart_model.dart';
-import 'package:user_module/views/cart_page/widget/cart_counter.dart';
+import 'package:user_module/views/cart_screen/widget/cart_counter.dart';
 import 'package:user_module/widget/logo.dart';
 
 class CartPage extends StatelessWidget {
@@ -152,7 +152,7 @@ class CartPage extends StatelessWidget {
                                           ),
                                           title: Text(
                                             cartItem.cartProduct.name,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           subtitle: Text(

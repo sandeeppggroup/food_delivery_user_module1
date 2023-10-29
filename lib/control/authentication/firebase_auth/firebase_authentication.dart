@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:user_module/views/user_auth_page/otp_screen/otp_screen.dart';
+import 'package:user_module/views/user_auth_screen/otp_screen/otp_screen.dart';
 
 class FireBaseAuthService extends ChangeNotifier {
   // final _auth = FirebaseAuth.instance;

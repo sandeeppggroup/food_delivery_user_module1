@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
-import 'package:user_module/views/product_view_page/widget/counter_widget.dart';
-import 'package:user_module/views/product_view_page/widget/product_image.dart';
+import 'package:user_module/views/product_view_screen/widget/counter_widget.dart';
+import 'package:user_module/views/product_view_screen/widget/product_image.dart';
 import 'package:user_module/widget/logo.dart';
 import 'package:user_module/widget/show_dialog.dart';
 
