@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
@@ -24,6 +22,12 @@ class CartPage extends StatelessWidget {
           builder: (context, cartProvider, child) {
             List<CartItem> cartItems = cartProvider.cartProducts;
 
+            int cartSum = 0;
+            for (CartItem cartItem in cartItems) {
+              cartSum += (cartItem.quantity) * (cartItem.cartProduct.price);
+            }
+
+            // cartSum += (cartItem.quantity)*(cartItem.cartProduct.price);
             return Column(
               children: [
                 SizedBox(
@@ -162,9 +166,9 @@ class CartPage extends StatelessWidget {
                                               CounterWidgetCartPage(
                                                   quantity: cartItem.quantity
                                                       .toString()),
-                                              const Text(
-                                                '₹120',
-                                                style: TextStyle(
+                                              Text(
+                                                '₹${((cartItem.quantity) * (cartItem.cartProduct.price))}',
+                                                style: const TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 12),
                                               )
@@ -200,30 +204,38 @@ class CartPage extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  const CircleAvatar(
-                                    radius: 20,
-                                    backgroundColor: Colors.grey,
-                                    child: CircleAvatar(
-                                      radius: 17,
-                                      backgroundColor: buttonColor,
-                                      child: Icon(
-                                        Icons.shopping_cart,
-                                        size: 21,
-                                        color: Colors.white,
+                                  Row(
+                                    children: [
+                                      const CircleAvatar(
+                                        radius: 20,
+                                        backgroundColor: Colors.grey,
+                                        child: CircleAvatar(
+                                          radius: 17,
+                                          backgroundColor: buttonColor,
+                                          child: Icon(
+                                            Icons.shopping_cart,
+                                            size: 21,
+                                            color: Colors.white,
+                                          ),
+                                        ),
                                       ),
-                                    ),
+                                      SizedBox(
+                                        width: width * 0.03,
+                                      ),
+                                      Text(
+                                        '${cartItems.length} ITEM ADDED',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
                                   ),
-                                  SizedBox(
-                                    width: width * 0.03,
-                                  ),
-                                  Text(
-                                    '${cartItems.length} ITEM ADDED',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
+                                  Text('Total $cartSum',
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold))
                                 ],
                               ),
                               Row(
@@ -266,7 +278,7 @@ class CartPage extends StatelessWidget {
                                     ),
                                   ),
                                 ],
-                              )
+                              ),
                             ],
                           ),
                         ),

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
@@ -82,48 +80,29 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            productProvider.fetchAllProducts();
-                            categoryProvider.setCategoryName = null;
-                          },
-                          child: const Padding(
-                            padding: EdgeInsets.only(left: 15.0),
-                            child: Text('All products'),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Row(
+                        children: [
+                          TextButton(
+                            onPressed: () {
+                              productProvider.fetchAllProducts();
+                              categoryProvider.setCategoryName = null;
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.only(left: 15.0),
+                              child: Text('All products'),
+                            ),
                           ),
-                        ),
-                        const Spacer(),
-                        const Text(
-                          'Price Sort :',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            productProvider.sortProductLowToHigh();
-                          },
-                          child: const Icon(
-                            Icons.arrow_upward,
-                            size: 25,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            productProvider.sortProductHighToLow();
-                          },
-                          child: const Icon(
-                            Icons.arrow_downward,
-                            size: 25,
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/search_screen');
-                          },
-                          child: Text('More ..'),
-                        )
-                      ],
+                          const Spacer(),
+                          TextButton(
+                            onPressed: () {
+                              Navigator.pushNamed(context, '/search_screen');
+                            },
+                            child: const Text('More ..'),
+                          )
+                        ],
+                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 40),

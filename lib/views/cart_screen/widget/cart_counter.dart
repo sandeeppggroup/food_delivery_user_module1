@@ -10,7 +10,7 @@ class CounterWidgetCartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final productViewProviderWatch = context.watch<ProductViewProvider>();
+    // final productViewProviderWatch = context.watch<ProductViewProvider>();
     final productViewProvider =
         Provider.of<ProductViewProvider>(context, listen: false);
     final height = MediaQuery.of(context).size.height;

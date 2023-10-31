@@ -11,7 +11,7 @@ import 'package:user_module/control/home_control/category_provider/category_prov
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/firebase_options.dart';
-import 'package:user_module/views/cart_screen/cart_page.dart';
+import 'package:user_module/views/cart_screen/cart_screen.dart';
 import 'package:user_module/views/product_view_screen/product_view_screen.dart';
 import 'package:user_module/views/search_screen/search_screen.dart';
 import 'package:user_module/views/splash_screen/splash_screen.dart';

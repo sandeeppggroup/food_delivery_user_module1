@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';
 import 'package:user_module/control/home_control/service/home_service.dart';
