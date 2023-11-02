@@ -276,7 +276,10 @@ class CartPage extends StatelessWidget {
                                                 BorderRadius.circular(10),
                                           ),
                                           backgroundColor: buttonColor),
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.of(context)
+                                            .pushNamed('/place_order_pickup');
+                                      },
                                       child: const Text('Next'),
                                     ),
                                   ),

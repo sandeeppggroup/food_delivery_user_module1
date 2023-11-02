@@ -12,6 +12,7 @@ import 'package:user_module/control/home_control/prodcut_provider/product_provid
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/firebase_options.dart';
 import 'package:user_module/views/cart_screen/cart_screen.dart';
+import 'package:user_module/views/place_order_pickup_screen/place_order_pickep_screen.dart';
 import 'package:user_module/views/product_view_screen/product_view_screen.dart';
 import 'package:user_module/views/search_screen/search_screen.dart';
 import 'package:user_module/views/splash_screen/splash_screen.dart';
@@ -53,7 +54,8 @@ class MyApp extends StatelessWidget {
           '/user_home_screen': (context) => const UserHomeScreen(),
           '/product_view_screen': (context) => ProductViewPage(),
           '/cart_screen': (context) => const CartPage(),
-          '/search_screen': (context) => SearchScreen()
+          '/search_screen': (context) => SearchScreen(),
+          '/place_order_pickup': (context) => const PlaceOrderPickup(),
         },
       ),
     );
