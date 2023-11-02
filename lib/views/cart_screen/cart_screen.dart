@@ -13,6 +13,7 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // final cartProvider = Provider.of<CartProvider>(context, listen: false);
     final cartProviderWatch = context.watch<CartProvider>();
+    // cartProvider.fetchCartData();
 
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
@@ -125,7 +126,7 @@ class CartPage extends StatelessWidget {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Container(
+                                child: SizedBox(
                                   height: height * 0.45,
                                   width: double.infinity,
                                   child: ListView.builder(
@@ -164,6 +165,8 @@ class CartPage extends StatelessWidget {
                                           trailing: Column(
                                             children: [
                                               CounterWidgetCartPage(
+                                                  productId: cartItem
+                                                      .cartProduct.productid,
                                                   quantity: cartItem.quantity
                                                       .toString()),
                                               Text(

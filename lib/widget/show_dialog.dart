@@ -48,7 +48,7 @@ void showItemSnackBar(BuildContext context,
           ),
         ],
       ),
-      duration: const Duration(seconds: 5),
+      duration: const Duration(seconds: 1),
     ),
   );
 }

@@ -121,7 +121,7 @@ class SearchScreen extends StatelessWidget {
                     child: Consumer<ProductProvider>(
                       builder: (context, productProvider, child) {
                         final products = productProvider.productlist;
-                        return Container(
+                        return SizedBox(
                           height: height * 0.712,
                           width: double.infinity,
                           child: ListView.builder(
@@ -172,7 +172,7 @@ class SearchScreen extends StatelessWidget {
                                       style: const TextStyle(
                                           fontWeight: FontWeight.bold),
                                     ),
-                                    subtitle: Text('${product.description}'),
+                                    subtitle: Text(product.description),
                                     trailing: Text(
                                       '₹${product.price}',
                                       style: const TextStyle(

@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 
 // ignore: must_be_immutable
 class CounterWidgetCartPage extends StatelessWidget {
   String quantity;
-  CounterWidgetCartPage({required this.quantity, super.key});
+  String productId;
+  CounterWidgetCartPage(
+      {required this.quantity, required this.productId, super.key});
 
   @override
   Widget build(BuildContext context) {
     // final productViewProviderWatch = context.watch<ProductViewProvider>();
-    final productViewProvider =
-        Provider.of<ProductViewProvider>(context, listen: false);
+    final cartProvider = Provider.of<CartProvider>(context, listen: false);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return SizedBox(
@@ -39,8 +41,7 @@ class CounterWidgetCartPage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 3.0),
               child: InkWell(
                 onTap: () {
-                  productViewProvider.decrementQuantity();
-                  // productViewProvider.calculateTotalPrice(price);
+                  cartProvider.increaseOrDecreaseQuantity('-1', productId);
                 },
                 child: Container(
                   height: height * 0.039,
@@ -68,8 +69,7 @@ class CounterWidgetCartPage extends StatelessWidget {
               padding: const EdgeInsets.only(right: 3.0),
               child: InkWell(
                 onTap: () {
-                  productViewProvider.incrementQuantity();
-                  // productViewProvider.calculateTotalPrice(price);
+                  cartProvider.increaseOrDecreaseQuantity('1', productId);
                 },
                 child: Container(
                   height: height * 0.039,

@@ -28,10 +28,24 @@ class CartProvider extends ChangeNotifier {
   Future<void> fetchCartData() async {
     try {
       _cartProducts = await cartService.getAllCartItems();
+      log('in fetchcartdarta $_cartProducts');
 
       notifyListeners();
     } catch (e) {
       log('Error fetching cart data : $e');
+    }
+  }
+
+  Future<void> increaseOrDecreaseQuantity(
+      String quantity, String productId) async {
+    log('log in cart provider productId : $productId  , $quantity');
+    final result =
+        await cartService.increaseOrDecreaseQuantityInCart(quantity, productId);
+
+    if (result == true) {
+      fetchCartData();
+    } else {
+      return;
     }
   }
 }
