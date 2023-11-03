@@ -9,6 +9,7 @@ import 'package:user_module/control/authentication/provider_otp/otp_provider.dar
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
+import 'package:user_module/control/place_order_pickup/pickup_provider.dart';
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/firebase_options.dart';
 import 'package:user_module/views/cart_screen/cart_screen.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => ProductViewProvider()),
         ChangeNotifierProvider(create: (context) => CartProvider()),
+        ChangeNotifierProvider(create: (context) => PickupProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -55,7 +57,7 @@ class MyApp extends StatelessWidget {
           '/product_view_screen': (context) => ProductViewPage(),
           '/cart_screen': (context) => const CartPage(),
           '/search_screen': (context) => SearchScreen(),
-          '/place_order_pickup': (context) => const PlaceOrderPickup(),
+          '/place_order_pickup': (context) => PlaceOrderPickup(),
         },
       ),
     );
