@@ -4,8 +4,10 @@ import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/cart_model/cart_model.dart';
 import 'package:user_module/views/cart_screen/widget/cart_counter.dart';
+import 'package:user_module/views/place_order_delivery_screen/place_order_delivery_screen.dart';
 import 'package:user_module/views/place_order_pickup_screen/place_order_pickep_screen.dart';
 import 'package:user_module/widget/logo.dart';
+import 'package:user_module/widget/show_dialog.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -278,15 +280,35 @@ class CartPage extends StatelessWidget {
                                           ),
                                           backgroundColor: buttonColor),
                                       onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                PlaceOrderPickup(
-                                              cartSum: cartSum,
+                                        if (cartProvider.selectedOption ==
+                                            'pickup') {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PlaceOrderPickup(
+                                                cartSum: cartSum,
+                                              ),
                                             ),
-                                          ),
-                                        );
+                                          );
+                                        } else if (cartProvider
+                                                .selectedOption ==
+                                            'delivery') {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  PlaceOrderDelivery(
+                                                cartSum: cartSum,
+                                              ),
+                                            ),
+                                          );
+                                        } else {
+                                          showItemSnackBar(context,
+                                              massage:
+                                                  'Please select an option',
+                                              color: Colors.red);
+                                        }
                                       },
                                       child: const Text('Next'),
                                     ),

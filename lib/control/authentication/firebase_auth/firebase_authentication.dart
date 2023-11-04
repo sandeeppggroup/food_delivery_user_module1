@@ -67,12 +67,7 @@ class FireBaseAuthService extends ChangeNotifier {
       await auth.signInWithCredential(credential);
       log('log in verityOtp after credential : ${credential.token.toString()}');
       return true;
-      // ignore: use_build_context_synchronously
-      // Navigator.pushReplacementNamed(context, '/user_home_screen');
     } on FirebaseAuthException catch (e) {
-      // ignore: use_build_context_synchronously
-      // showItemSnackBar(context, massage: 'Invalid Otp !', color: Colors.red);
-
       log('wrong otp ${e.message}');
       return false;
     }

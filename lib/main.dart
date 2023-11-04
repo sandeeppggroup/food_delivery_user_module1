@@ -13,6 +13,7 @@ import 'package:user_module/control/place_order_pickup/pickup_provider.dart';
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/firebase_options.dart';
 import 'package:user_module/views/cart_screen/cart_screen.dart';
+import 'package:user_module/views/place_order_delivery_screen/place_order_delivery_screen.dart';
 import 'package:user_module/views/place_order_pickup_screen/place_order_pickep_screen.dart';
 import 'package:user_module/views/product_view_screen/product_view_screen.dart';
 import 'package:user_module/views/search_screen/search_screen.dart';
@@ -58,6 +59,7 @@ class MyApp extends StatelessWidget {
           '/cart_screen': (context) => const CartPage(),
           '/search_screen': (context) => SearchScreen(),
           '/place_order_pickup': (context) => PlaceOrderPickup(),
+          '/place_order_delivery': (context) => PlaceOrderDelivery(),
         },
       ),
     );

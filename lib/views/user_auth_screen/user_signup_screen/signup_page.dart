@@ -133,6 +133,7 @@ class _LonginPageState extends State<UserSignupPage> {
                                     await SharedPreferences.getInstance();
 
                                 final token = prefs.getString('token');
+                                prefs.setString('customerName', name.text);
                                 // ignore: use_build_context_synchronously
                                 Provider.of<DbAuthService>(context,
                                         listen: false)

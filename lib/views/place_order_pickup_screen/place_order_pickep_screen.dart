@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:user_module/control/place_order_pickup/pickup_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
@@ -14,6 +15,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 // ignore: must_be_immutable
 class PlaceOrderPickup extends StatefulWidget {
   int? cartSum;
+
   PlaceOrderPickup({super.key, this.cartSum});
 
   @override
@@ -42,7 +44,6 @@ class _PlaceOrderPickupState extends State<PlaceOrderPickup> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _razorpay = Razorpay();
     _razorpay?.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
@@ -51,13 +52,20 @@ class _PlaceOrderPickupState extends State<PlaceOrderPickup> {
   }
 
   void makePayment() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? customerPhoneNumber = prefs.getString('phoneNumber');
+    String? customerName = prefs.getString('customerName');
+
+    int totalPayment = widget.cartSum! * 100;
+
+    log('details - PhoneNumber: $customerPhoneNumber, name: $customerName, payment: ${totalPayment.toString()}');
     var options = {
       'key': 'rzp_test_gpsSZl75alIqZ8',
-      'amount': 2000, // which means Rs 200
-      'name': 'Sandeep',
-      'description': 'indroid',
+      'amount': totalPayment, // which means Rs 200
+      'name': customerName,
+      'description': 'Red Rabbit',
       'prefill': {
-        'contact': '+918907444333',
+        'contact': customerPhoneNumber,
         'email': 'sandeep.pggroup@gmail.com'
       }
     };
@@ -143,16 +151,12 @@ class _PlaceOrderPickupState extends State<PlaceOrderPickup> {
                       color: Colors.white,
                       child: TableCalendar(
                         focusedDay: pickupProviderWatch.selectedDay,
-                        firstDay: DateTime(
-                            DateTime.now().year,
-                            DateTime.now().month,
-                            DateTime.now()
-                                .day), // Set it to the start of the previous month
-                        lastDay: DateTime(
-                            DateTime.now().year,
-                            DateTime.now().month + 10,
-                            DateTime.now()
-                                .day), // Set it to the end of the next month
+                        firstDay: DateTime(DateTime.now().year,
+                            DateTime.now().month, DateTime.now().day),
+                        // Set it to the start of the previous month
+                        lastDay: DateTime(DateTime.now().year,
+                            DateTime.now().month + 10, DateTime.now().day),
+                        // Set it to the end of the next month
                         calendarFormat: CalendarFormat.month,
                         availableCalendarFormats: const {
                           CalendarFormat.month: 'Month'

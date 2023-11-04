@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_module/control/authentication/db_authentication/db_authentication.dart';
 import 'package:user_module/control/authentication/firebase_auth/firebase_authentication.dart';
 import 'package:user_module/control/authentication/provider_otp/otp_provider.dart';
@@ -110,13 +111,20 @@ class _OTPScreenState extends State<OTPScreen> {
                             keyboardType: TextInputType.number,
                             onSubmit: (val) async {
                               if (val.length == 6) {
+                                SharedPreferences prefs =
+                                    await SharedPreferences.getInstance();
                                 otpProvider.setProgress(true);
                                 final userOtp = val.trim();
 
                                 bool otpStatus =
+                                    // ignore: use_build_context_synchronously
                                     await verifyOTP(context, userOtp);
                                 if (otpStatus == true) {
                                   log('in otp :  ${widget.phoneNumber.toString()}');
+
+                                  final phoneNumber =
+                                      widget.phoneNumber.toString();
+                                  prefs.setString('phoneNumber', phoneNumber);
 
                                   // ignore: use_build_context_synchronously
                                   Provider.of<DbAuthService>(context,

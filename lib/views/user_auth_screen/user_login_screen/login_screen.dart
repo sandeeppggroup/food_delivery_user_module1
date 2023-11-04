@@ -147,6 +147,7 @@ class _LonginPageState extends State<UserLoginPage> {
                                                 String finalNumber =
                                                     countryCode +
                                                         mobilecontroller.text;
+
                                                 loginProvider.setProgress(true);
                                                 Provider.of<FireBaseAuthService>(
                                                         context,
@@ -156,32 +157,6 @@ class _LonginPageState extends State<UserLoginPage> {
                                               },
                                             ),
                                           ),
-                                          // Row(
-                                          //   children: [
-                                          //     SizedBox(
-                                          //       width: width * 0.03,
-                                          //     ),
-                                          //     const Text(
-                                          //       'You don\'t have an account ?',
-                                          //       style: TextStyle(fontSize: 12),
-                                          //     ),
-                                          //     SizedBox(
-                                          //       width: width * 0.04,
-                                          //     ),
-                                          //     TextButton(
-                                          //       onPressed: () {
-                                          //         _focusNode.unfocus();
-                                          //         Navigator.pushNamed(
-                                          //             context, '/user_signup');
-                                          //       },
-                                          //       child: const Text(
-                                          //         'Sign up',
-                                          //         style:
-                                          //             TextStyle(fontSize: 16),
-                                          //       ),
-                                          //     ),
-                                          //   ],
-                                          // )
                                         ],
                                       ),
                                     ],
