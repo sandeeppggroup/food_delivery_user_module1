@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
@@ -280,6 +281,15 @@ class CartPage extends StatelessWidget {
                                           ),
                                           backgroundColor: buttonColor),
                                       onPressed: () {
+                                        if (cartSum == 0) {
+                                          Fluttertoast.showToast(
+                                              msg:
+                                                  'Please add any item to cart',
+                                              backgroundColor: Colors.black,
+                                              fontSize: 16);
+                                          return;
+                                        }
+
                                         if (cartProvider.selectedOption ==
                                             'pickup') {
                                           Navigator.push(

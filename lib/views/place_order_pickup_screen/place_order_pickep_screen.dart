@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:user_module/control/place_order_pickup/pickup_provider.dart';
+import 'package:user_module/control/place_order_provider/place_order_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/widget/button1.dart';
 import 'package:user_module/widget/logo.dart';
@@ -23,62 +24,10 @@ class PlaceOrderPickup extends StatefulWidget {
 }
 
 class _PlaceOrderPickupState extends State<PlaceOrderPickup> {
-  Razorpay? _razorpay;
-
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
-    Fluttertoast.showToast(
-        msg: 'PAYMENT SUCCESS : ${response.paymentId}', timeInSecForIosWeb: 3);
-  }
-
-  void _handlePaymentError(PaymentFailureResponse response) {
-    Fluttertoast.showToast(
-        msg: 'PAYMENT FAILED : ${response.code} - ${response.message}',
-        timeInSecForIosWeb: 3);
-  }
-
-  void _handleExternalWallet(ExternalWalletResponse response) {
-    Fluttertoast.showToast(
-        msg: 'EXTERNAL WALLET IS : ${response.walletName}',
-        timeInSecForIosWeb: 3);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _razorpay = Razorpay();
-    _razorpay?.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
-    _razorpay?.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
-    _razorpay?.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
-  }
-
-  void makePayment() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? customerPhoneNumber = prefs.getString('phoneNumber');
-    String? customerName = prefs.getString('customerName');
-
-    int totalPayment = widget.cartSum! * 100;
-
-    log('details - PhoneNumber: $customerPhoneNumber, name: $customerName, payment: ${totalPayment.toString()}');
-    var options = {
-      'key': 'rzp_test_gpsSZl75alIqZ8',
-      'amount': totalPayment, // which means Rs 200
-      'name': customerName,
-      'description': 'Red Rabbit',
-      'prefill': {
-        'contact': customerPhoneNumber,
-        'email': 'sandeep.pggroup@gmail.com'
-      }
-    };
-
-    try {
-      _razorpay?.open(options);
-    } catch (e) {
-      log(e.toString());
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    final placeOrderProvider =
+        Provider.of<PlaceOrderProvider>(context, listen: false);
     final pickupProvider = Provider.of<PickupProvider>(context, listen: false);
     final pickupProviderWatch = context.watch<PickupProvider>();
     final height = MediaQuery.of(context).size.height;
@@ -239,7 +188,7 @@ class _PlaceOrderPickupState extends State<PlaceOrderPickup> {
                           child: ButtonBig(
                             label: '₹${widget.cartSum}            Place Order',
                             onPressed: () {
-                              makePayment();
+                              placeOrderProvider.makePayment(widget.cartSum!);
                             },
                           ),
                         ),

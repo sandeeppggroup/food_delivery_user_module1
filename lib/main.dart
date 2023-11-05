@@ -11,6 +11,7 @@ import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
 import 'package:user_module/control/place_order_pickup/pickup_provider.dart';
+import 'package:user_module/control/place_order_provider/place_order_provider.dart';
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/firebase_options.dart';
 import 'package:user_module/views/add_address_screen/add_address_form/add_address_form.dart';
@@ -51,6 +52,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CartProvider()),
         ChangeNotifierProvider(create: (context) => PickupProvider()),
         ChangeNotifierProvider(create: (context) => AddressProvider()),
+        ChangeNotifierProvider(create: (context) => PlaceOrderProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

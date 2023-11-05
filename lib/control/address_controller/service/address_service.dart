@@ -7,6 +7,7 @@ import 'package:user_module/core/constants/api/api_end_url.dart';
 
 class AddressService {
   final addAddressUrl = ApiBaseUrl().baseUrl + ApiEndUrl().addAddress;
+  final getAllAdress = ApiBaseUrl().baseUrl + ApiEndUrl().getAllAddress;
   Dio dio = Dio();
 
   Future<void> addAddress(
@@ -20,7 +21,7 @@ class AddressService {
     String mobile,
   ) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    final token = await prefs.getString('token');
+    final token = prefs.getString('token');
 
     Response response = await dio.post(addAddressUrl,
         options: Options(
@@ -45,6 +46,28 @@ class AddressService {
       }
     } catch (e) {
       log('Error in address service: $e');
+    }
+  }
+
+  Future<void> getAllAddress() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    Response response = await dio.get(
+      getAllAdress,
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+      ),
+    );
+
+    try {
+      if (response.statusCode == 200) {
+        log('get all address : ${response.data.toString()}');
+      } else {
+        log('Something went worng: ${response.data.toString()}');
+      }
+    } catch (e) {
+      log('Error $e');
     }
   }
 }

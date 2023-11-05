@@ -7,4 +7,5 @@ class ApiEndUrl {
   String addToCart = '/addtocart';
   String getAllCartItems = '/cart';
   String addAddress = '/addAddress';
+  String getAllAddress = 'getAllAddress';
 }

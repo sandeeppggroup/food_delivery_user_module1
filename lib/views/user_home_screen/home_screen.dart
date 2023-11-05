@@ -1,13 +1,17 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/views/user_home_screen/widget/category_listview.dart';
 import 'package:user_module/views/user_home_screen/widget/drawer_and_person.dart';
+import 'package:user_module/views/user_home_screen/widget/drawer_content.dart';
 import 'package:user_module/views/user_home_screen/widget/heading_and_search.dart';
 import 'package:user_module/views/user_home_screen/widget/product_listview.dart';
+import 'package:user_module/widget/logo_drawer.dart';
 
 class UserHomeScreen extends StatefulWidget {
   const UserHomeScreen({super.key});
@@ -17,8 +21,21 @@ class UserHomeScreen extends StatefulWidget {
 }
 
 class _UserHomeScreenState extends State<UserHomeScreen> {
+  String? customerName;
+
+  Future<void> getCustomerName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    customerName = prefs.getString('customerName');
+  }
+
   final FocusNode _focusNode = FocusNode();
   TextEditingController searchController = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCustomerName();
+  }
 
   @override
   void dispose() {
@@ -37,7 +54,110 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        drawer: const Drawer(),
+        drawer: Drawer(
+          backgroundColor: userAppBar,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    CircleAvatar(
+                      radius: 27,
+                      backgroundColor: Colors.black,
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                        size: 54,
+                      ),
+                    ),
+                    LogoDrawer(),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: Text(
+                  customerName.toString(),
+                  style: const TextStyle(
+                      fontSize: 17, fontWeight: FontWeight.bold),
+                ),
+              ),
+              const Divider(
+                color: Colors.black,
+                thickness: .5,
+              ),
+              Column(
+                children: [
+                  DrawerContent(
+                    icon: Icons.lock,
+                    labelName: 'Change Password',
+                    callbackFunction: () {},
+                  ),
+                  DrawerContent(
+                    icon: Icons.edit,
+                    labelName: 'Edit Profile',
+                    callbackFunction: () {},
+                  ),
+                  DrawerContent(
+                    icon: Icons.shopping_cart,
+                    labelName: 'My Orders',
+                    callbackFunction: () {},
+                  ),
+                  DrawerContent(
+                    icon: Icons.location_on,
+                    labelName: 'My Address',
+                    callbackFunction: () {
+                      Navigator.pushNamed(context, '/address_screen');
+                    },
+                  ),
+                  DrawerContent(
+                    icon: Icons.security,
+                    labelName: 'Priviacy Policy',
+                    callbackFunction: () {},
+                  ),
+                  DrawerContent(
+                    icon: Icons.info,
+                    labelName: 'Terms & Condition',
+                    callbackFunction: () {},
+                  ),
+                  DrawerContent(
+                    icon: Icons.info,
+                    labelName: 'About Us',
+                    callbackFunction: () {},
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: height * 0.1,
+              ),
+              Center(
+                child: Column(
+                  children: [
+                    TextButton(
+                      onPressed: () async {
+                        SharedPreferences prefs =
+                            await SharedPreferences.getInstance();
+                        prefs.setString('token', '');
+
+                        // ignore: use_build_context_synchronously
+                        Navigator.restorablePushNamedAndRemoveUntil(
+                            context, '/', (route) => false);
+                      },
+                      child: const Text(
+                        'Log Out',
+                        style: TextStyle(color: buttonColor, fontSize: 20),
+                      ),
+                    ),
+                    const Text('Version : 1.0.0'),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:user_module/control/place_order_provider/place_order_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/views/add_address_screen/add_address_form/add_address_form.dart';
 import 'package:user_module/widget/button1.dart';
@@ -18,6 +20,8 @@ class PlaceOrderDelivery extends StatefulWidget {
 class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
   @override
   Widget build(BuildContext context) {
+    final placeOrderProvider =
+        Provider.of<PlaceOrderProvider>(context, listen: false);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -237,7 +241,7 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
                           child: ButtonBig(
                             label: '₹${widget.cartSum}            Place Order',
                             onPressed: () {
-                              // makePayment();
+                              placeOrderProvider.makePayment(widget.cartSum!);
                             },
                           ),
                         ),
