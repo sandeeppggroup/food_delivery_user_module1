@@ -1,6 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:user_module/control/address_controller/provider/address_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
+import 'package:user_module/model/address_model/address_model.dart';
 import 'package:user_module/widget/logo.dart';
 
 class AddressScreen extends StatelessWidget {
@@ -8,9 +12,8 @@ class AddressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // AddressProvider addressProvider = AddressProvider();
     final height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: Column(
         children: [
@@ -62,15 +65,66 @@ class AddressScreen extends StatelessWidget {
                     color: Colors.white,
                     thickness: 2,
                   ),
-                  Container(
-                    child: ListView.builder(
-                      itemCount: 5,
-                      itemBuilder: (context, index) {
+                  SingleChildScrollView(
+                    child: Consumer<AddressProvider>(
+                      builder: (context, addressProvider, _) {
+                        final allAddress = addressProvider.addressList;
+                        log('adress length in ui :   ${allAddress.length}');
                         return Container(
-                          height: height * 0.1,
+                          height: height * 0.6753,
                           width: double.infinity,
-                          decoration: const BoxDecoration(
-                              color: Color.fromARGB(255, 224, 224, 224)),
+                          child: ListView.builder(
+                            itemCount: allAddress.length,
+                            itemBuilder: (context, index) {
+                              AddressModel address = allAddress[index];
+                              return Column(
+                                children: [
+                                  Container(
+                                    height: height * 0.17,
+                                    width: double.infinity,
+                                    decoration: const BoxDecoration(
+                                        color: Colors.white),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(15.0),
+                                      child: Row(
+                                        children: [
+                                          // Checkbox(value: value, onChanged: onChanged),
+                                          Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                address.name,
+                                                style: const TextStyle(
+                                                    fontSize: 17,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              ),
+                                              Text(
+                                                  '${address.address} (H), ${address.post} (PO),'),
+                                              Text(
+                                                  '${address.street}, ${address.city},'),
+                                              Text(
+                                                  '${address.state} - ${address.pin}'),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Text(address.mobile),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height * 0.02,
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
                         );
                       },
                     ),

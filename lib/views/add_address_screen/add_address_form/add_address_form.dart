@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user_module/control/address_controller/provider/address_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
+import 'package:user_module/model/address_model/address_model.dart';
 import 'package:user_module/views/add_address_screen/add_address_form/widget/address_form_textform.dart';
 import 'package:user_module/widget/button2.dart';
 import 'package:user_module/widget/logo.dart';
@@ -112,16 +113,20 @@ class AddAddressForm extends StatelessWidget {
                         ButtonSmall(
                           label: "Submit",
                           onPressed: () {
+                            int finalPin = int.parse(pin.text);
                             Provider.of<AddressProvider>(context, listen: false)
-                                .addAddress(
-                                    name.text,
-                                    address.text,
-                                    street.text,
-                                    post.text,
-                                    city.text,
-                                    pin.text,
-                                    state.text,
-                                    mobile.text);
+                                .addAddress(AddressModel(
+                              name: name.text,
+                              address: address.text,
+                              street: street.text,
+                              post: post.text,
+                              city: city.text,
+                              pin: finalPin,
+                              state: state.text,
+                              mobile: mobile.text,
+                            ));
+
+                            Navigator.pop(context);
                           },
                         )
                       ],
