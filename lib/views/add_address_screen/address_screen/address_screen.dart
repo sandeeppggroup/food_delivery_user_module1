@@ -69,6 +69,7 @@ class AddressScreen extends StatelessWidget {
                     child: Consumer<AddressProvider>(
                       builder: (context, addressProvider, _) {
                         final allAddress = addressProvider.addressList;
+                        final selectedAddress = addressProvider.selectedAddress;
                         log('adress length in ui :   ${allAddress.length}');
                         return Container(
                           height: height * 0.6753,
@@ -88,6 +89,15 @@ class AddressScreen extends StatelessWidget {
                                       padding: const EdgeInsets.all(15.0),
                                       child: Row(
                                         children: [
+                                          Radio<AddressModel>(
+                                            value: address,
+                                            groupValue: selectedAddress,
+                                            onChanged: (selectedAddress) {
+                                              addressProvider
+                                                  .toggleAddressSelection(
+                                                      selectedAddress!);
+                                            },
+                                          ),
                                           // Checkbox(value: value, onChanged: onChanged),
                                           Column(
                                             mainAxisAlignment:

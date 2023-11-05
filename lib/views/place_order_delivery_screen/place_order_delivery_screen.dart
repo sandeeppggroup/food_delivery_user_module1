@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:user_module/control/address_controller/provider/address_provider.dart';
 import 'package:user_module/control/place_order_provider/place_order_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/views/add_address_screen/add_address_form/add_address_form.dart';
@@ -20,6 +20,8 @@ class PlaceOrderDelivery extends StatefulWidget {
 class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
   @override
   Widget build(BuildContext context) {
+    final addressProviderWatch = (context).watch<AddressProvider>();
+
     final placeOrderProvider =
         Provider.of<PlaceOrderProvider>(context, listen: false);
     final height = MediaQuery.of(context).size.height;
@@ -79,7 +81,9 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/address_screen');
+                        },
                         child: const Text(
                           'Change Address',
                           style: TextStyle(
@@ -96,14 +100,14 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
                     padding:
                         const EdgeInsets.only(left: 25, right: 25, bottom: 8),
                     child: Container(
-                      height: height * 0.21,
+                      height: height * 0.23,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 228, 245, 255),
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.all(15.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -111,48 +115,54 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  'Sandeep Abraham',
-                                  style: TextStyle(
+                                  addressProviderWatch.selectedAddress.name,
+                                  style: const TextStyle(
                                       color: Color.fromARGB(255, 97, 97, 97),
                                       fontSize: 17),
                                 ),
                                 Text(
-                                  'Nediyeng P.O',
-                                  style: TextStyle(
+                                  addressProviderWatch.selectedAddress.address,
+                                  style: const TextStyle(
                                       color: Color.fromARGB(255, 97, 97, 97),
                                       fontSize: 17),
                                 ),
                                 Text(
-                                  'Sreekandapuram',
-                                  style: TextStyle(
+                                  addressProviderWatch.selectedAddress.post,
+                                  style: const TextStyle(
                                       color: Color.fromARGB(255, 97, 97, 97),
                                       fontSize: 17),
                                 ),
                                 Text(
-                                  'Kannur',
-                                  style: TextStyle(
+                                  addressProviderWatch.selectedAddress.street,
+                                  style: const TextStyle(
                                       color: Color.fromARGB(255, 97, 97, 97),
                                       fontSize: 17),
                                 ),
                                 Text(
-                                  'Pin - 670631',
-                                  style: TextStyle(
+                                  addressProviderWatch.selectedAddress.city,
+                                  style: const TextStyle(
+                                      color: Color.fromARGB(255, 97, 97, 97),
+                                      fontSize: 17),
+                                ),
+                                Text(
+                                  '${addressProviderWatch.selectedAddress.state} - ${addressProviderWatch.selectedAddress.pin}',
+                                  style: const TextStyle(
                                       color: Color.fromARGB(255, 97, 97, 97),
                                       fontSize: 17),
                                 ),
                                 Padding(
-                                  padding: EdgeInsets.only(top: 8.0),
+                                  padding: const EdgeInsets.only(top: 8.0),
                                   child: Text(
-                                    'Phone - 8907444333',
-                                    style: TextStyle(
+                                    'Phone - ${addressProviderWatch.selectedAddress.mobile}',
+                                    style: const TextStyle(
                                         color: Color.fromARGB(255, 97, 97, 97),
                                         fontSize: 17),
                                   ),
                                 )
                               ],
                             ),
-                            Icon(
-                              Icons.location_city,
+                            const Icon(
+                              Icons.location_on_outlined,
                               size: 70,
                               color: Color.fromARGB(255, 95, 183, 255),
                             )
@@ -192,7 +202,7 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
                     ),
                   ),
                   SizedBox(
-                    height: height * 0.05,
+                    height: height * 0.04,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -212,7 +222,7 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
                     ],
                   ),
                   SizedBox(
-                    height: height * 0.058,
+                    height: height * 0.048,
                   ),
                   Container(
                     height: height * 0.13,
