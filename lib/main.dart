@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:user_module/control/address_controller/provider/address_provider.dart';
 import 'package:user_module/control/authentication/db_authentication/db_authentication.dart';
 import 'package:user_module/control/authentication/firebase_auth/firebase_authentication.dart';
 import 'package:user_module/control/authentication/provider_login/login_provider.dart';
@@ -12,6 +13,8 @@ import 'package:user_module/control/home_control/prodcut_provider/product_provid
 import 'package:user_module/control/place_order_pickup/pickup_provider.dart';
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/firebase_options.dart';
+import 'package:user_module/views/add_address_screen/add_address_form/add_address_form.dart';
+import 'package:user_module/views/add_address_screen/address_screen/address_screen.dart';
 import 'package:user_module/views/cart_screen/cart_screen.dart';
 import 'package:user_module/views/place_order_delivery_screen/place_order_delivery_screen.dart';
 import 'package:user_module/views/place_order_pickup_screen/place_order_pickep_screen.dart';
@@ -46,7 +49,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => ProductViewProvider()),
         ChangeNotifierProvider(create: (context) => CartProvider()),
-        ChangeNotifierProvider(create: (context) => PickupProvider())
+        ChangeNotifierProvider(create: (context) => PickupProvider()),
+        ChangeNotifierProvider(create: (context) => AddressProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -60,6 +64,8 @@ class MyApp extends StatelessWidget {
           '/search_screen': (context) => SearchScreen(),
           '/place_order_pickup': (context) => PlaceOrderPickup(),
           '/place_order_delivery': (context) => PlaceOrderDelivery(),
+          '/add_address_form': (context) => AddAddressForm(),
+          '/address_screen': (context) => AddressScreen()
         },
       ),
     );

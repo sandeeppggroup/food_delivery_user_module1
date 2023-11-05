@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:user_module/core/colors/colors.dart';
+import 'package:user_module/views/add_address_screen/add_address_form/add_address_form.dart';
 import 'package:user_module/widget/button1.dart';
 import 'package:user_module/widget/button2.dart';
 import 'package:user_module/widget/logo.dart';
@@ -192,7 +193,18 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ButtonSmall(label: 'Add Address', onPressed: () {}),
+                      ButtonSmall(
+                          label: 'Add Address',
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return AddAddressForm();
+                                },
+                              ),
+                            );
+                          }),
                     ],
                   ),
                   SizedBox(
