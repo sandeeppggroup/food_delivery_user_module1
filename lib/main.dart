@@ -14,10 +14,10 @@ import 'package:user_module/control/place_order_pickup/pickup_provider.dart';
 import 'package:user_module/control/place_order_payment_provider/place_order_payment_provider.dart';
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/firebase_options.dart';
-import 'package:user_module/model/address_model/address_model.dart';
 import 'package:user_module/views/add_address_screen/add_address_form/add_address_form.dart';
 import 'package:user_module/views/add_address_screen/address_screen/address_screen.dart';
 import 'package:user_module/views/cart_screen/cart_screen.dart';
+import 'package:user_module/views/order_history/order_history.dart';
 import 'package:user_module/views/place_order_delivery_screen/place_order_delivery_screen.dart';
 import 'package:user_module/views/place_order_pickup_screen/place_order_pickep_screen.dart';
 import 'package:user_module/views/product_view_screen/product_view_screen.dart';
@@ -69,7 +69,8 @@ class MyApp extends StatelessWidget {
           '/place_order_pickup': (context) => PlaceOrderPickup(),
           '/place_order_delivery': (context) => PlaceOrderDelivery(),
           '/add_address_form': (context) => AddAddressForm(),
-          '/address_screen': (context) => AddressScreen()
+          '/address_screen': (context) => const AddressScreen(),
+          '/order_history': (context) => OrderHistoryScreen(),
         },
       ),
     );

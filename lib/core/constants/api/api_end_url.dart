@@ -9,4 +9,6 @@ class ApiEndUrl {
   String addAddress = '/addAddress';
   String getAllAddress = '/getAllAddress';
   String codOrder = '/codOrder';
+  String onlinePayment = '/onlinePayment';
+  String verifypayment = '/verifypayment';
 }

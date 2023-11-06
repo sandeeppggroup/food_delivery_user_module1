@@ -1,14 +1,17 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:user_module/control/address_controller/provider/address_provider.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/place_order_payment_provider/place_order_payment_provider.dart';
-import 'package:user_module/control/place_order_payment_provider/provider/payment_service.dart';
-import 'package:user_module/model/address_model/address_model.dart';
 
 Future<void> bottomSheetPaymentOption(BuildContext context, int cartSum) async {
-  PaymentService paymentService = PaymentService();
+  final addressProvider = Provider.of<AddressProvider>(context, listen: false);
+  final cartProvider = Provider.of<CartProvider>(context, listen: false);
+  final placeOrderPaymentProvider =
+      Provider.of<PlaceOrderPaymentProvider>(context, listen: false);
   return await showModalBottomSheet(
     backgroundColor: Colors.black,
     // barrierColor: Colors.blue,
@@ -31,23 +34,19 @@ Future<void> bottomSheetPaymentOption(BuildContext context, int cartSum) async {
                     height: 30,
                   ),
                   ElevatedButton(
-                      onPressed: () {
-                        final address =
-                            Provider.of<AddressProvider>(context, listen: false)
-                                .selectedAddress;
-                        final paymentType =
-                            Provider.of<CartProvider>(context, listen: false)
-                                .selectedOption
-                                .toString();
-                        Provider.of<PlaceOrderPaymentProvider>(context,
-                                listen: false)
-                            .cashOnDelivery(
-                                address, 'COD', paymentType, cartSum);
-                      },
-                      child: const FaIcon(
-                        FontAwesomeIcons.moneyBill,
-                        size: 40,
-                      )),
+                    onPressed: () {
+                      final address = addressProvider.selectedAddress;
+                      final paymentType =
+                          cartProvider.selectedOption.toString();
+
+                      placeOrderPaymentProvider.cashOnDelivery(
+                          address, 'COD', paymentType, cartSum, context);
+                    },
+                    child: const FaIcon(
+                      FontAwesomeIcons.moneyBill,
+                      size: 40,
+                    ),
+                  ),
                 ],
               ),
               Column(
@@ -61,10 +60,19 @@ Future<void> bottomSheetPaymentOption(BuildContext context, int cartSum) async {
                     height: 30,
                   ),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      log('$cartSum');
+                      final address = addressProvider.selectedAddress;
+                      final orderType = cartProvider.selectedOption.toString();
+                      final responseData =
+                          await placeOrderPaymentProvider.onlinePaymentBackend(
+                              address, 'Online', orderType, cartSum);
+                      final amountToRazorpay = responseData['data']['amount'];
+                      final orderId = responseData['data']['id'];
+
                       Provider.of<PlaceOrderPaymentProvider>(context,
                               listen: false)
-                          .onlinePayment(cartSum);
+                          .onlinePayment(amountToRazorpay, orderId);
                       Navigator.pop(context);
                     },
                     child: const Icon(

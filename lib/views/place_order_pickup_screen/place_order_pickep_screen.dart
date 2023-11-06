@@ -184,7 +184,7 @@ class _PlaceOrderPickupState extends State<PlaceOrderPickup> {
                           child: ButtonBig(
                             label: '₹${widget.cartSum}            Place Order',
                             onPressed: () {
-                              placeOrderProvider.onlinePayment(widget.cartSum!);
+                              // placeOrderProvider.onlinePayment(widget.cartSum!);
                             },
                           ),
                         ),

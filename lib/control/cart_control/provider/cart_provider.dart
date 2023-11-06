@@ -6,7 +6,7 @@ import 'package:user_module/model/cart_model/cart_model.dart';
 class CartProvider extends ChangeNotifier {
   CartService cartService = CartService();
 
-  dynamic selectedOption;
+  String? selectedOption;
   List<CartItem> _cartProducts = [];
 
   CartProvider() {
@@ -21,8 +21,14 @@ class CartProvider extends ChangeNotifier {
   }
 
   void handleRadioValueChangeDelivery(dynamic value) {
+    log('value : $value');
     selectedOption = value;
+    log('Selected option : ${selectedOption.toString()}');
     notifyListeners();
+  }
+
+  void clearAllCarts() {
+    _cartProducts.clear();
   }
 
   Future<void> fetchCartData() async {
