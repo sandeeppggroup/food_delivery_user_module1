@@ -1,17 +1,13 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:user_module/control/place_order_pickup/pickup_provider.dart';
-import 'package:user_module/control/place_order_provider/place_order_provider.dart';
+import 'package:user_module/control/place_order_payment_provider/place_order_payment_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/widget/button1.dart';
 import 'package:user_module/widget/logo.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
 // ignore: must_be_immutable
 class PlaceOrderPickup extends StatefulWidget {
@@ -27,7 +23,7 @@ class _PlaceOrderPickupState extends State<PlaceOrderPickup> {
   @override
   Widget build(BuildContext context) {
     final placeOrderProvider =
-        Provider.of<PlaceOrderProvider>(context, listen: false);
+        Provider.of<PlaceOrderPaymentProvider>(context, listen: false);
     final pickupProvider = Provider.of<PickupProvider>(context, listen: false);
     final pickupProviderWatch = context.watch<PickupProvider>();
     final height = MediaQuery.of(context).size.height;
@@ -188,7 +184,7 @@ class _PlaceOrderPickupState extends State<PlaceOrderPickup> {
                           child: ButtonBig(
                             label: '₹${widget.cartSum}            Place Order',
                             onPressed: () {
-                              placeOrderProvider.makePayment(widget.cartSum!);
+                              placeOrderProvider.onlinePayment(widget.cartSum!);
                             },
                           ),
                         ),

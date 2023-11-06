@@ -93,6 +93,8 @@ class AddressScreen extends StatelessWidget {
                                             value: address,
                                             groupValue: selectedAddress,
                                             onChanged: (selectedAddress) {
+                                              // log('in sddress screen ${selectedAddress!.name.toString()}');
+
                                               addressProvider
                                                   .toggleAddressSelection(
                                                       selectedAddress!);

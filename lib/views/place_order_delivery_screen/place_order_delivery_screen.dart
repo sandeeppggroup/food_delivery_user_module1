@@ -1,12 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user_module/control/address_controller/provider/address_provider.dart';
-import 'package:user_module/control/place_order_provider/place_order_provider.dart';
+import 'package:user_module/control/place_order_payment_provider/place_order_payment_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/views/add_address_screen/add_address_form/add_address_form.dart';
 import 'package:user_module/widget/button1.dart';
 import 'package:user_module/widget/button2.dart';
 import 'package:user_module/widget/logo.dart';
+import 'package:user_module/widget/payment_option.dart';
 
 // ignore: must_be_immutable
 class PlaceOrderDelivery extends StatefulWidget {
@@ -18,12 +21,27 @@ class PlaceOrderDelivery extends StatefulWidget {
 }
 
 class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
+  // Future<void> defaultAddress() async {
+  //   AddressProvider addressProvider = AddressProvider();
+  //   await addressProvider.getAllAddress();
+  //   final address = addressProvider.addressList;
+  //   final firstAddress = address[0];
+  //   log('In first Address : ${firstAddress.name}');
+  //   addressProvider.toggleAddressSelection(firstAddress);
+  //   log('in address provider : ${addressProvider.selectedAddress.name}');
+  // }
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   defaultAddress();
+  // }
+
   @override
   Widget build(BuildContext context) {
     final addressProviderWatch = (context).watch<AddressProvider>();
 
-    final placeOrderProvider =
-        Provider.of<PlaceOrderProvider>(context, listen: false);
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -96,6 +114,9 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
                     ],
                   ),
                   const Divider(color: Colors.white, thickness: 2),
+                  SizedBox(
+                    height: height * 0.04,
+                  ),
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 25, right: 25, bottom: 8),
@@ -171,6 +192,9 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                    height: height * 0.05,
+                  ),
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 25, right: 25, bottom: 8),
@@ -202,26 +226,6 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
                     ),
                   ),
                   SizedBox(
-                    height: height * 0.04,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      ButtonSmall(
-                          label: 'Add Address',
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return AddAddressForm();
-                                },
-                              ),
-                            );
-                          }),
-                    ],
-                  ),
-                  SizedBox(
                     height: height * 0.048,
                   ),
                   Container(
@@ -251,7 +255,8 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
                           child: ButtonBig(
                             label: '₹${widget.cartSum}            Place Order',
                             onPressed: () {
-                              placeOrderProvider.makePayment(widget.cartSum!);
+                              bottomSheetPaymentOption(
+                                  context, widget.cartSum!);
                             },
                           ),
                         ),

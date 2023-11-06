@@ -17,6 +17,7 @@ class AddAddressForm extends StatelessWidget {
   TextEditingController pin = TextEditingController();
   TextEditingController state = TextEditingController();
   TextEditingController mobile = TextEditingController();
+  FocusNode focusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -60,48 +61,56 @@ class AddAddressForm extends StatelessWidget {
                     Column(
                       children: [
                         AddressFormTextForm(
+                          focusNode: focusNode,
                           controller: name,
                           label: 'Name',
                           hintText: 'Enter your name',
                           keyBordType: TextInputType.name,
                         ),
                         AddressFormTextForm(
+                          focusNode: focusNode,
                           controller: address,
                           label: 'Address',
                           hintText: 'Enter your sddress',
                           keyBordType: TextInputType.streetAddress,
                         ),
                         AddressFormTextForm(
+                          focusNode: focusNode,
                           controller: street,
                           label: 'Street',
                           hintText: 'Enter your street',
                           keyBordType: TextInputType.streetAddress,
                         ),
                         AddressFormTextForm(
+                          focusNode: focusNode,
                           controller: post,
                           label: 'Post',
                           hintText: 'Enter your post',
                           keyBordType: TextInputType.streetAddress,
                         ),
                         AddressFormTextForm(
+                          focusNode: focusNode,
                           controller: city,
                           label: 'City',
                           hintText: 'Enter your city',
                           keyBordType: TextInputType.streetAddress,
                         ),
                         AddressFormTextForm(
+                          focusNode: focusNode,
                           controller: pin,
                           label: 'Pin Code',
                           hintText: 'Enter your pin code',
                           keyBordType: TextInputType.number,
                         ),
                         AddressFormTextForm(
+                          focusNode: focusNode,
                           controller: state,
                           label: 'State',
                           hintText: 'Enter your state',
                           keyBordType: TextInputType.streetAddress,
                         ),
                         AddressFormTextForm(
+                          focusNode: focusNode,
                           controller: mobile,
                           label: 'Mobile Number',
                           hintText: 'Enter your mobile number',
@@ -113,6 +122,7 @@ class AddAddressForm extends StatelessWidget {
                         ButtonSmall(
                           label: "Submit",
                           onPressed: () {
+                            // focusNode.dispose();
                             int finalPin = int.parse(pin.text);
                             Provider.of<AddressProvider>(context, listen: false)
                                 .addAddress(AddressModel(

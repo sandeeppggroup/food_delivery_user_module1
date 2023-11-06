@@ -2,6 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:user_module/control/address_controller/provider/address_provider.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
@@ -28,6 +29,16 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     customerName = prefs.getString('customerName');
   }
 
+  // Future<void> defaultAddress() async {
+  //   AddressProvider addressProvider = AddressProvider();
+  //   await addressProvider.getAllAddress();
+  //   final address = addressProvider.addressList;
+  //   final firstAddress = address[0];
+  //   log('In first Address : ${firstAddress.name}');
+  //   addressProvider.toggleAddressSelection(firstAddress);
+  //   log('in address provider : ${addressProvider.selectedAddress.name}');
+  // }
+
   final FocusNode _focusNode = FocusNode();
   TextEditingController searchController = TextEditingController();
   @override
@@ -35,6 +46,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     // TODO: implement initState
     super.initState();
     getCustomerName();
+    // defaultAddress();
   }
 
   @override

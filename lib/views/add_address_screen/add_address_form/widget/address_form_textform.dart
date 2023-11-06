@@ -7,12 +7,15 @@ class AddressFormTextForm extends StatelessWidget {
   String label;
   String hintText;
   TextInputType keyBordType;
-  AddressFormTextForm(
-      {super.key,
-      required this.controller,
-      required this.label,
-      required this.hintText,
-      required this.keyBordType});
+  FocusNode focusNode;
+  AddressFormTextForm({
+    super.key,
+    required this.controller,
+    required this.label,
+    required this.hintText,
+    required this.keyBordType,
+    required this.focusNode,
+  });
 
   @override
   Widget build(BuildContext context) {

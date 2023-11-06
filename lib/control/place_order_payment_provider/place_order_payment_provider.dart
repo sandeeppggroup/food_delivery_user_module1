@@ -1,14 +1,16 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:user_module/control/cart_control/provider/cart_provider.dart';
+import 'package:user_module/control/place_order_payment_provider/provider/payment_service.dart';
+import 'package:user_module/model/address_model/address_model.dart';
 
-class PlaceOrderProvider extends ChangeNotifier {
+class PlaceOrderPaymentProvider extends ChangeNotifier {
   Razorpay? _razorpay;
 
-  PlaceOrderProvider() {
+  PlaceOrderPaymentProvider() {
     _razorpay = Razorpay();
     _razorpay?.on(Razorpay.EVENT_PAYMENT_SUCCESS, _handlePaymentSuccess);
     _razorpay?.on(Razorpay.EVENT_PAYMENT_ERROR, _handlePaymentError);
@@ -32,7 +34,7 @@ class PlaceOrderProvider extends ChangeNotifier {
         timeInSecForIosWeb: 3);
   }
 
-  void makePayment(int cartSum) async {
+  void onlinePayment(int cartSum) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? customerPhoneNumber = prefs.getString('phoneNumber');
     String? customerName = prefs.getString('customerName');
@@ -56,5 +58,16 @@ class PlaceOrderProvider extends ChangeNotifier {
     } catch (e) {
       log(e.toString());
     }
+  }
+
+  Future<void> cashOnDelivery(AddressModel address, String paymentMode,
+      String paymentType, int totalAmount) async {
+    PaymentService paymentService = PaymentService();
+    CartProvider cartProvider = CartProvider();
+
+    final result = await paymentService.cashOnDelivery(
+        address, paymentMode, paymentType, totalAmount);
+
+    cartProvider.cartProducts.clear();
   }
 }
