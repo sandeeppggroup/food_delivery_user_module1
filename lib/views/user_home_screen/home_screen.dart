@@ -116,7 +116,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                   DrawerContent(
                     icon: Icons.shopping_cart,
                     labelName: 'My Orders',
-                    callbackFunction: () {},
+                    callbackFunction: () {
+                      Navigator.pushNamed(context, '/order_history');
+                    },
                   ),
                   DrawerContent(
                     icon: Icons.location_on,

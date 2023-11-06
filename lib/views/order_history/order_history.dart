@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:user_module/control/order_history/porvider/order_history_provider.dart';
 
 class OrderHistoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    OrderHistoryProvider orderHistoryProvider = OrderHistoryProvider();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Order History'),
+        title: const Text('Order History'),
       ),
       body: ListView.builder(
         itemCount: 3,
         itemBuilder: (context, index) {
-          return Card(
+          return const Card(
             margin: EdgeInsets.all(8.0),
             child: Padding(
               padding: EdgeInsets.all(16.0),

@@ -11,4 +11,5 @@ class ApiEndUrl {
   String codOrder = '/codOrder';
   String onlinePayment = '/onlinePayment';
   String verifypayment = '/verifypayment';
+  String getAllOrders = '/getOrders';
 }

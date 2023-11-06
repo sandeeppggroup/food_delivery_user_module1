@@ -10,6 +10,7 @@ import 'package:user_module/control/authentication/provider_otp/otp_provider.dar
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
+import 'package:user_module/control/order_history/porvider/order_history_provider.dart';
 import 'package:user_module/control/place_order_pickup/pickup_provider.dart';
 import 'package:user_module/control/place_order_payment_provider/place_order_payment_provider.dart';
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => AddressProvider()),
         ChangeNotifierProvider(
             create: (context) => PlaceOrderPaymentProvider()),
+        ChangeNotifierProvider(create: (context) => OrderHistoryProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
