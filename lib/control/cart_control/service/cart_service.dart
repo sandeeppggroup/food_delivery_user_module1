@@ -36,11 +36,11 @@ class CartService {
         return cartItems;
       } else {
         log('cart get is failed : ${response.statusCode} : ${response.data}');
-        return [];
+        return false;
       }
     } catch (e) {
       log('Error : $e');
-      return [];
+      return false;
     }
   }
 
