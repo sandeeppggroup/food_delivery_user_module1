@@ -6,6 +6,7 @@ import 'package:user_module/control/address_controller/provider/address_provider
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
+import 'package:user_module/control/order_history/porvider/order_history_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/views/user_home_screen/widget/category_listview.dart';
 import 'package:user_module/views/user_home_screen/widget/drawer_and_person.dart';
@@ -29,24 +30,14 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     customerName = prefs.getString('customerName');
   }
 
-  // Future<void> defaultAddress() async {
-  //   AddressProvider addressProvider = AddressProvider();
-  //   await addressProvider.getAllAddress();
-  //   final address = addressProvider.addressList;
-  //   final firstAddress = address[0];
-  //   log('In first Address : ${firstAddress.name}');
-  //   addressProvider.toggleAddressSelection(firstAddress);
-  //   log('in address provider : ${addressProvider.selectedAddress.name}');
-  // }
-
   final FocusNode _focusNode = FocusNode();
   TextEditingController searchController = TextEditingController();
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     getCustomerName();
-    // defaultAddress();
   }
 
   @override

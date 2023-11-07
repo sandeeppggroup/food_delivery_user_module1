@@ -106,7 +106,7 @@ class DbAuthService extends ChangeNotifier {
   Future<dynamic> checkTokenStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
-    await Future.delayed(const Duration(milliseconds: 20));
+    await Future.delayed(const Duration(seconds: 3));
 
     final token = prefs.getString('token');
     log('Token in checktokenstatus : $token');

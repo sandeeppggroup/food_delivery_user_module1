@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:user_module/control/address_controller/provider/address_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/address_model/address_model.dart';
-import 'package:user_module/views/add_address_screen/add_address_form/widget/address_form_textform.dart';
+import 'package:user_module/views/address_screen/add_address_form/widget/address_form_textform.dart';
 import 'package:user_module/widget/button2.dart';
 import 'package:user_module/widget/logo.dart';
 

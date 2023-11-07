@@ -62,18 +62,19 @@ Future<void> bottomSheetPaymentOption(BuildContext context, int cartSum) async {
                   ElevatedButton(
                     onPressed: () async {
                       log('$cartSum');
+
                       final address = addressProvider.selectedAddress;
                       final orderType = cartProvider.selectedOption.toString();
                       final responseData =
                           await placeOrderPaymentProvider.onlinePaymentBackend(
-                              address, 'Online', orderType, cartSum);
+                              address, 'Online', orderType, cartSum, context);
                       final amountToRazorpay = responseData['data']['amount'];
                       final orderId = responseData['data']['id'];
 
+                      // ignore: use_build_context_synchronously
                       Provider.of<PlaceOrderPaymentProvider>(context,
                               listen: false)
                           .onlinePayment(amountToRazorpay, orderId);
-                      Navigator.pop(context);
                     },
                     child: const Icon(
                       Icons.credit_card,

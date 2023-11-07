@@ -15,7 +15,7 @@ class CartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final cartProvider = Provider.of<CartProvider>(context, listen: false);
+    // Provider.of<CartProvider>(context, listen: false).fetchCartData();
     final cartProviderWatch = context.watch<CartProvider>();
     // cartProvider.fetchCartData();
 

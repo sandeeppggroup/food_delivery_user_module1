@@ -1,13 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user_module/control/address_controller/provider/address_provider.dart';
-import 'package:user_module/control/place_order_payment_provider/place_order_payment_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
-import 'package:user_module/views/add_address_screen/add_address_form/add_address_form.dart';
 import 'package:user_module/widget/button1.dart';
-import 'package:user_module/widget/button2.dart';
 import 'package:user_module/widget/logo.dart';
 import 'package:user_module/widget/payment_option.dart';
 
@@ -20,24 +15,9 @@ class PlaceOrderDelivery extends StatefulWidget {
   State<PlaceOrderDelivery> createState() => _PlaceOrderDeliveryState();
 }
 
+AddressProvider addressProvider = AddressProvider();
+
 class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
-  // Future<void> defaultAddress() async {
-  //   AddressProvider addressProvider = AddressProvider();
-  //   await addressProvider.getAllAddress();
-  //   final address = addressProvider.addressList;
-  //   final firstAddress = address[0];
-  //   log('In first Address : ${firstAddress.name}');
-  //   addressProvider.toggleAddressSelection(firstAddress);
-  //   log('in address provider : ${addressProvider.selectedAddress.name}');
-  // }
-
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   defaultAddress();
-  // }
-
   @override
   Widget build(BuildContext context) {
     final addressProviderWatch = (context).watch<AddressProvider>();

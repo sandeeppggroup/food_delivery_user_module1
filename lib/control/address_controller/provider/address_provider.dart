@@ -27,6 +27,20 @@ class AddressProvider extends ChangeNotifier {
   List<AddressModel> get addressList => _addressList;
   AddressModel get selectedAddress => _selectedAddress;
 
+  void getFirstAddress() async {
+    await getAllAddress();
+    if (_addressList.isNotEmpty) {
+      for (int i = 0; i < 1; i++) {
+        AddressModel selectedAddress1 = _addressList[i];
+        _selectedAddress = selectedAddress1;
+        log('Get first address: ${selectedAddress1.name}');
+        notifyListeners();
+      }
+    } else {
+      return;
+    }
+  }
+
   void toggleAddressSelection(AddressModel address) {
     _selectedAddress = address;
     log(_selectedAddress.name);

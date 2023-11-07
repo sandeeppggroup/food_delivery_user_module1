@@ -12,7 +12,7 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
   PaymentService paymentService = PaymentService();
   AddressProvider addressProvider = AddressProvider();
   CartProvider cartProvider = CartProvider();
-
+  late BuildContext context;
   Razorpay? _razorpay;
 
   PlaceOrderPaymentProvider() {
@@ -22,7 +22,7 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
     _razorpay?.on(Razorpay.EVENT_EXTERNAL_WALLET, _handleExternalWallet);
   }
 
-  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+  void _handlePaymentSuccess(PaymentSuccessResponse response) async {
     Fluttertoast.showToast(
         msg: 'PAYMENT SUCCESS : ${response.paymentId} , ${response.orderId}',
         timeInSecForIosWeb: 3);
@@ -33,8 +33,20 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
 
     log('delivey or pickup :  ${deliveryType.toString()},${addressProvider.selectedAddress.toString()}');
 
-    paymentService.onlinePayment(response.paymentId.toString(),
-        response.orderId.toString(), response.signature.toString());
+    final result = await paymentService.onlinePayment(
+        response.paymentId.toString(),
+        response.orderId.toString(),
+        response.signature.toString());
+
+    log("ss ${result.toString()}");
+    if (result == true) {
+      log("jj ${result.toString()}");
+      cartProvider.fetchCartData();
+
+      // ignore: use_build_context_synchronously
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/after_payment_screen', (route) => false);
+    }
   }
 
   void _handlePaymentError(PaymentFailureResponse response) {
@@ -80,7 +92,8 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
   }
 
   Future<dynamic> onlinePaymentBackend(AddressModel address, String paymentMode,
-      String orderType, int totalAmount) async {
+      String orderType, int totalAmount, BuildContext buildContext) async {
+    context = buildContext;
     dynamic result = await paymentService.onlinePaymentDataBase(
         address, paymentMode, orderType, totalAmount);
     log('in Provider : ${result.toString()}');
@@ -95,12 +108,10 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
     bool result = await paymentService.cashOnDelivery(
         address, paymentMode, paymentType, totalAmount);
     if (result == true) {
-      cartProvider.clearAllCarts();
-
       cartProvider.fetchCartData();
       // ignore: use_build_context_synchronously
       Navigator.pushNamedAndRemoveUntil(
-          context, '/user_home_screen', (route) => false);
+          context, '/after_payment_screen', (route) => false);
     }
 
     return result;
