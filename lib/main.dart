@@ -73,7 +73,7 @@ class MyApp extends StatelessWidget {
           '/place_order_delivery': (context) => PlaceOrderDelivery(),
           '/add_address_form': (context) => AddAddressForm(),
           '/address_screen': (context) => const AddressScreen(),
-          '/order_history': (context) => OrderHistoryScreen(),
+          '/order_history': (context) => const OrderHistoryScreen(),
           '/after_payment_screen': (context) => AfterPaymentScreen(),
         },
       ),

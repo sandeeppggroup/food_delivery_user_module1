@@ -8,7 +8,7 @@ import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/order_history_model/order_history_model.dart';
 
 class OrderHistoryScreen extends StatelessWidget {
-  OrderHistoryScreen({
+  const OrderHistoryScreen({
     super.key,
   });
 

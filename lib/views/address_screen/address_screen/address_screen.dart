@@ -70,7 +70,7 @@ class AddressScreen extends StatelessWidget {
                         final allAddress = addressProvider.addressList;
                         final selectedAddress = addressProvider.selectedAddress;
                         log('adress length in ui :   ${allAddress.length}');
-                        return Container(
+                        return SizedBox(
                           height: height * 0.6753,
                           width: double.infinity,
                           child: ListView.builder(

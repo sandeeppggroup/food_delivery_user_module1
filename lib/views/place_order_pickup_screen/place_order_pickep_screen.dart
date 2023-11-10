@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:user_module/control/place_order_payment_provider/provider/place_order_payment_provider.dart';
 import 'package:user_module/control/place_order_pickup/pickup_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/widget/button1.dart';

@@ -3,13 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:user_module/control/address_controller/provider/address_provider.dart';
-import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/place_order_payment_provider/provider/place_order_payment_provider.dart';
 
 Future<void> bottomSheetPaymentOption(BuildContext context, int cartSum) async {
-  final addressProvider = Provider.of<AddressProvider>(context, listen: false);
-  final cartProvider = Provider.of<CartProvider>(context, listen: false);
   final placeOrderPaymentProvider =
       Provider.of<PlaceOrderPaymentProvider>(context, listen: false);
   return await showModalBottomSheet(
