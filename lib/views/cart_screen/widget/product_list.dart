@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/cart_model/cart_model.dart';

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
-import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 
 // ignore: must_be_immutable

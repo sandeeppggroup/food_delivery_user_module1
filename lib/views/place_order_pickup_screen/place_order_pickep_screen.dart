@@ -1,10 +1,8 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:user_module/control/place_order_pickup/pickup_provider.dart';
-import 'package:user_module/control/place_order_payment_provider/place_order_payment_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/widget/button1.dart';
 import 'package:user_module/widget/logo.dart';
@@ -22,8 +20,6 @@ class PlaceOrderPickup extends StatefulWidget {
 class _PlaceOrderPickupState extends State<PlaceOrderPickup> {
   @override
   Widget build(BuildContext context) {
-    final placeOrderProvider =
-        Provider.of<PlaceOrderPaymentProvider>(context, listen: false);
     final pickupProvider = Provider.of<PickupProvider>(context, listen: false);
     final pickupProviderWatch = context.watch<PickupProvider>();
     final height = MediaQuery.of(context).size.height;
