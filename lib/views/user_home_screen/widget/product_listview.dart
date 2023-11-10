@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
+import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/home_model/product_model.dart';
@@ -72,6 +73,9 @@ class ProductHomeListView extends StatelessWidget {
                                       onPressed: () async {
                                         productProvider.addToCart(
                                             product.id.toString(), context);
+                                        context
+                                            .read<CartProvider>()
+                                            .fetchCartData();
                                       },
                                       icon: const Icon(
                                         Icons.shopping_cart_outlined,

@@ -13,7 +13,7 @@ class OrderHistoryService {
   Future<dynamic> getAllOrders() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token");
-
+    log("token: $token");
     Response response = await dio.get(
       getAllOrderUrl,
       options: Options(
@@ -21,11 +21,14 @@ class OrderHistoryService {
       ),
     );
 
+    log('status code: ${response.statusCode}');
+
     try {
       if (response.statusCode == 200) {
         // log('success : ${response.data['orderData']}');
 
         List<dynamic> orderHistoryJson = response.data['orderData'];
+        log("message : ${orderHistoryJson.toString()}");
         List<OrderData> orderData = orderHistoryJson
             .map((orderHistoryData) => OrderData.fromJson(orderHistoryData))
             .toList();

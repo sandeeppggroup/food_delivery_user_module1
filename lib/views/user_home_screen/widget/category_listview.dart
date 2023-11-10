@@ -42,10 +42,16 @@ class CategoryHomeListView extends StatelessWidget {
                       decoration: BoxDecoration(
                           border: Border.all(
                               width: 2,
-                              color: const Color.fromARGB(255, 255, 179, 204)),
-                          boxShadow: const [
+                              color:
+                                  categoryProvider.categoryName == category.name
+                                      ? Color.fromARGB(255, 106, 170, 255)
+                                      : Color.fromARGB(255, 255, 179, 204)),
+                          boxShadow: [
                             BoxShadow(
-                              color: Color.fromARGB(255, 219, 157, 177),
+                              color:
+                                  categoryProvider.categoryName == category.name
+                                      ? Color.fromARGB(255, 106, 170, 255)
+                                      : Color.fromARGB(255, 255, 179, 204),
                               blurRadius: 6,
                               offset: Offset(6, 4),
                             )

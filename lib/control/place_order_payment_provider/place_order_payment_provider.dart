@@ -38,9 +38,7 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
         response.orderId.toString(),
         response.signature.toString());
 
-    log("ss ${result.toString()}");
     if (result == true) {
-      log("jj ${result.toString()}");
       cartProvider.fetchCartData();
 
       // ignore: use_build_context_synchronously

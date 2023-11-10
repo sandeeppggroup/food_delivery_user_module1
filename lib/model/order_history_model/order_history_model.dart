@@ -110,6 +110,8 @@ class OrderData {
   final Address address;
   final List<Product> product;
   final int totalAmount;
+  dynamic pickupDate;
+  dynamic pickupTime;
   final String payment;
   final String paymentStatus;
   final String orderStatus;
@@ -121,6 +123,8 @@ class OrderData {
     required this.address,
     required this.product,
     required this.totalAmount,
+    this.pickupDate,
+    this.pickupTime,
     required this.payment,
     required this.paymentStatus,
     required this.orderStatus,
@@ -136,6 +140,8 @@ class OrderData {
           .map((item) => Product.fromJson(item))
           .toList(),
       totalAmount: json['totalAmount'],
+      pickupDate: json['pickupDate'],
+      pickupTime: json['pickupTime'],
       payment: json['payment'],
       paymentStatus: json['paymentStatus'],
       orderStatus: json['orderStatus'],

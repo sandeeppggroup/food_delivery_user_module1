@@ -16,7 +16,9 @@ class CartProvider extends ChangeNotifier {
   List<CartItem> get cartProducts => _cartProducts;
 
   void handleRadioValueChangePickup(dynamic value) {
+    log('value : $value');
     selectedOption = value;
+    log('Selected option : ${selectedOption.toString()}');
     notifyListeners();
   }
 
