@@ -102,12 +102,16 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
     final addressProvider1 =
         Provider.of<AddressProvider>(context, listen: false);
     final cartProvider1 = Provider.of<CartProvider>(context, listen: false);
-
+    final pickupProvider = Provider.of<PickupProvider>(context, listen: false);
     AddressModel address = addressProvider1.selectedAddress;
     String orderType = cartProvider1.selectedOption.toString();
+    final pickupdate = pickupProvider.selectedDay;
+    final pickupTime = pickupProvider.selectedTime;
 
     dynamic responseData = await paymentService.onlinePaymentDataBase(
-        address, paymentMode, orderType, totalAmount);
+        address, paymentMode, orderType, totalAmount,
+        selectedDate: pickupdate.toString(),
+        selectedTime: pickupTime.toString());
 
     log('in Provider : ${responseData.toString()}');
 

@@ -14,6 +14,8 @@ class PaymentService {
   AddressModel? onlineAddress;
   String? onlineOrderType;
   String? onlinePaymentMode;
+  String? onlinePickupDate;
+  String? onlinePickupTime;
 
   Dio dio = Dio();
 
@@ -66,19 +68,33 @@ class PaymentService {
 
     log('total Amount : $onlineTotalAmount , address : ${onlineAddress!.name} , ordertype : $onlineOrderType , paymentMode : $onlinePaymentMode');
 
-    Response response = await dio.post(verifyPaymentUrl,
-        options: Options(
-          headers: {'Authorization': 'Bearer $token'},
-        ),
-        data: {
-          'address': onlineAddress,
-          'payment': onlinePaymentMode,
-          'paymentType': onlineOrderType,
-          'totalAmount': onlineTotalAmount,
-          'razorpay_payment_id': paymentId,
-          'razorpay_order_id': orderId,
-          'razorpay_signature': signature,
-        });
+    Response response = await dio.post(
+      verifyPaymentUrl,
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+      ),
+      data: onlineOrderType == 'delivery'
+          ? {
+              'address': onlineAddress,
+              'payment': onlinePaymentMode,
+              'paymentType': onlineOrderType,
+              'totalAmount': onlineTotalAmount,
+              'razorpay_payment_id': paymentId,
+              'razorpay_order_id': orderId,
+              'razorpay_signature': signature,
+            }
+          : {
+              'address': onlineAddress,
+              'payment': onlinePaymentMode,
+              'paymentType': onlineOrderType,
+              'totalAmount': onlineTotalAmount,
+              'pickupDate': onlinePickupDate,
+              'pickupTime': onlinePickupTime,
+              'razorpay_payment_id': paymentId,
+              'razorpay_order_id': orderId,
+              'razorpay_signature': signature,
+            },
+    );
 
     try {
       if (response.statusCode == 200) {
@@ -94,16 +110,15 @@ class PaymentService {
     }
   }
 
-  Future<dynamic> onlinePaymentDataBase(
-    AddressModel address,
-    String paymentMode,
-    String orderType,
-    int totalAmount,
-  ) async {
+  Future<dynamic> onlinePaymentDataBase(AddressModel address,
+      String paymentMode, String orderType, int totalAmount,
+      {String? selectedDate, String? selectedTime}) async {
     onlineAddress = address;
     onlinePaymentMode = paymentMode;
     onlineOrderType = orderType;
     onlineTotalAmount = totalAmount;
+    onlinePickupDate = selectedDate;
+    onlinePickupTime = selectedTime;
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token");
