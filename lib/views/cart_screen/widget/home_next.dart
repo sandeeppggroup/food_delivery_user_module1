@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
+import 'package:user_module/control/address_controller/provider/address_provider.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/views/place_order_delivery_screen/place_order_delivery_screen.dart';
@@ -129,6 +130,7 @@ class HomeNextContainer extends StatelessWidget {
                           ),
                         ),
                       );
+                      context.read<AddressProvider>().getFirstAddress();
                     } else {
                       showItemSnackBar(context,
                           massage: 'Please select an option',

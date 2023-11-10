@@ -5,7 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:user_module/control/address_controller/provider/address_provider.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
-import 'package:user_module/control/place_order_payment_provider/place_order_payment_provider.dart';
+import 'package:user_module/control/place_order_payment_provider/provider/place_order_payment_provider.dart';
 
 Future<void> bottomSheetPaymentOption(BuildContext context, int cartSum) async {
   final addressProvider = Provider.of<AddressProvider>(context, listen: false);
@@ -35,12 +35,8 @@ Future<void> bottomSheetPaymentOption(BuildContext context, int cartSum) async {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      final address = addressProvider.selectedAddress;
-                      final paymentType =
-                          cartProvider.selectedOption.toString();
-
                       placeOrderPaymentProvider.cashOnDelivery(
-                          address, 'COD', paymentType, cartSum, context);
+                          'COD', cartSum, context);
                     },
                     child: const FaIcon(
                       FontAwesomeIcons.moneyBill,
@@ -63,18 +59,8 @@ Future<void> bottomSheetPaymentOption(BuildContext context, int cartSum) async {
                     onPressed: () async {
                       log('$cartSum');
 
-                      final address = addressProvider.selectedAddress;
-                      final orderType = cartProvider.selectedOption.toString();
-                      final responseData =
-                          await placeOrderPaymentProvider.onlinePaymentBackend(
-                              address, 'Online', orderType, cartSum, context);
-                      final amountToRazorpay = responseData['data']['amount'];
-                      final orderId = responseData['data']['id'];
-
-                      // ignore: use_build_context_synchronously
-                      Provider.of<PlaceOrderPaymentProvider>(context,
-                              listen: false)
-                          .onlinePayment(amountToRazorpay, orderId);
+                      placeOrderPaymentProvider.onlinePaymentBackend(
+                          'Online', cartSum, context);
                     },
                     child: const Icon(
                       Icons.credit_card,

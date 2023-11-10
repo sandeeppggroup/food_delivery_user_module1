@@ -1,11 +1,12 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_module/control/address_controller/provider/address_provider.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
-import 'package:user_module/control/place_order_payment_provider/provider/payment_service.dart';
+import 'package:user_module/control/place_order_payment_provider/service/payment_service.dart';
 import 'package:user_module/model/address_model/address_model.dart';
 
 class PlaceOrderPaymentProvider extends ChangeNotifier {
@@ -89,17 +90,48 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
     }
   }
 
-  Future<dynamic> onlinePaymentBackend(AddressModel address, String paymentMode,
-      String orderType, int totalAmount, BuildContext buildContext) async {
+  Future<void> onlinePaymentBackend(
+      String paymentMode, int totalAmount, BuildContext buildContext) async {
     context = buildContext;
-    dynamic result = await paymentService.onlinePaymentDataBase(
-        address, paymentMode, orderType, totalAmount);
-    log('in Provider : ${result.toString()}');
 
-    return result;
+    final addressProvider1 =
+        Provider.of<AddressProvider>(context, listen: false);
+    final cartProvider1 = Provider.of<CartProvider>(context, listen: false);
+
+    AddressModel address = addressProvider1.selectedAddress;
+    String orderType = cartProvider1.selectedOption.toString();
+
+    dynamic responseData = await paymentService.onlinePaymentDataBase(
+        address, paymentMode, orderType, totalAmount);
+
+    log('in Provider : ${responseData.toString()}');
+
+    final amountToRazorpay = responseData['data']['amount'];
+    final orderId = responseData['data']['id'];
+
+    onlinePayment(amountToRazorpay, orderId);
   }
 
-  Future<bool> cashOnDelivery(AddressModel address, String paymentMode,
+  Future<void> cashOnDelivery(
+      String paymentMode, int totalAmount, BuildContext context) async {
+    final addressProvider1 =
+        Provider.of<AddressProvider>(context, listen: false);
+    final cartProvider1 = Provider.of<CartProvider>(context, listen: false);
+
+    final address = addressProvider1.selectedAddress;
+    final paymentType = cartProvider1.selectedOption.toString();
+    log('Address : ${address.name}');
+    bool result = await paymentService.cashOnDelivery(
+        address, paymentMode, paymentType, totalAmount);
+    if (result == true) {
+      cartProvider.fetchCartData();
+      // ignore: use_build_context_synchronously
+      Navigator.pushNamedAndRemoveUntil(
+          context, '/after_payment_screen', (route) => false);
+    }
+  }
+
+  Future<bool> cashOnPickup(AddressModel address, String paymentMode,
       String paymentType, int totalAmount, BuildContext context) async {
     CartProvider cartProvider = CartProvider();
 

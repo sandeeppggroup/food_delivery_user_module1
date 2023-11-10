@@ -21,7 +21,7 @@ class PaymentService {
       String orderType, int totalAmount) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token");
-
+    log('address: ${address.name}');
     Response response = await dio.post(codOrderUrl,
         options: Options(
           headers: {'Authorization': 'Bearer $token'},
