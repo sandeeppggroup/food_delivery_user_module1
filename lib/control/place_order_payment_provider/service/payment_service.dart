@@ -18,20 +18,32 @@ class PaymentService {
   Dio dio = Dio();
 
   Future<bool> cashOnDelivery(AddressModel address, String paymentMode,
-      String orderType, int totalAmount) async {
+      String orderType, int totalAmount,
+      {String? selectedDate, String? selectedTime}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final token = prefs.getString("token");
     log('address: ${address.name}');
-    Response response = await dio.post(codOrderUrl,
-        options: Options(
-          headers: {'Authorization': 'Bearer $token'},
-        ),
-        data: {
-          'address': address,
-          'payment': paymentMode,
-          'paymentType': orderType,
-          'totalAmount': totalAmount,
-        });
+    Response response = await dio.post(
+      codOrderUrl,
+      options: Options(
+        headers: {'Authorization': 'Bearer $token'},
+      ),
+      data: orderType == 'delivery'
+          ? {
+              'address': address,
+              'payment': paymentMode,
+              'paymentType': orderType,
+              'totalAmount': totalAmount,
+            }
+          : {
+              'address': address,
+              'payment': paymentMode,
+              'paymentType': orderType,
+              'totalAmount': totalAmount,
+              'pickupDate': selectedDate,
+              'pickupTime': selectedTime,
+            },
+    );
 
     try {
       if (response.statusCode == 200) {

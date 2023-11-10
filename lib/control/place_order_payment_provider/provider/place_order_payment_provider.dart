@@ -7,12 +7,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_module/control/address_controller/provider/address_provider.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/place_order_payment_provider/service/payment_service.dart';
+import 'package:user_module/control/place_order_pickup/pickup_provider.dart';
 import 'package:user_module/model/address_model/address_model.dart';
 
 class PlaceOrderPaymentProvider extends ChangeNotifier {
   PaymentService paymentService = PaymentService();
   AddressProvider addressProvider = AddressProvider();
   CartProvider cartProvider = CartProvider();
+
   late BuildContext context;
   Razorpay? _razorpay;
 
@@ -91,7 +93,10 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
   }
 
   Future<void> onlinePaymentBackend(
-      String paymentMode, int totalAmount, BuildContext buildContext) async {
+    String paymentMode,
+    int totalAmount,
+    BuildContext buildContext,
+  ) async {
     context = buildContext;
 
     final addressProvider1 =
@@ -117,12 +122,18 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
     final addressProvider1 =
         Provider.of<AddressProvider>(context, listen: false);
     final cartProvider1 = Provider.of<CartProvider>(context, listen: false);
+    final pickupProvider = Provider.of<PickupProvider>(context, listen: false);
 
     final address = addressProvider1.selectedAddress;
     final paymentType = cartProvider1.selectedOption.toString();
+    final pickupdate = pickupProvider.selectedDay;
+    final pickupTime = pickupProvider.selectedTime;
+
     log('Address : ${address.name}');
     bool result = await paymentService.cashOnDelivery(
-        address, paymentMode, paymentType, totalAmount);
+        address, paymentMode, paymentType, totalAmount,
+        selectedDate: pickupdate.toString(),
+        selectedTime: pickupTime.toString());
     if (result == true) {
       cartProvider.fetchCartData();
       // ignore: use_build_context_synchronously
