@@ -38,6 +38,12 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     // TODO: implement initState
     super.initState();
     getCustomerName();
+    context.read<AddressProvider>().getFirstAddress();
+    context.read<CartProvider>().fetchCartData();
+    context.read<OrderHistoryProvider>().getAllOrders();
+    context.read<AddressProvider>().getAllAddress();
+    context.read<ProductProvider>().fetchAllProducts();
+    context.read<CategoryProvider>().fetchCategories();
   }
 
   @override

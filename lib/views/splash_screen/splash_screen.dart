@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:user_module/control/address_controller/provider/address_provider.dart';
@@ -21,27 +23,36 @@ class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    context.read<AddressProvider>().getFirstAddress();
-    context.read<CartProvider>().fetchCartData();
-    context.read<OrderHistoryProvider>().getAllOrders();
-    context.read<AddressProvider>().getAllAddress();
-    context.read<ProductProvider>().fetchAllProducts();
-    context.read<CategoryProvider>().fetchCategories();
     tokenStatusChecking();
+    // tokenStatusCheckingAndFetch();
   }
 
-  tokenStatusChecking() async {
+  Future<void> tokenStatusCheckingAndFetch() async {
+    bool result = await tokenStatusChecking();
+
+    if (result == true) {
+      context.read<AddressProvider>().getFirstAddress();
+      context.read<CartProvider>().fetchCartData();
+      context.read<OrderHistoryProvider>().getAllOrders();
+      context.read<AddressProvider>().getAllAddress();
+      context.read<ProductProvider>().fetchAllProducts();
+      context.read<CategoryProvider>().fetchCategories();
+    } else {
+      return;
+    }
+  }
+
+  Future<bool> tokenStatusChecking() async {
     final tokenStatus = await dbAuthService.checkTokenStatus();
     if (tokenStatus != false && tokenStatus['success'] == true) {
-      // ignore: use_build_context_synchronously
       showItemSnackBar(context,
           massage: '${tokenStatus['message']}', color: Colors.green);
 
-      // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/user_home_screen');
+      return true;
     } else {
-      // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, '/user_login');
+      return false;
     }
   }
 

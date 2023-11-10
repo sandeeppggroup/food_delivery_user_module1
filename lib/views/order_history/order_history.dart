@@ -57,7 +57,7 @@ class OrderHistoryScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(5.0),
                             child: Text(
                               ' ${orderData.orderStatus} ',
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.bold),
                             ),
                           ),
