@@ -59,7 +59,7 @@ class HomeService {
     return [];
   }
 
-  Future<List<ProductModel>> getCategoryWiseProduct(String categoryId) async {
+  Future<List<ProductModel>?> getCategoryWiseProduct(String categoryId) async {
     String categoryWiseProductUrl =
         '/products?categoryId=$categoryId&name=&sort=';
     String finalUrl = ApiBaseUrl().baseUrl + categoryWiseProductUrl;
@@ -79,9 +79,9 @@ class HomeService {
       }
     } catch (e) {
       log('Error : $e');
-      return [];
+      return null;
     }
-    return [];
+    return null;
   }
 
   Future<List<ProductModel>> getCategoryWiseProductHighToLow(

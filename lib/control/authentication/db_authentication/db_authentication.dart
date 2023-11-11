@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
@@ -31,16 +33,10 @@ class DbAuthService extends ChangeNotifier {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('token', token);
 
-        // ignore: use_build_context_synchronously
         Provider.of<LoginProvider>(context, listen: false).setProgress(false);
 
-        // ignore: use_build_context_synchronously
         Provider.of<OtpProvider>(context, listen: false).setProgress(false);
 
-        // ignore: use_build_context_synchronously
-        // Navigator.pushReplacementNamed(context, '/user_home_screen');
-
-        // ignore: use_build_context_synchronously
         Navigator.pushNamedAndRemoveUntil(
             context, '/user_home_screen', (route) => false);
       } else if (response.statusCode == 201) {
@@ -50,14 +46,11 @@ class DbAuthService extends ChangeNotifier {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('token', token);
 
-        // ignore: use_build_context_synchronously
         showItemSnackBar(context,
             massage: response.data['message'], color: Colors.blue);
 
-        // ignore: use_build_context_synchronously
         Provider.of<LoginProvider>(context, listen: false).setProgress(false);
 
-        // ignore: use_build_context_synchronously
         Navigator.pushReplacementNamed(context, '/user_signup');
       }
     } catch (e) {
@@ -85,14 +78,9 @@ class DbAuthService extends ChangeNotifier {
       if (response.statusCode == 200) {
         log('${response.data}');
 
-        // ignore: use_build_context_synchronously
-        // Navigator.pushReplacementNamed(context, '/user_home_screen');
-
-        // ignore: use_build_context_synchronously
         Navigator.pushNamedAndRemoveUntil(
             context, '/user_home_screen', (route) => false);
 
-        // ignore: use_build_context_synchronously
         showItemSnackBar(context,
             massage: '${response.data['message']}', color: Colors.green);
       } else {
@@ -132,7 +120,7 @@ class DbAuthService extends ChangeNotifier {
         }
       } catch (e) {
         log('error in check in user log :  $e');
-        return false;
+        return null;
       }
     } else {
       return false;

@@ -30,8 +30,7 @@ class CategoryHomeListView extends StatelessWidget {
                       categoryProvider.selectCategory(category);
 
                       Provider.of<ProductProvider>(context, listen: false)
-                          .fetchCategoryAndPriceWiseProduct(
-                              category.id, category.name);
+                          .fetchCategoryWiseProduct(category.id, category.name);
                       // categoryProvider.setselectedIndex = index;
                     },
                     highlightColor: const Color.fromARGB(255, 255, 179, 204),

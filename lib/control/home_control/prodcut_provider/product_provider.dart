@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';
 import 'package:user_module/control/home_control/service/home_service.dart';
@@ -21,11 +22,18 @@ class ProductProvider extends ChangeNotifier {
 
   List<ProductModel> get productlist => _productList;
 
-  Future<void> fetchCategoryAndPriceWiseProduct(
+  Future<void> fetchCategoryWiseProduct(
       String categoryId, String categoryName) async {
     log('in fetchCategoryWiseProduct : $categoryId');
     _productList.clear();
-    _productList = await homeService.getCategoryWiseProduct(categoryId);
+    dynamic result = await homeService.getCategoryWiseProduct(categoryId);
+    if (result != null) {
+      _productList = result;
+    } else {
+      Fluttertoast.showToast(
+          msg: 'Oops! Something went wrong. Please try again');
+      return;
+    }
     notifyListeners();
   }
 
