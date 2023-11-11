@@ -85,7 +85,7 @@ class ProductHomeListView extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: height * 0.15,
+                                    height: height * 0.14,
                                     child:
                                         Image.network(product.image.imageUrl),
                                   ),
@@ -95,20 +95,17 @@ class ProductHomeListView extends StatelessWidget {
                                       product.name,
                                       style: const TextStyle(
                                           fontWeight: FontWeight.w500,
-                                          fontSize: 20,
+                                          fontSize: 17,
                                           color: Colors.white),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    height: height * 0.01,
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),
                                     child: Text(
-                                      product.price.toString(),
+                                      '₹${product.price.toString()}',
                                       style: const TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 25,
+                                          fontSize: 21,
                                           color: Colors.white),
                                     ),
                                   ),

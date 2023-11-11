@@ -68,9 +68,6 @@ class CategoryHomeListView extends StatelessWidget {
                               height: 50,
                               child: Image.network(category.image.imageUrl),
                             ),
-                            SizedBox(
-                              height: height * 0.005,
-                            ),
                             Text(
                               category.name,
                               style: const TextStyle(

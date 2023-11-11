@@ -33,7 +33,7 @@ class AfterPaymentScreen extends StatelessWidget {
               height: height * 0.02,
             ),
             Container(
-              height: height * .7495,
+              height: height * .74,
               width: double.infinity,
               decoration: const BoxDecoration(
                   color: userAppBar,

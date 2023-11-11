@@ -226,6 +226,9 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                           const Spacer(),
                           TextButton(
                             onPressed: () {
+                              Provider.of<ProductProvider>(context,
+                                      listen: false)
+                                  .fetchAllProducts();
                               Navigator.pushNamed(context, '/search_screen');
                             },
                             child: const Text('More ..'),

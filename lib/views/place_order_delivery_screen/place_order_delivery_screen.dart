@@ -35,7 +35,7 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
             height: height * 0.02,
           ),
           Container(
-            height: height * .7495,
+            height: height * .73,
             width: double.infinity,
             decoration: const BoxDecoration(
                 color: userAppBar,
@@ -95,13 +95,13 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
                   ),
                   const Divider(color: Colors.white, thickness: 2),
                   SizedBox(
-                    height: height * 0.04,
+                    height: height * 0.02,
                   ),
                   Padding(
                     padding:
                         const EdgeInsets.only(left: 25, right: 25, bottom: 8),
                     child: Container(
-                      height: height * 0.23,
+                      height: height * 0.24,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         color: const Color.fromARGB(255, 228, 245, 255),
@@ -173,7 +173,7 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
                     ),
                   ),
                   SizedBox(
-                    height: height * 0.05,
+                    height: height * 0.03,
                   ),
                   Padding(
                     padding:
@@ -206,10 +206,10 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
                     ),
                   ),
                   SizedBox(
-                    height: height * 0.048,
+                    height: height * 0.04,
                   ),
                   Container(
-                    height: height * 0.13,
+                    height: height * 0.14,
                     width: double.infinity,
                     decoration: const BoxDecoration(
                       boxShadow: [

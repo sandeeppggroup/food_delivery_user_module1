@@ -29,14 +29,14 @@ class _PlaceOrderPickupState extends State<PlaceOrderPickup> {
       body: Column(
         children: [
           SizedBox(
-            height: height * 0.08,
+            height: height * 0.05,
           ),
           Logo(height: height * 0.13),
           SizedBox(
             height: height * 0.02,
           ),
           Container(
-            height: height * .7495,
+            height: height * .775,
             width: double.infinity,
             decoration: const BoxDecoration(
                 color: userAppBar,

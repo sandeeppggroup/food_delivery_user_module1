@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
@@ -32,7 +33,7 @@ class SearchScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(left: 190),
+              padding: const EdgeInsets.only(left: 150),
               child: Row(
                 children: [
                   const Text(
@@ -121,70 +122,79 @@ class SearchScreen extends StatelessWidget {
                     child: Consumer<ProductProvider>(
                       builder: (context, productProvider, child) {
                         final products = productProvider.productlist;
-                        return SizedBox(
-                          height: height * 0.712,
-                          width: double.infinity,
-                          child: ListView.builder(
-                            itemCount: products.length,
-                            itemBuilder: (context, index) {
-                              ProductModel product = products[index];
+                        return products.isEmpty
+                            ? Lottie.asset(
+                                fit: BoxFit.scaleDown,
+                                height: 300,
+                                width: 400,
+                                'assets/lottie/animation_lnxbj7g2.json',
+                              )
+                            : SizedBox(
+                                height: height * 0.712,
+                                width: double.infinity,
+                                child: ListView.builder(
+                                  itemCount: products.length,
+                                  itemBuilder: (context, index) {
+                                    ProductModel product = products[index];
 
-                              return GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return ProductViewPage(
-                                          productId: product.id,
-                                          imageUrl: product.image.imageUrl,
-                                          name: product.name,
-                                          description:
-                                              product.description.toString(),
-                                          price: product.price.toString(),
+                                    return GestureDetector(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) {
+                                              return ProductViewPage(
+                                                productId: product.id,
+                                                imageUrl:
+                                                    product.image.imageUrl,
+                                                name: product.name,
+                                                description: product.description
+                                                    .toString(),
+                                                price: product.price.toString(),
+                                              );
+                                            },
+                                          ),
                                         );
                                       },
-                                    ),
-                                  );
-                                },
-                                child: Card(
-                                  elevation: 0,
-                                  color: userAppBar,
-                                  child: ListTile(
-                                    leading: Padding(
-                                      padding: const EdgeInsets.only(
-                                          top: 3, bottom: 3),
-                                      child: Container(
-                                        width: width * 0.2,
-                                        decoration: BoxDecoration(
-                                            color: Colors.black,
-                                            border: Border.all(
-                                                color: Colors.white,
-                                                width: 2.5),
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: Image.network(
-                                            product.image.imageUrl),
+                                      child: Card(
+                                        elevation: 0,
+                                        color: userAppBar,
+                                        child: ListTile(
+                                          leading: Padding(
+                                            padding: const EdgeInsets.only(
+                                                top: 3, bottom: 3),
+                                            child: Container(
+                                              width: width * 0.2,
+                                              decoration: BoxDecoration(
+                                                  color: Colors.black,
+                                                  border: Border.all(
+                                                      color: Colors.white,
+                                                      width: 2.5),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10)),
+                                              child: Image.network(
+                                                  product.image.imageUrl),
+                                            ),
+                                          ),
+                                          title: Text(
+                                            product.name,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          subtitle: Text(product.description),
+                                          trailing: Text(
+                                            '₹${product.price}',
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                    title: Text(
-                                      product.name,
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    subtitle: Text(product.description),
-                                    trailing: Text(
-                                      '₹${product.price}',
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 16),
-                                    ),
-                                  ),
+                                    );
+                                  },
                                 ),
                               );
-                            },
-                          ),
-                        );
                       },
                     ),
                   )

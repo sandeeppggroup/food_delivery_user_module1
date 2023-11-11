@@ -24,7 +24,7 @@ class AddressScreen extends StatelessWidget {
             height: height * .03,
           ),
           Container(
-            height: height * .78,
+            height: height * .77,
             width: double.infinity,
             decoration: const BoxDecoration(
                 color: userAppBar,
