@@ -6,9 +6,9 @@ import 'package:user_module/core/colors/colors.dart';
 
 // ignore: must_be_immutable
 class HeadingAndSearchBar extends StatelessWidget {
-  HeadingAndSearchBar({super.key});
+  FocusNode? focusNode;
+  HeadingAndSearchBar({super.key, required this.focusNode});
 
-  final FocusNode _focusNode = FocusNode();
   TextEditingController searchController = TextEditingController();
 
   @override
@@ -59,7 +59,7 @@ class HeadingAndSearchBar extends StatelessWidget {
                   productProvider.fetchSortCategoryAndPriceWiseProduct(
                       searchUrl: searchUrl);
                 },
-                focusNode: _focusNode,
+                focusNode: focusNode,
                 keyboardType: TextInputType.text,
                 textInputAction: TextInputAction.next,
                 controller: searchController,
