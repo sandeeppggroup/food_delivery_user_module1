@@ -31,8 +31,22 @@ class OrderHistoryScreen extends StatelessWidget {
               OrderData orderData = orderDatas[index];
               String originalDateString = orderData.orderDate.toString();
               DateTime originalDate = DateTime.parse(originalDateString);
-              DateFormat dateFormat = DateFormat('dd-MM-yyyy HH:mm');
-              String orderDate = dateFormat.format(originalDate);
+              DateFormat dateFormat = DateFormat('dd/MM/yyyy : HH-mm');
+              String orderDat = dateFormat.format(originalDate);
+
+              String orderDate = dateTimeFormat(orderData.orderDate.toString());
+              String? pickupDate =
+                  dateFormatPickup(orderData.pickupDate.toString());
+
+              String? pickupTime =
+                  timeFormatPickup(orderData.pickupTime.toString());
+
+              log('pickup date & time : ${orderData.pickupDate}  :  ${orderData.pickupTime}');
+              // String pickupDateString = orderData.pickupDate.toString();
+              // DateTime originalPickDate = DateTime.parse(pickupDateString);
+
+              // DateFormat dateFormatPickup = DateFormat('dd/MM/yyyy : HH-mm');
+
               return Card(
                 color: userAppBar,
                 margin: const EdgeInsets.all(8.0),
@@ -42,7 +56,7 @@ class OrderHistoryScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Order Date: $orderDate',
+                        'Order Date & Time : $orderDate',
                         style: const TextStyle(
                             fontSize: 17, fontWeight: FontWeight.bold),
                       ),
@@ -68,9 +82,50 @@ class OrderHistoryScreen extends StatelessWidget {
                         style: const TextStyle(
                             fontSize: 15, fontWeight: FontWeight.bold),
                       ),
-                      const Divider(
-                        thickness: 2,
-                      ),
+                      pickupDate != null
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Divider(
+                                  thickness: 2,
+                                ),
+                                const Center(
+                                  child: Text(
+                                    'Take Away',
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.grey),
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: height * 0.005,
+                                ),
+                                Text(
+                                  'Pickup Date  : $pickupDate',
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: height * 0.005,
+                                ),
+                                Text(
+                                  'Pickup Time : $pickupTime',
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const Divider(
+                                  thickness: 2,
+                                ),
+                              ],
+                            )
+                          : const Divider(
+                              thickness: 2,
+                            ),
                       const Text(
                         'Products :',
                         style: TextStyle(
@@ -153,5 +208,34 @@ class OrderHistoryScreen extends StatelessWidget {
         },
       ),
     );
+  }
+
+  String dateTimeFormat(String data) {
+    DateTime originalDate = DateTime.parse(data);
+    DateFormat dateFormat = DateFormat('dd/MM/yyyy : HH-mm');
+    String orderDate = dateFormat.format(originalDate);
+    return orderDate;
+  }
+
+  String? dateFormatPickup(String data) {
+    if (data != 'null') {
+      DateTime originalDate = DateTime.parse(data);
+      DateFormat dateFormat = DateFormat('dd/MM/yyyy');
+      String orderDate = dateFormat.format(originalDate);
+      return orderDate;
+    }
+    return null;
+  }
+
+  String? timeFormatPickup(String data) {
+    if (data != 'null') {
+      String receivedTimeString = data;
+      String hour = receivedTimeString.split('(')[1].split(':')[0];
+      String minute = receivedTimeString.split(':')[1].split(')')[0];
+
+      String formattedTime = '$hour:${minute.padLeft(2, '0')}';
+      return formattedTime;
+    }
+    return null;
   }
 }

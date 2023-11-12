@@ -28,7 +28,7 @@ class OrderHistoryService {
         // log('success : ${response.data['orderData']}');
 
         List<dynamic> orderHistoryJson = response.data['orderData'];
-        log("message : ${orderHistoryJson.toString()}");
+        // log("message : ${orderHistoryJson.toString()}");
         List<OrderData> orderData = orderHistoryJson
             .map((orderHistoryData) => OrderData.fromJson(orderHistoryData))
             .toList();
