@@ -35,49 +35,57 @@ class CategoryHomeListView extends StatelessWidget {
                     },
                     highlightColor: const Color.fromARGB(255, 255, 179, 204),
                     borderRadius: BorderRadius.circular(15),
-                    child: Container(
-                      height: height * 0.11,
-                      width: width * 0.33,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 2,
-                              color: categoryProvider.categoryName ==
-                                      category.name
-                                  ? const Color.fromARGB(255, 106, 170, 255)
-                                  : const Color.fromARGB(255, 255, 179, 204)),
-                          boxShadow: [
-                            BoxShadow(
-                              color: categoryProvider.categoryName ==
-                                      category.name
-                                  ? const Color.fromARGB(255, 106, 170, 255)
-                                  : const Color.fromARGB(255, 255, 179, 204),
-                              blurRadius: 6,
-                              offset: const Offset(6, 4),
-                            )
-                          ],
-                          color: userAppBar,
-                          // border: Border.all(),
-                          borderRadius: BorderRadius.circular(30)),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            left: 8.0, right: 8.0, top: 8.0),
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 50,
-                              child: Image.network(category.image.imageUrl),
+                    child: categories.isEmpty
+                        ? const Text(
+                            'Oops! Something went wrong.  \nplease check your network connection')
+                        : Container(
+                            height: height * 0.11,
+                            width: width * 0.33,
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 2,
+                                    color: categoryProvider.categoryName ==
+                                            category.name
+                                        ? const Color.fromARGB(
+                                            255, 106, 170, 255)
+                                        : const Color.fromARGB(
+                                            255, 255, 179, 204)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: categoryProvider.categoryName ==
+                                            category.name
+                                        ? const Color.fromARGB(
+                                            255, 106, 170, 255)
+                                        : const Color.fromARGB(
+                                            255, 255, 179, 204),
+                                    blurRadius: 6,
+                                    offset: const Offset(6, 4),
+                                  )
+                                ],
+                                color: userAppBar,
+                                // border: Border.all(),
+                                borderRadius: BorderRadius.circular(30)),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 8.0, right: 8.0, top: 8.0),
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: 50,
+                                    child:
+                                        Image.network(category.image.imageUrl),
+                                  ),
+                                  Text(
+                                    category.name,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16,
+                                        color: buttonColor),
+                                  ),
+                                ],
+                              ),
                             ),
-                            Text(
-                              category.name,
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                  color: buttonColor),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                          ),
                   ),
                   SizedBox(
                     width: width * 0.06,

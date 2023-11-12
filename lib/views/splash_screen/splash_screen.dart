@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:user_module/control/authentication/db_authentication/db_authentication.dart';
+import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/widget/logo.dart';
 import 'package:user_module/widget/show_dialog.dart';
 
@@ -25,8 +26,10 @@ class _SplashPageState extends State<SplashPage> {
     final tokenStatus = await dbAuthService.checkTokenStatus();
     if (tokenStatus == null) {
       Fluttertoast.showToast(
-          msg: 'Unable to connect. Please check your internet connection.',
+          msg: 'Unable to connect. \nPlease check your internet connection.',
           timeInSecForIosWeb: 5,
+          backgroundColor: buttonColor,
+          fontSize: 15,
           toastLength: Toast.LENGTH_LONG);
       return;
     }

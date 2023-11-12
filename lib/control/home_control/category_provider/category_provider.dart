@@ -48,6 +48,8 @@ class CategoryProvider extends ChangeNotifier {
           fontSize: 16,
           toastLength: Toast.LENGTH_LONG,
           backgroundColor: buttonColor);
+      _categories = [];
+      notifyListeners();
       return;
     }
     notifyListeners();
