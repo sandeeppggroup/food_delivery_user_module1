@@ -17,6 +17,7 @@ class UserLoginPage extends StatefulWidget {
 }
 
 class _LonginPageState extends State<UserLoginPage> {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final FocusNode _focusNode = FocusNode();
   final mobilecontroller = TextEditingController();
   String countryCode = '+91';
@@ -55,111 +56,130 @@ class _LonginPageState extends State<UserLoginPage> {
                           SizedBox(
                             height: height * .04,
                           ),
-                          Container(
-                            width: width * .8,
-                            decoration: const BoxDecoration(),
-                            child: NeuBox(
-                              child: Container(
-                                height: height * .45,
-                                width: width * .8,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  border: Border.all(
-                                    color: Colors.black,
+                          Form(
+                            key: formKey,
+                            child: Container(
+                              width: width * .8,
+                              decoration: const BoxDecoration(),
+                              child: NeuBox(
+                                child: Container(
+                                  height: height * .45,
+                                  width: width * .8,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    border: Border.all(
+                                      color: Colors.black,
+                                    ),
                                   ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(20.0),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      const Text(
-                                        'Log In',
-                                        style: TextStyle(
-                                            color: loginColor,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Column(
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              SizedBox(
-                                                width: width * .02,
-                                              ),
-                                              const Text(
-                                                'Enter your phone number',
-                                                style: TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: height * .006,
-                                          ),
-                                          SizedBox(
-                                            height: height * .055,
-                                            child: TextFormField(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(20.0),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        const Text(
+                                          'Log In',
+                                          style: TextStyle(
+                                              color: loginColor,
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        Column(
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              children: [
+                                                SizedBox(
+                                                  width: width * .02,
+                                                ),
+                                                const Text(
+                                                  'Enter your phone number',
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: height * .006,
+                                            ),
+                                            TextFormField(
+                                              maxLength: 10,
                                               keyboardType:
                                                   TextInputType.number,
                                               focusNode: _focusNode,
                                               controller: mobilecontroller,
                                               decoration: InputDecoration(
-                                                // prefixText: '+91',
+                                                contentPadding:
+                                                    const EdgeInsets.fromLTRB(
+                                                        20, 5, 5, 5),
                                                 hintText: '  Enter your number',
                                                 border: OutlineInputBorder(
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                    10,
+                                                    15,
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Column(
-                                        children: [
-                                          SizedBox(
-                                            width: width * .64,
-                                            child: ElevatedButton(
-                                              style: ElevatedButton.styleFrom(
-                                                backgroundColor: buttonColor,
-                                                elevation: 0,
-                                                shape: RoundedRectangleBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                ),
-                                              ),
-                                              child: const Text(
-                                                'Login',
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 18),
-                                              ),
-                                              onPressed: () {
-                                                _focusNode.unfocus();
-
-                                                String finalNumber =
-                                                    countryCode +
-                                                        mobilecontroller.text;
-
-                                                loginProvider.setProgress(true);
-                                                Provider.of<FireBaseAuthService>(
-                                                        context,
-                                                        listen: false)
-                                                    .signInWithPhone(context,
-                                                        finalNumber.trim());
+                                              validator: (value) {
+                                                if (value!.isEmpty) {
+                                                  return 'Please enter phone number.';
+                                                } else if (value.length < 10) {
+                                                  return 'Enter valid phone number.';
+                                                }
+                                                return null;
                                               },
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                        Column(
+                                          children: [
+                                            SizedBox(
+                                              width: width * .64,
+                                              child: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: buttonColor,
+                                                  elevation: 0,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            50),
+                                                  ),
+                                                ),
+                                                child: const Text(
+                                                  'Login',
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 18),
+                                                ),
+                                                onPressed: () {
+                                                  _focusNode.unfocus();
+                                                  if (formKey.currentState!
+                                                      .validate()) {
+                                                    formKey.currentState!
+                                                        .save();
+                                                    String finalNumber =
+                                                        countryCode +
+                                                            mobilecontroller
+                                                                .text;
+
+                                                    loginProvider
+                                                        .setProgress(true);
+                                                    Provider.of<FireBaseAuthService>(
+                                                            context,
+                                                            listen: false)
+                                                        .signInWithPhone(
+                                                            context,
+                                                            finalNumber.trim());
+                                                  }
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
