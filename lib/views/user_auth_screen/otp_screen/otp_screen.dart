@@ -86,93 +86,103 @@ class _OTPScreenState extends State<OTPScreen> {
       body: Consumer<OtpProvider>(
         builder: (context, otpProvider, _) => Column(
           children: [
-            otpProvider.showProgress
-                ? const SpinKitChasingDots(
-                    color: Colors.blue,
-                    size: 150,
-                  )
-                : Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const SizedBox(height: 20),
-                        const Text('Verify your OTP'),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        SizedBox(
-                          child: OtpTextField(
-                            focusedBorderColor: buttonColor,
-                            cursorColor: buttonColor,
-                            numberOfFields: 6,
-                            borderColor: buttonColor,
-                            showFieldAsBox: true,
-                            keyboardType: TextInputType.number,
-                            onSubmit: (val) async {
-                              if (val.length == 6) {
-                                SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
-                                otpProvider.setProgress(true);
-                                final userOtp = val.trim();
-
-                                bool otpStatus =
-                                    // ignore: use_build_context_synchronously
-                                    await verifyOTP(context, userOtp);
-                                if (otpStatus == true) {
-                                  log('in otp :  ${widget.phoneNumber.toString()}');
-
-                                  final phoneNumber =
-                                      widget.phoneNumber.toString();
-                                  prefs.setString('phoneNumber', phoneNumber);
-
-                                  // ignore: use_build_context_synchronously
-                                  Provider.of<DbAuthService>(context,
-                                          listen: false)
-                                      .loginUser(context, widget.phoneNumber);
-                                } else {
-                                  otpProvider.setProgress(false);
-                                  // ignore: use_build_context_synchronously
-                                  showItemSnackBar(context,
-                                      massage: 'Invalid Otp !',
-                                      color: Colors.red);
-                                }
-                              }
-                            },
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 40,
-                        ),
-                        _start > 0
-                            ? Text(
-                                'Time remaining  : ${getFormattedTime()}',
-                                style: const TextStyle(fontSize: 16),
-                              )
-                            : Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    const Text("Did'nt received a code?"),
-                                    InkWell(
-                                      onTap: () {
-                                        // ref
-                                        //     .read(authControllerProvider)
-                                        //     .signInWithPhone(context, widget.phoneNumber);
-                                      },
-                                      child: const Text(
-                                        "Resend OTP",
-                                        style: TextStyle(color: Colors.blue),
-                                      ),
-                                    ),
-                                  ],
+            // otpProvider.showProgress
+            //     ? const SpinKitChasingDots(
+            //         color: Colors.blue,
+            //         size: 150,
+            //       )
+            //     :
+            Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(height: 20),
+                  const Text('Verify your OTP'),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  SizedBox(
+                    child: OtpTextField(
+                      focusedBorderColor: buttonColor,
+                      cursorColor: buttonColor,
+                      numberOfFields: 6,
+                      borderColor: buttonColor,
+                      showFieldAsBox: true,
+                      keyboardType: TextInputType.number,
+                      onSubmit: (val) async {
+                        if (val.length == 6) {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return const Center(
+                                child: CircularProgressIndicator(
+                                  backgroundColor: buttonColor,
+                                  color: Colors.amber,
+                                  strokeWidth: 6,
+                                  strokeAlign: 3,
                                 ),
-                              ),
-                      ],
+                              );
+                            },
+                          );
+                          SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          otpProvider.setProgress(true);
+                          final userOtp = val.trim();
+
+                          bool otpStatus =
+                              // ignore: use_build_context_synchronously
+                              await verifyOTP(context, userOtp);
+                          if (otpStatus == true) {
+                            log('in otp :  ${widget.phoneNumber.toString()}');
+
+                            final phoneNumber = widget.phoneNumber.toString();
+                            prefs.setString('phoneNumber', phoneNumber);
+
+                            // ignore: use_build_context_synchronously
+                            Provider.of<DbAuthService>(context, listen: false)
+                                .loginUser(context, widget.phoneNumber);
+                          } else {
+                            otpProvider.setProgress(false);
+                            // ignore: use_build_context_synchronously
+                            showItemSnackBar(context,
+                                massage: 'Invalid Otp !', color: Colors.red);
+                          }
+                        }
+                      },
                     ),
                   ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  _start > 0
+                      ? Text(
+                          'Time remaining  : ${getFormattedTime()}',
+                          style: const TextStyle(fontSize: 16),
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              const Text("Did'nt received a code?"),
+                              InkWell(
+                                onTap: () {
+                                  // ref
+                                  //     .read(authControllerProvider)
+                                  //     .signInWithPhone(context, widget.phoneNumber);
+                                },
+                                child: const Text(
+                                  "Resend OTP",
+                                  style: TextStyle(color: Colors.blue),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

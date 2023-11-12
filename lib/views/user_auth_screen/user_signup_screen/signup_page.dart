@@ -16,6 +16,7 @@ class UserSignupPage extends StatefulWidget {
 
 class _LonginPageState extends State<UserSignupPage> {
   TextEditingController name = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -94,12 +95,14 @@ class _LonginPageState extends State<UserSignupPage> {
                           SizedBox(
                             height: height * .006,
                           ),
-                          SizedBox(
-                            height: height * .055,
+                          Form(
+                            key: formKey,
                             child: TextFormField(
                               keyboardType: TextInputType.name,
                               controller: name,
                               decoration: InputDecoration(
+                                contentPadding:
+                                    const EdgeInsets.fromLTRB(20, 5, 5, 5),
                                 hintText: 'Enter your full name here',
                                 hintStyle: const TextStyle(color: Colors.grey),
                                 border: OutlineInputBorder(
@@ -108,6 +111,12 @@ class _LonginPageState extends State<UserSignupPage> {
                                   ),
                                 ),
                               ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter your name.';
+                                }
+                                return null;
+                              },
                             ),
                           ),
                           SizedBox(
@@ -129,16 +138,31 @@ class _LonginPageState extends State<UserSignupPage> {
                                     color: Colors.white, fontSize: 18),
                               ),
                               onPressed: () async {
-                                SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
+                                if (formKey.currentState!.validate()) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return const Center(
+                                        child: CircularProgressIndicator(
+                                          backgroundColor: buttonColor,
+                                          color: Colors.amber,
+                                          strokeWidth: 6,
+                                          strokeAlign: 3,
+                                        ),
+                                      );
+                                    },
+                                  );
+                                  SharedPreferences prefs =
+                                      await SharedPreferences.getInstance();
 
-                                final token = prefs.getString('token');
-                                prefs.setString('customerName', name.text);
-                                // ignore: use_build_context_synchronously
-                                Provider.of<DbAuthService>(context,
-                                        listen: false)
-                                    .saveUserName(
-                                        context, name.text, token.toString());
+                                  final token = prefs.getString('token');
+                                  prefs.setString('customerName', name.text);
+                                  // ignore: use_build_context_synchronously
+                                  Provider.of<DbAuthService>(context,
+                                          listen: false)
+                                      .saveUserName(
+                                          context, name.text, token.toString());
+                                }
                               },
                             ),
                           ),
