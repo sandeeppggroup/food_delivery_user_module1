@@ -5,6 +5,7 @@ import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';
 import 'package:user_module/control/home_control/service/home_service.dart';
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
+import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/home_model/product_model.dart';
 import 'package:user_module/widget/show_dialog.dart';
 
@@ -31,7 +32,14 @@ class ProductProvider extends ChangeNotifier {
       _productList = result;
     } else {
       Fluttertoast.showToast(
-          msg: 'Oops! Something went wrong. Please try again');
+        msg:
+            'Oops! Something went wrong.  \nplease check your network connection',
+        backgroundColor: buttonColor,
+        toastLength: Toast.LENGTH_LONG,
+        fontSize: 15,
+      );
+      _productList = [];
+      notifyListeners();
       return;
     }
     notifyListeners();
@@ -62,7 +70,22 @@ class ProductProvider extends ChangeNotifier {
   }
 
   Future<void> fetchAllProducts() async {
-    _productList = await homeService.getAllProduct();
+    final result = await homeService.getAllProduct();
+    if (result != null) {
+      _productList = result;
+      notifyListeners();
+    } else {
+      Fluttertoast.showToast(
+        msg:
+            'Oops! Something went wrong.  \nplease check your network connection',
+        backgroundColor: buttonColor,
+        toastLength: Toast.LENGTH_LONG,
+        fontSize: 15,
+      );
+      _productList = [];
+      notifyListeners();
+      return;
+    }
     notifyListeners();
   }
 

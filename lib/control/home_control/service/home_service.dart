@@ -34,7 +34,7 @@ class HomeService {
     return null;
   }
 
-  Future<List<ProductModel>> getAllProduct() async {
+  Future<List<ProductModel>?> getAllProduct() async {
     final productUrl = ApiBaseUrl().baseUrl + ApiEndUrl().getProduct;
     try {
       Response response = await dio.get(productUrl);
@@ -53,9 +53,9 @@ class HomeService {
       }
     } catch (e) {
       log('Error : $e');
-      return [];
+      return null;
     }
-    return [];
+    return null;
   }
 
   Future<List<ProductModel>?> getCategoryWiseProduct(String categoryId) async {
