@@ -93,4 +93,26 @@ class AddressProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  Future<void> deleteAddress(String addressId, BuildContext context) async {
+    final result = await addressService.deleteAddress(addressId);
+    if (result == true) {
+      getAllAddress();
+      notifyListeners();
+      Fluttertoast.showToast(
+        msg: 'Deleted address successfully',
+        backgroundColor: buttonColor,
+        fontSize: 15,
+        toastLength: Toast.LENGTH_LONG,
+      );
+    } else {
+      Fluttertoast.showToast(
+        msg: 'Something went wrong',
+        backgroundColor: buttonColor,
+        fontSize: 15,
+        toastLength: Toast.LENGTH_LONG,
+      );
+      Navigator.pop(context);
+    }
+  }
 }

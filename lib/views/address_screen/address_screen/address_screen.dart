@@ -5,6 +5,7 @@ import 'package:user_module/control/address_controller/provider/address_provider
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/address_model/address_model.dart';
 import 'package:user_module/widget/logo.dart';
+import 'package:user_module/widget/show_dialog.dart';
 
 class AddressScreen extends StatelessWidget {
   const AddressScreen({super.key});
@@ -12,7 +13,7 @@ class AddressScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
-
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: WillPopScope(
         onWillPop: () async {
@@ -87,13 +88,15 @@ class AddressScreen extends StatelessWidget {
                                 return Column(
                                   children: [
                                     Container(
-                                      height: height * 0.17,
+                                      height: height * 0.19,
                                       width: double.infinity,
                                       decoration: const BoxDecoration(
                                           color: Colors.white),
                                       child: Padding(
                                         padding: const EdgeInsets.all(15.0),
                                         child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
                                             Radio<AddressModel>(
                                               value: address,
@@ -107,32 +110,52 @@ class AddressScreen extends StatelessWidget {
                                               },
                                             ),
                                             // Checkbox(value: value, onChanged: onChanged),
-                                            Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  address.name,
-                                                  style: const TextStyle(
-                                                      fontSize: 17,
-                                                      fontWeight:
-                                                          FontWeight.w500),
-                                                ),
-                                                Text(
-                                                    '${address.address} (H), ${address.post} (PO),'),
-                                                Text(
-                                                    '${address.street}, ${address.city},'),
-                                                Text(
-                                                    '${address.state} - ${address.pin}'),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Text(address.mobile),
-                                              ],
+                                            SizedBox(
+                                              height: height * 0.5,
+                                              width: width * 0.66,
+                                              child: Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    address.name,
+                                                    style: const TextStyle(
+                                                        fontSize: 17,
+                                                        fontWeight:
+                                                            FontWeight.w500),
+                                                  ),
+                                                  Text(
+                                                      '${address.address} (H),\n${address.post} (PO),'),
+                                                  Text(
+                                                      '${address.street}, ${address.city},'),
+                                                  Text(
+                                                      '${address.state} - ${address.pin}'),
+                                                  const SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Text(address.mobile),
+                                                ],
+                                              ),
                                             ),
+                                            IconButton(
+                                                onPressed: () {
+                                                  log('address id: ${address.id}');
+                                                  showDeleteConfirmationDialog(
+                                                      context,
+                                                      onPressedFunction: () {
+                                                    addressProvider
+                                                        .deleteAddress(
+                                                            address.id!,
+                                                            context);
+                                                    Navigator.pop(context);
+                                                  },
+                                                      massage:
+                                                          'Are you sure you want to delete this address');
+                                                },
+                                                icon: const Icon(Icons.delete))
                                           ],
                                         ),
                                       ),

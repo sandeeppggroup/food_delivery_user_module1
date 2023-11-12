@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_module/core/constants/api/api_base_url.dart';
 import 'package:user_module/core/constants/api/api_end_url.dart';
@@ -9,6 +10,7 @@ import 'package:user_module/model/address_model/address_model.dart';
 class AddressService {
   final addAddressUrl = ApiBaseUrl().baseUrl + ApiEndUrl().addAddress;
   final getAllAdress = ApiBaseUrl().baseUrl + ApiEndUrl().getAllAddress;
+  final deleteAddressUrl = ApiBaseUrl().baseUrl + ApiEndUrl().deleteAddress;
 
   Dio dio = Dio();
 
@@ -63,6 +65,32 @@ class AddressService {
     } catch (e) {
       log('Error $e');
       return [];
+    }
+  }
+
+  Future<bool> deleteAddress(String addressId) async {
+    final deleteUrl = deleteAddressUrl + addressId;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    log('addresId : $addressId, token : $token');
+    try {
+      Response response = await dio.delete(
+        deleteUrl,
+        options: Options(
+          headers: {'Authorization': 'Bearer $token'},
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        log('success: ${response.data}');
+        return true;
+      } else {
+        log('message : ${response.data.toString()}');
+        return false;
+      }
+    } catch (e) {
+      log('Delete Error : $e');
+      return false;
     }
   }
 }
