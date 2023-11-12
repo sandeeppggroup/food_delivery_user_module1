@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:user_module/control/place_order_payment_provider/provider/place_order_payment_provider.dart';
+import 'package:user_module/core/colors/colors.dart';
 
 Future<void> bottomSheetPaymentOption(BuildContext context, int cartSum) async {
   final placeOrderPaymentProvider =
@@ -31,6 +32,19 @@ Future<void> bottomSheetPaymentOption(BuildContext context, int cartSum) async {
                   ),
                   ElevatedButton(
                     onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              backgroundColor: buttonColor,
+                              color: Colors.amber,
+                              strokeWidth: 6,
+                              strokeAlign: 3,
+                            ),
+                          );
+                        },
+                      );
                       placeOrderPaymentProvider.cashOnDelivery(
                           'COD', cartSum, context);
                     },
@@ -54,7 +68,19 @@ Future<void> bottomSheetPaymentOption(BuildContext context, int cartSum) async {
                   ElevatedButton(
                     onPressed: () async {
                       log('$cartSum');
-
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return const Center(
+                            child: CircularProgressIndicator(
+                              backgroundColor: buttonColor,
+                              color: Colors.amber,
+                              strokeWidth: 6,
+                              strokeAlign: 3,
+                            ),
+                          );
+                        },
+                      );
                       placeOrderPaymentProvider.onlinePaymentBackend(
                           'Online', cartSum, context);
                     },

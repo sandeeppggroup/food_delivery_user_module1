@@ -97,23 +97,6 @@ class ProductViewPage extends StatelessWidget {
                                     },
                                   ),
                                 ),
-
-                                // RatingBar.builder(
-                                //   initialRating: 5,
-                                //   // minRating: 1,
-                                //   itemCount: 5,
-                                //   itemBuilder: (context, index) {
-                                //     return const Icon(
-                                //       Icons.star,
-                                //       color: Colors.amber,
-                                //       size: 10,
-                                //     );
-                                //   },
-                                //   onRatingUpdate: (rating) {
-                                //     print('Rating : $rating');
-                                //     log('rating : $rating');
-                                //   },
-                                // ),
                                 const Spacer(),
                                 Text(
                                   description.toString(),
@@ -155,44 +138,22 @@ class ProductViewPage extends StatelessWidget {
                             width: width * 0.6,
                             child: ElevatedButton(
                               onPressed: () async {
-                                dynamic result =
-                                    await Provider.of<ProductViewProvider>(
-                                            context,
-                                            listen: false)
-                                        .addToCart(productId.toString());
-
-                                if (result == true) {
-                                  // ignore: use_build_context_synchronously
-                                  showItemSnackBar(context,
-                                      massage:
-                                          'Item added to cart successfully',
-                                      color: Colors.green);
-
-                                  // ignore: use_build_context_synchronously
-                                  Provider.of<ProductViewProvider>(context,
-                                          listen: false)
-                                      .initialQuantity = '1';
-
-                                  // ignore: use_build_context_synchronously
-                                  Provider.of<ProductViewProvider>(context,
-                                          listen: false)
-                                      .initialPrize = null;
-
-                                  // ignore: use_build_context_synchronously
-                                  Provider.of<CartProvider>(context,
-                                          listen: false)
-                                      .fetchCartData();
-
-                                  // ignore: use_build_context_synchronously
-                                  Navigator.pushReplacementNamed(
-                                      context, '/cart_screen');
-                                } else {
-                                  // ignore: use_build_context_synchronously
-                                  showItemSnackBar(context,
-                                      massage: 'something went wrong',
-                                      color: Colors.red);
-                                  return;
-                                }
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(
+                                        backgroundColor: buttonColor,
+                                        color: Colors.amber,
+                                        strokeWidth: 6,
+                                        strokeAlign: 3,
+                                      ),
+                                    );
+                                  },
+                                );
+                                await Provider.of<ProductViewProvider>(context,
+                                        listen: false)
+                                    .addToCart(productId.toString(), context);
                               },
                               style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(

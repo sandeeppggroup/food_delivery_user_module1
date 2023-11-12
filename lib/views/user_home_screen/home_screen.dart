@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -113,6 +115,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                       child: IconButton(
                         onPressed: () {
                           Navigator.pushNamed(context, '/cart_screen');
+
                           Provider.of<CartProvider>(context, listen: false)
                               .fetchCartData();
                         },

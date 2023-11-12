@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -117,14 +119,15 @@ class ProductProvider extends ChangeNotifier {
   void addToCart(String productId, BuildContext context) async {
     productViewProvider.initialQuantity = '1';
 
-    final result = await productViewProvider.addToCart(productId);
+    final result = await productViewProvider.addToCartFromHome(
+      productId,
+    );
     if (result == true) {
-      // ignore: use_build_context_synchronously
       cartProvider.fetchCartData();
 
-      // ignore: use_build_context_synchronously
       showItemSnackBar(context,
           massage: 'Item added to cart successfully', color: Colors.green);
+      Navigator.pop(context);
     }
   }
 }

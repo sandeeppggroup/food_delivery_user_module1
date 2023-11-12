@@ -71,6 +71,19 @@ class ProductHomeListView extends StatelessWidget {
                                     padding: const EdgeInsets.only(left: 110),
                                     child: IconButton(
                                       onPressed: () async {
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return const Center(
+                                              child: CircularProgressIndicator(
+                                                backgroundColor: buttonColor,
+                                                color: Colors.amber,
+                                                strokeWidth: 6,
+                                                strokeAlign: 3,
+                                              ),
+                                            );
+                                          },
+                                        );
                                         productProvider.addToCart(
                                             product.id.toString(), context);
                                         context

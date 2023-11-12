@@ -93,7 +93,7 @@ class DbAuthService extends ChangeNotifier {
 
   Future<dynamic> checkTokenStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString('token', 'token');
+    // await prefs.setString('token', 'token');
     // await prefs.setString('token',
     //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDc3OTc3MWZhMjVmZDVmMjFhMGFjOCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjk5NzcwNjUxLCJleHAiOjE2OTk4NTcwNTF9.1CmjfdjkoiwSgOFGyiFzt-3xirm6prSqEtp_siS9lLA');
     await Future.delayed(const Duration(seconds: 3));
