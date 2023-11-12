@@ -1,6 +1,10 @@
 import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import 'package:user_module/control/authentication/provider_login/login_provider.dart';
+import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/views/user_auth_screen/otp_screen/otp_screen.dart';
 
 class FireBaseAuthService extends ChangeNotifier {
@@ -22,13 +26,24 @@ class FireBaseAuthService extends ChangeNotifier {
         verificationFailed: (e) {
           log(e.toString());
           if (e.code == 'invalid-phone-number') {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content:
-                    Text('Error, the provider phone number is invalid $e')));
+            Fluttertoast.showToast(
+                msg:
+                    'An error occurred. Please try again later : ${e.message.toString()}',
+                fontSize: 16,
+                backgroundColor: buttonColor,
+                toastLength: Toast.LENGTH_LONG);
+            Provider.of<LoginProvider>(context, listen: false)
+                .setProgress(false);
+            return;
           } else {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                content:
-                    Text('Error, something went wrong. please try again $e')));
+            Fluttertoast.showToast(
+                msg:
+                    'An error occurred. Please try again later : ${e.message.toString()}',
+                fontSize: 16,
+                backgroundColor: buttonColor,
+                toastLength: Toast.LENGTH_LONG);
+            Provider.of<LoginProvider>(context, listen: false)
+                .setProgress(false);
           }
           throw Exception(e.message);
         },

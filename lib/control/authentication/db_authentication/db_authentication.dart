@@ -93,7 +93,9 @@ class DbAuthService extends ChangeNotifier {
 
   Future<dynamic> checkTokenStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
+    // await prefs.setString('token', 'token');
+    // await prefs.setString('token',
+    //     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NDc3OTc3MWZhMjVmZDVmMjFhMGFjOCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNjk5NzcwNjUxLCJleHAiOjE2OTk4NTcwNTF9.1CmjfdjkoiwSgOFGyiFzt-3xirm6prSqEtp_siS9lLA');
     await Future.delayed(const Duration(seconds: 3));
 
     final token = prefs.getString('token');
@@ -118,8 +120,12 @@ class DbAuthService extends ChangeNotifier {
             return response.data['success'];
           }
         }
-      } catch (e) {
-        log('error in check in user log :  $e');
+      } on DioException catch (e) {
+        log('error in check in user log :  ${e.response?.data['success']}');
+        if (e.response?.data['success'] == false) {
+          return false;
+        }
+
         return null;
       }
     } else {

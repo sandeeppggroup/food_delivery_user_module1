@@ -11,7 +11,7 @@ class HomeService {
 
   final Dio dio = Dio();
 
-  Future<List<CategoryModel>> getAllCategory() async {
+  Future<List<CategoryModel>?> getAllCategory() async {
     try {
       Response response = await dio.get(categoryUrl);
       if (response.statusCode == 200) {
@@ -26,13 +26,12 @@ class HomeService {
         return categories;
       } else {
         log("Failed to get category : ${response.statusCode}");
-        return [];
       }
     } catch (e) {
       log('Error : $e');
-      return [];
+      return null;
     }
-    // return [];
+    return null;
   }
 
   Future<List<ProductModel>> getAllProduct() async {

@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:user_module/control/home_control/service/home_service.dart';
+import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/home_model/category_model.dart';
 
 class CategoryProvider extends ChangeNotifier {
@@ -28,11 +30,6 @@ class CategoryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // set setselectedIndex(dynamic value) {
-  //   _selectedIndex = value;
-  //   notifyListeners();
-  // }
-
   void selectCategory(CategoryModel categoryId) {
     _categoryName = categoryId.name;
     _categoryId = categoryId.id;
@@ -41,7 +38,18 @@ class CategoryProvider extends ChangeNotifier {
   }
 
   Future<void> fetchCategories() async {
-    _categories = await homeService.getAllCategory();
+    final result = await homeService.getAllCategory();
+
+    if (result != null) {
+      _categories = result;
+    } else {
+      Fluttertoast.showToast(
+          msg: 'Oops! Something went wrong. Please try again',
+          fontSize: 16,
+          toastLength: Toast.LENGTH_LONG,
+          backgroundColor: buttonColor);
+      return;
+    }
     notifyListeners();
   }
 }
