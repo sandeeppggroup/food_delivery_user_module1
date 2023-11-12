@@ -1,8 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
 import 'dart:async';
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_module/control/authentication/db_authentication/db_authentication.dart';
@@ -77,7 +77,6 @@ class _OTPScreenState extends State<OTPScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // AuthService authService = AuthService(auth: );
     return Scaffold(
       appBar: AppBar(
         backgroundColor: userAppBar,
@@ -86,12 +85,6 @@ class _OTPScreenState extends State<OTPScreen> {
       body: Consumer<OtpProvider>(
         builder: (context, otpProvider, _) => Column(
           children: [
-            // otpProvider.showProgress
-            //     ? const SpinKitChasingDots(
-            //         color: Colors.blue,
-            //         size: 150,
-            //       )
-            //     :
             Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -130,21 +123,17 @@ class _OTPScreenState extends State<OTPScreen> {
                           otpProvider.setProgress(true);
                           final userOtp = val.trim();
 
-                          bool otpStatus =
-                              // ignore: use_build_context_synchronously
-                              await verifyOTP(context, userOtp);
+                          bool otpStatus = await verifyOTP(context, userOtp);
                           if (otpStatus == true) {
                             log('in otp :  ${widget.phoneNumber.toString()}');
 
                             final phoneNumber = widget.phoneNumber.toString();
                             prefs.setString('phoneNumber', phoneNumber);
 
-                            // ignore: use_build_context_synchronously
                             Provider.of<DbAuthService>(context, listen: false)
                                 .loginUser(context, widget.phoneNumber);
                           } else {
                             otpProvider.setProgress(false);
-                            // ignore: use_build_context_synchronously
                             showItemSnackBar(context,
                                 massage: 'Invalid Otp !', color: Colors.red);
                           }
@@ -167,11 +156,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             children: [
                               const Text("Did'nt received a code?"),
                               InkWell(
-                                onTap: () {
-                                  // ref
-                                  //     .read(authControllerProvider)
-                                  //     .signInWithPhone(context, widget.phoneNumber);
-                                },
+                                onTap: () {},
                                 child: const Text(
                                   "Resend OTP",
                                   style: TextStyle(color: Colors.blue),

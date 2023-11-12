@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -29,10 +28,6 @@ class OrderHistoryScreen extends StatelessWidget {
             itemCount: orderDatas.length,
             itemBuilder: (context, index) {
               OrderData orderData = orderDatas[index];
-              String originalDateString = orderData.orderDate.toString();
-              DateTime originalDate = DateTime.parse(originalDateString);
-              DateFormat dateFormat = DateFormat('dd/MM/yyyy : HH-mm');
-              String orderDat = dateFormat.format(originalDate);
 
               String orderDate = dateTimeFormat(orderData.orderDate.toString());
               String? pickupDate =
@@ -40,12 +35,6 @@ class OrderHistoryScreen extends StatelessWidget {
 
               String? pickupTime =
                   timeFormatPickup(orderData.pickupTime.toString());
-
-              log('pickup date & time : ${orderData.pickupDate}  :  ${orderData.pickupTime}');
-              // String pickupDateString = orderData.pickupDate.toString();
-              // DateTime originalPickDate = DateTime.parse(pickupDateString);
-
-              // DateFormat dateFormatPickup = DateFormat('dd/MM/yyyy : HH-mm');
 
               return Card(
                 color: userAppBar,
@@ -175,7 +164,7 @@ class OrderHistoryScreen extends StatelessWidget {
                       const Divider(
                         thickness: 2,
                       ),
-                      // ${order.totalAmount.toStringAsFixed(2)}
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -195,7 +184,6 @@ class OrderHistoryScreen extends StatelessWidget {
                         ],
                       ),
 
-                      // ${order.paymentMode}
                       Text('Payment Mode: ${orderData.payment}',
                           style: const TextStyle(
                               fontSize: 15, fontWeight: FontWeight.bold)),
