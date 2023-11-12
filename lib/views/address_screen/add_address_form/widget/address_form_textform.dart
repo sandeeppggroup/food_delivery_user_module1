@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:user_module/core/colors/colors.dart';
 
 // ignore: must_be_immutable
 class AddressFormTextForm extends StatelessWidget {
@@ -8,38 +7,40 @@ class AddressFormTextForm extends StatelessWidget {
   String hintText;
   TextInputType keyBordType;
   FocusNode focusNode;
-  AddressFormTextForm({
-    super.key,
-    required this.controller,
-    required this.label,
-    required this.hintText,
-    required this.keyBordType,
-    required this.focusNode,
-  });
+  int length;
+  String? Function(String?)? validator;
+  AddressFormTextForm(
+      {super.key,
+      required this.controller,
+      required this.label,
+      required this.hintText,
+      required this.keyBordType,
+      required this.focusNode,
+      required this.validator,
+      required this.length});
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     return Padding(
-      padding: const EdgeInsets.only(left: 25.0, right: 25, top: 8, bottom: 8),
-      child: SizedBox(
-        height: height * 0.06,
-        child: TextFormField(
-          keyboardAppearance: Brightness.dark,
-          controller: controller,
-          keyboardType: keyBordType,
-          decoration: InputDecoration(
-            fillColor: Colors.white54,
-            filled: true,
-            label: Text(
-              label,
-              style: const TextStyle(fontSize: 18, color: buttonColor),
-            ),
-            hintText: hintText,
-            hintStyle: const TextStyle(color: Colors.grey),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
+      padding: const EdgeInsets.only(left: 25.0, right: 25, top: 2, bottom: 2),
+      child: TextFormField(
+        keyboardAppearance: Brightness.dark,
+        controller: controller,
+        keyboardType: keyBordType,
+        maxLength: length,
+        validator: validator,
+        decoration: InputDecoration(
+          contentPadding: const EdgeInsets.fromLTRB(20, 5, 5, 5),
+          fillColor: Colors.white54,
+          filled: true,
+          label: Text(
+            label,
+            style: const TextStyle(fontSize: 15, color: Colors.blue),
+          ),
+          hintText: hintText,
+          hintStyle: const TextStyle(color: Colors.grey),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
         ),
       ),

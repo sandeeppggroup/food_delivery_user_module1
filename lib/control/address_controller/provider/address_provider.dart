@@ -1,7 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:user_module/control/address_controller/service/address_service.dart';
+import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/address_model/address_model.dart';
 
 class AddressProvider extends ChangeNotifier {
@@ -34,6 +38,7 @@ class AddressProvider extends ChangeNotifier {
         AddressModel selectedAddress1 = _addressList[i];
         _selectedAddress = selectedAddress1;
         log('Get first address: ${selectedAddress1.name}');
+        // log('order id : ${_selectedAddress.id}');
         notifyListeners();
       }
     } else {
@@ -51,12 +56,33 @@ class AddressProvider extends ChangeNotifier {
     return _selectedAddress;
   }
 
-  Future<void> addAddress(AddressModel addressModel) async {
+  Future<void> addAddress(
+      AddressModel addressModel, BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(
+            backgroundColor: buttonColor,
+            color: Colors.amber,
+            strokeWidth: 6,
+            strokeAlign: 3,
+          ),
+        );
+      },
+    );
     final result = await addressService.addAddress(addressModel);
     log('message in address Provider : ${result.toString()}');
     if (result == true) {
       getAllAddress();
+      Navigator.pushNamed(context, '/address_screen');
     } else {
+      Fluttertoast.showToast(
+        msg: 'Something went wrong',
+        backgroundColor: buttonColor,
+        fontSize: 15,
+      );
+      Navigator.pushNamed(context, '/address_screen');
       return;
     }
   }

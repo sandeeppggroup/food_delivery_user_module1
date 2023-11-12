@@ -11,6 +11,7 @@ import 'package:user_module/widget/logo.dart';
 
 class AddAddressForm extends StatelessWidget {
   AddAddressForm({super.key});
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController name = TextEditingController();
   TextEditingController address = TextEditingController();
   TextEditingController street = TextEditingController();
@@ -30,14 +31,14 @@ class AddAddressForm extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: height * 0.06,
+              height: height * 0.034,
             ),
-            Logo(height: height * 0.08),
+            Logo(height: height * 0.06),
             SizedBox(
               height: height * 0.01,
             ),
             Container(
-              height: height * .83,
+              height: height * .875,
               width: double.infinity,
               decoration: const BoxDecoration(
                   color: userAppBar,
@@ -60,88 +61,152 @@ class AddAddressForm extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Column(
-                      children: [
-                        AddressFormTextForm(
-                          focusNode: focusNode,
-                          controller: name,
-                          label: 'Name',
-                          hintText: 'Enter your name',
-                          keyBordType: TextInputType.name,
-                        ),
-                        AddressFormTextForm(
-                          focusNode: focusNode,
-                          controller: address,
-                          label: 'Address',
-                          hintText: 'Enter your sddress',
-                          keyBordType: TextInputType.streetAddress,
-                        ),
-                        AddressFormTextForm(
-                          focusNode: focusNode,
-                          controller: street,
-                          label: 'Street',
-                          hintText: 'Enter your street',
-                          keyBordType: TextInputType.streetAddress,
-                        ),
-                        AddressFormTextForm(
-                          focusNode: focusNode,
-                          controller: post,
-                          label: 'Post',
-                          hintText: 'Enter your post',
-                          keyBordType: TextInputType.streetAddress,
-                        ),
-                        AddressFormTextForm(
-                          focusNode: focusNode,
-                          controller: city,
-                          label: 'City',
-                          hintText: 'Enter your city',
-                          keyBordType: TextInputType.streetAddress,
-                        ),
-                        AddressFormTextForm(
-                          focusNode: focusNode,
-                          controller: pin,
-                          label: 'Pin Code',
-                          hintText: 'Enter your pin code',
-                          keyBordType: TextInputType.number,
-                        ),
-                        AddressFormTextForm(
-                          focusNode: focusNode,
-                          controller: state,
-                          label: 'State',
-                          hintText: 'Enter your state',
-                          keyBordType: TextInputType.streetAddress,
-                        ),
-                        AddressFormTextForm(
-                          focusNode: focusNode,
-                          controller: mobile,
-                          label: 'Mobile Number',
-                          hintText: 'Enter your mobile number',
-                          keyBordType: TextInputType.number,
-                        ),
-                        SizedBox(
-                          height: height * 0.02,
-                        ),
-                        ButtonSmall(
-                          label: "Submit",
-                          onPressed: () {
-                            // focusNode.dispose();
-                            int finalPin = int.parse(pin.text);
-                            Provider.of<AddressProvider>(context, listen: false)
-                                .addAddress(AddressModel(
-                              name: name.text,
-                              address: address.text,
-                              street: street.text,
-                              post: post.text,
-                              city: city.text,
-                              pin: finalPin,
-                              state: state.text,
-                              mobile: mobile.text,
-                            ));
+                    Form(
+                      key: formKey,
+                      child: Column(
+                        children: [
+                          AddressFormTextForm(
+                            length: 15,
+                            focusNode: focusNode,
+                            controller: name,
+                            label: 'Name',
+                            hintText: 'Enter your name',
+                            keyBordType: TextInputType.name,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Enter your full name.';
+                              }
+                              return null;
+                            },
+                          ),
+                          AddressFormTextForm(
+                            length: 20,
+                            focusNode: focusNode,
+                            controller: address,
+                            label: 'Address',
+                            hintText: 'Enter your address',
+                            keyBordType: TextInputType.streetAddress,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Enter your address.';
+                              }
+                              return null;
+                            },
+                          ),
+                          AddressFormTextForm(
+                            length: 20,
+                            focusNode: focusNode,
+                            controller: street,
+                            label: 'Street',
+                            hintText: 'Enter your street',
+                            keyBordType: TextInputType.streetAddress,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Enter your street.';
+                              }
+                              return null;
+                            },
+                          ),
+                          AddressFormTextForm(
+                            length: 20,
+                            focusNode: focusNode,
+                            controller: post,
+                            label: 'Post',
+                            hintText: 'Enter your post (PO)',
+                            keyBordType: TextInputType.streetAddress,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Enter post (PO).';
+                              }
+                              return null;
+                            },
+                          ),
+                          AddressFormTextForm(
+                            length: 15,
+                            focusNode: focusNode,
+                            controller: city,
+                            label: 'City',
+                            hintText: 'Enter your city name',
+                            keyBordType: TextInputType.streetAddress,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Enter your city name.';
+                              }
+                              return null;
+                            },
+                          ),
+                          AddressFormTextForm(
+                            length: 6,
+                            focusNode: focusNode,
+                            controller: pin,
+                            label: 'Pin Code',
+                            hintText: 'Enter your pin code',
+                            keyBordType: TextInputType.number,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter pin code.';
+                              } else if (value.length < 6 || value.length > 6) {
+                                return 'Enter valid pin code.';
+                              }
+                              return null;
+                            },
+                          ),
+                          AddressFormTextForm(
+                            length: 15,
+                            focusNode: focusNode,
+                            controller: state,
+                            label: 'State',
+                            hintText: 'Enter your state',
+                            keyBordType: TextInputType.streetAddress,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Enter state.';
+                              }
+                              return null;
+                            },
+                          ),
+                          AddressFormTextForm(
+                            length: 10,
+                            focusNode: focusNode,
+                            controller: mobile,
+                            label: 'Mobile Number',
+                            hintText: 'Enter your mobile number',
+                            keyBordType: TextInputType.number,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter phone number.';
+                              } else if (value.length != 10) {
+                                return 'Enter valid phone number.';
+                              }
+                              return null;
+                            },
+                          ),
+                          ButtonSmall(
+                            label: "Submit",
+                            onPressed: () {
+                              if (formKey.currentState!.validate()) {
+                                formKey.currentState!.save();
 
-                            Navigator.pop(context);
-                          },
-                        )
-                      ],
+                                int finalPin = int.parse(pin.text);
+                                Provider.of<AddressProvider>(context,
+                                        listen: false)
+                                    .addAddress(
+                                        AddressModel(
+                                          name: name.text.trim(),
+                                          address: address.text.trim(),
+                                          street: street.text.trim(),
+                                          post: post.text.trim(),
+                                          city: city.text.trim(),
+                                          pin: finalPin,
+                                          state: state.text.trim(),
+                                          mobile: mobile.text.trim(),
+                                        ),
+                                        context);
+                              }
+                            },
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),
