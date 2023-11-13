@@ -75,6 +75,8 @@ class AddressProvider extends ChangeNotifier {
     log('message in address Provider : ${result.toString()}');
     if (result == true) {
       getAllAddress();
+      Navigator.pop(context);
+      Navigator.pop(context);
       Navigator.pushNamed(context, '/address_screen');
     } else {
       Fluttertoast.showToast(
@@ -82,6 +84,8 @@ class AddressProvider extends ChangeNotifier {
         backgroundColor: buttonColor,
         fontSize: 15,
       );
+      Navigator.pop(context);
+      Navigator.pop(context);
       Navigator.pushNamed(context, '/address_screen');
       return;
     }

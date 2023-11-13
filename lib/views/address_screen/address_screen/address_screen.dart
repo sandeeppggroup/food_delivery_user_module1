@@ -113,7 +113,7 @@ class AddressScreen extends StatelessWidget {
                                             // Checkbox(value: value, onChanged: onChanged),
                                             SizedBox(
                                               height: height * 0.5,
-                                              width: width * 0.66,
+                                              width: width * 0.64,
                                               child: Column(
                                                 mainAxisAlignment:
                                                     MainAxisAlignment

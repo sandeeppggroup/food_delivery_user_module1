@@ -22,7 +22,10 @@ class AddressFormTextForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 25.0, right: 25, top: 2, bottom: 2),
+      padding: const EdgeInsets.only(
+        left: 25.0,
+        right: 25,
+      ),
       child: TextFormField(
         keyboardAppearance: Brightness.dark,
         controller: controller,
