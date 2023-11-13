@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:user_module/control/order_history/service/order_history_service.dart';
-import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/order_history_model/order_history_model.dart';
 
 class OrderHistoryProvider extends ChangeNotifier {

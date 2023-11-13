@@ -61,7 +61,8 @@ class OrderHistoryScreen extends StatelessWidget {
                                   color: orderData.orderStatus == 'ordered'
                                       ? Colors.grey
                                       : orderData.orderStatus == 'processing'
-                                          ? Color.fromARGB(255, 10, 162, 250)
+                                          ? const Color.fromARGB(
+                                              255, 10, 162, 250)
                                           : orderData.orderStatus ==
                                                   'out for delivery'
                                               ? Colors.green
