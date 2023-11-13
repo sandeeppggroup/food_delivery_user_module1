@@ -58,7 +58,20 @@ class OrderHistoryScreen extends StatelessWidget {
                             padding: const EdgeInsets.only(top: 8.0, bottom: 8),
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: Colors.grey,
+                                  color: orderData.orderStatus == 'ordered'
+                                      ? Colors.grey
+                                      : orderData.orderStatus == 'processing'
+                                          ? Color.fromARGB(255, 10, 162, 250)
+                                          : orderData.orderStatus ==
+                                                  'out for delivery'
+                                              ? Colors.green
+                                              : orderData.orderStatus ==
+                                                      'delivered'
+                                                  ? Colors.teal
+                                                  : orderData.orderStatus ==
+                                                          'cancelled'
+                                                      ? Colors.red
+                                                      : Colors.green,
                                   borderRadius: BorderRadius.circular(5)),
                               child: Padding(
                                 padding: const EdgeInsets.all(5.0),
