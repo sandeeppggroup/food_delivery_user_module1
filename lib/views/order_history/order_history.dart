@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:user_module/control/order_history/porvider/order_history_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/order_history_model/order_history_model.dart';
+import 'package:user_module/widget/show_dialog.dart';
 
 class OrderHistoryScreen extends StatelessWidget {
   const OrderHistoryScreen({
@@ -75,11 +76,30 @@ class OrderHistoryScreen extends StatelessWidget {
                               ? SizedBox(
                                   height: height * 0.035,
                                   child: ElevatedButton(
-                                      onPressed: () {
+                                    onPressed: () {
+                                      showDeleteConfirmationDialog(context,
+                                          onPressedFunction: () {
                                         orderHistoryprovider.cancelOrder(
-                                            orderData.id.toString());
+                                            orderData.id.toString(), context);
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return const Center(
+                                              child: CircularProgressIndicator(
+                                                backgroundColor: buttonColor,
+                                                color: Colors.amber,
+                                                strokeWidth: 6,
+                                                strokeAlign: 3,
+                                              ),
+                                            );
+                                          },
+                                        );
                                       },
-                                      child: const Text('Cancel Order')),
+                                          massage:
+                                              "Are you sure you want to cancel this order ?");
+                                    },
+                                    child: const Text('Cancel Order'),
+                                  ),
                                 )
                               : const SizedBox.shrink()
                         ],
