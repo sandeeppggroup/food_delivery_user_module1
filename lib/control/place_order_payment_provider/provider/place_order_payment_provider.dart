@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -8,6 +10,7 @@ import 'package:user_module/control/address_controller/provider/address_provider
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/place_order_payment_provider/service/payment_service.dart';
 import 'package:user_module/control/place_order_pickup/pickup_provider.dart';
+import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/address_model/address_model.dart';
 
 class PlaceOrderPaymentProvider extends ChangeNotifier {
@@ -44,7 +47,6 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
     if (result == true) {
       cartProvider.fetchCartData();
 
-      // ignore: use_build_context_synchronously
       Navigator.pushNamedAndRemoveUntil(
           context, '/after_payment_screen', (route) => false);
     }
@@ -71,8 +73,6 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
 
     log('details - PhoneNumber: $customerPhoneNumber, name: $customerName, payment: ${totalPayment.toString()}');
 
-    //   String orderId = "order_${DateTime.now().millisecondsSinceEpoch}"; // Generate a unique order ID
-    // String signature = generateSignature(orderId, totalPayment);
     var options = {
       'key': 'rzp_test_gpsSZl75alIqZ8',
       'amount': totalPayment, // which means Rs 200
@@ -103,8 +103,43 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
         Provider.of<AddressProvider>(context, listen: false);
     final cartProvider1 = Provider.of<CartProvider>(context, listen: false);
     final pickupProvider = Provider.of<PickupProvider>(context, listen: false);
-    AddressModel address = addressProvider1.selectedAddress;
 
+    if (addressProvider.selectedAddress.pin == 0 &&
+        addressProvider1.addressList.isEmpty) {
+      Fluttertoast.showToast(
+        msg: 'Please add your address',
+        backgroundColor: Colors.blue,
+        toastLength: Toast.LENGTH_LONG,
+        fontSize: 15,
+      );
+      Navigator.pushNamed(context, '/add_address_form');
+      return;
+    } else if (addressProvider1.selectedAddress.name.isEmpty) {
+      Fluttertoast.showToast(
+        msg: 'select your address',
+        backgroundColor: Colors.blue,
+        toastLength: Toast.LENGTH_LONG,
+        fontSize: 15,
+      );
+      Navigator.pushNamed(context, '/address_screen');
+      return;
+    }
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(
+            backgroundColor: buttonColor,
+            color: Colors.amber,
+            strokeWidth: 6,
+            strokeAlign: 3,
+          ),
+        );
+      },
+    );
+
+    AddressModel address = addressProvider1.selectedAddress;
     String orderType = cartProvider1.selectedOption.toString();
     final pickupdate = pickupProvider.selectedDay;
     final pickupTime = pickupProvider.selectedTime;
@@ -129,6 +164,43 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
     final cartProvider1 = Provider.of<CartProvider>(context, listen: false);
     final pickupProvider = Provider.of<PickupProvider>(context, listen: false);
 
+    log('in online :  ${addressProvider1.selectedAddress.name}');
+
+    if (addressProvider.selectedAddress.pin == 0 &&
+        addressProvider1.addressList.isEmpty) {
+      Fluttertoast.showToast(
+        msg: 'Please add your address',
+        backgroundColor: Colors.blue,
+        toastLength: Toast.LENGTH_LONG,
+        fontSize: 15,
+      );
+      Navigator.pushNamed(context, '/add_address_form');
+      return;
+    } else if (addressProvider1.selectedAddress.name.isEmpty) {
+      Fluttertoast.showToast(
+        msg: 'select your address',
+        backgroundColor: Colors.blue,
+        toastLength: Toast.LENGTH_LONG,
+        fontSize: 15,
+      );
+      Navigator.pushNamed(context, '/address_screen');
+      return;
+    }
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(
+            backgroundColor: buttonColor,
+            color: Colors.amber,
+            strokeWidth: 6,
+            strokeAlign: 3,
+          ),
+        );
+      },
+    );
+
     final address = addressProvider1.selectedAddress;
     final paymentType = cartProvider1.selectedOption.toString();
     final pickupdate = pickupProvider.selectedDay;
@@ -141,9 +213,17 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
         selectedTime: pickupTime.toString());
     if (result == true) {
       cartProvider.fetchCartData();
-      // ignore: use_build_context_synchronously
+
       Navigator.pushNamedAndRemoveUntil(
           context, '/after_payment_screen', (route) => false);
+    } else {
+      Fluttertoast.showToast(
+        msg: 'Payment failed',
+        backgroundColor: buttonColor,
+        fontSize: 15,
+        toastLength: Toast.LENGTH_LONG,
+      );
+      Navigator.pop(context);
     }
   }
 
@@ -155,7 +235,7 @@ class PlaceOrderPaymentProvider extends ChangeNotifier {
         address, paymentMode, paymentType, totalAmount);
     if (result == true) {
       cartProvider.fetchCartData();
-      // ignore: use_build_context_synchronously
+
       Navigator.pushNamedAndRemoveUntil(
           context, '/after_payment_screen', (route) => false);
     }

@@ -35,45 +35,45 @@ Future<void> bottomSheetPaymentOption(BuildContext context, int cartSum) async {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      final addressProvider1 =
-                          Provider.of<AddressProvider>(context, listen: false);
-                      log('in online :  ${addressProvider1.selectedAddress.name}');
+                      // final addressProvider1 =
+                      //     Provider.of<AddressProvider>(context, listen: false);
+                      // log('in online :  ${addressProvider1.selectedAddress.name}');
 
-                      if (addressProvider.selectedAddress.pin == 0 &&
-                          addressProvider1.addressList.isEmpty) {
-                        Fluttertoast.showToast(
-                          msg: 'Please add your address',
-                          backgroundColor: Colors.blue,
-                          toastLength: Toast.LENGTH_LONG,
-                          fontSize: 15,
-                        );
-                        Navigator.pushNamed(context, '/add_address_form');
-                        return;
-                      } else if (addressProvider1
-                          .selectedAddress.name.isEmpty) {
-                        Fluttertoast.showToast(
-                          msg: 'select your address',
-                          backgroundColor: Colors.blue,
-                          toastLength: Toast.LENGTH_LONG,
-                          fontSize: 15,
-                        );
-                        Navigator.pushNamed(context, '/address_screen');
-                        return;
-                      }
+                      // if (addressProvider.selectedAddress.pin == 0 &&
+                      //     addressProvider1.addressList.isEmpty) {
+                      //   Fluttertoast.showToast(
+                      //     msg: 'Please add your address',
+                      //     backgroundColor: Colors.blue,
+                      //     toastLength: Toast.LENGTH_LONG,
+                      //     fontSize: 15,
+                      //   );
+                      //   Navigator.pushNamed(context, '/add_address_form');
+                      //   return;
+                      // } else if (addressProvider1
+                      //     .selectedAddress.name.isEmpty) {
+                      //   Fluttertoast.showToast(
+                      //     msg: 'select your address',
+                      //     backgroundColor: Colors.blue,
+                      //     toastLength: Toast.LENGTH_LONG,
+                      //     fontSize: 15,
+                      //   );
+                      //   Navigator.pushNamed(context, '/address_screen');
+                      //   return;
+                      // }
 
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              backgroundColor: buttonColor,
-                              color: Colors.amber,
-                              strokeWidth: 6,
-                              strokeAlign: 3,
-                            ),
-                          );
-                        },
-                      );
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (context) {
+                      //     return const Center(
+                      //       child: CircularProgressIndicator(
+                      //         backgroundColor: buttonColor,
+                      //         color: Colors.amber,
+                      //         strokeWidth: 6,
+                      //         strokeAlign: 3,
+                      //       ),
+                      //     );
+                      //   },
+                      // );
                       placeOrderPaymentProvider.cashOnDelivery(
                           'COD', cartSum, context);
                     },
@@ -96,43 +96,43 @@ Future<void> bottomSheetPaymentOption(BuildContext context, int cartSum) async {
                   ),
                   ElevatedButton(
                     onPressed: () async {
-                      final addressProvider1 =
-                          Provider.of<AddressProvider>(context, listen: false);
-                      if (addressProvider.selectedAddress.pin == 0 &&
-                          addressProvider1.addressList.isEmpty) {
-                        Fluttertoast.showToast(
-                          msg: 'Please add your address',
-                          backgroundColor: Colors.blue,
-                          toastLength: Toast.LENGTH_LONG,
-                          fontSize: 15,
-                        );
-                        Navigator.pushNamed(context, '/add_address_form');
-                        return;
-                      } else if (addressProvider1
-                          .selectedAddress.name.isEmpty) {
-                        Fluttertoast.showToast(
-                          msg: 'select your address',
-                          backgroundColor: Colors.blue,
-                          toastLength: Toast.LENGTH_LONG,
-                          fontSize: 15,
-                        );
-                        Navigator.pushNamed(context, '/address_screen');
-                        return;
-                      }
-                      log('$cartSum');
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              backgroundColor: buttonColor,
-                              color: Colors.amber,
-                              strokeWidth: 6,
-                              strokeAlign: 3,
-                            ),
-                          );
-                        },
-                      );
+                      // final addressProvider1 =
+                      //     Provider.of<AddressProvider>(context, listen: false);
+                      // if (addressProvider.selectedAddress.pin == 0 &&
+                      //     addressProvider1.addressList.isEmpty) {
+                      //   Fluttertoast.showToast(
+                      //     msg: 'Please add your address',
+                      //     backgroundColor: Colors.blue,
+                      //     toastLength: Toast.LENGTH_LONG,
+                      //     fontSize: 15,
+                      //   );
+                      //   Navigator.pushNamed(context, '/add_address_form');
+                      //   return;
+                      // } else if (addressProvider1
+                      //     .selectedAddress.name.isEmpty) {
+                      //   Fluttertoast.showToast(
+                      //     msg: 'select your address',
+                      //     backgroundColor: Colors.blue,
+                      //     toastLength: Toast.LENGTH_LONG,
+                      //     fontSize: 15,
+                      //   );
+                      //   Navigator.pushNamed(context, '/address_screen');
+                      //   return;
+                      // }
+                      // log('$cartSum');
+                      // showDialog(
+                      //   context: context,
+                      //   builder: (context) {
+                      //     return const Center(
+                      //       child: CircularProgressIndicator(
+                      //         backgroundColor: buttonColor,
+                      //         color: Colors.amber,
+                      //         strokeWidth: 6,
+                      //         strokeAlign: 3,
+                      //       ),
+                      //     );
+                      //   },
+                      // );
                       placeOrderPaymentProvider.onlinePaymentBackend(
                           'Online', cartSum, context);
                     },
