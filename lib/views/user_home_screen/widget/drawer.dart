@@ -9,7 +9,7 @@ import 'package:user_module/views/user_home_screen/widget/drawer_content.dart';
 import 'package:user_module/widget/logo_drawer.dart';
 
 class DrawerHome extends StatelessWidget {
-  DrawerHome({super.key});
+  const DrawerHome({super.key});
 
   @override
   Widget build(BuildContext context) {

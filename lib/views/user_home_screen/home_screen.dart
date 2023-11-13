@@ -57,7 +57,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        drawer: DrawerHome(),
+        drawer: const DrawerHome(),
         body: SingleChildScrollView(
           child: GestureDetector(
             onTap: () {
