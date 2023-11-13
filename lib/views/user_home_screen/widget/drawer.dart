@@ -40,7 +40,7 @@ class DrawerHome extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
-              customerName.toString(),
+              customerName == null ? ' ' : customerName.toString(),
               style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
             ),
           ),
