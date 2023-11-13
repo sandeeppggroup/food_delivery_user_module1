@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -40,6 +42,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     context.read<AddressProvider>().getAllAddress();
     context.read<ProductProvider>().fetchAllProducts();
     context.read<CategoryProvider>().fetchCategories();
+    Provider.of<ProductProvider>(context, listen: false).getCustomerName();
   }
 
   @override
@@ -54,9 +57,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
-        drawer: DrawerHome(
-          customerName: customerName,
-        ),
+        drawer: DrawerHome(),
         body: SingleChildScrollView(
           child: GestureDetector(
             onTap: () {
@@ -112,6 +113,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                       backgroundColor: buttonColor,
                       child: IconButton(
                         onPressed: () {
+                          log('Customer Name : ${customerName.toString()}');
                           Navigator.pushNamed(context, '/cart_screen');
 
                           Provider.of<CartProvider>(context, listen: false)

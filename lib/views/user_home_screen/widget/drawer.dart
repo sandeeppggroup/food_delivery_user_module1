@@ -1,15 +1,15 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:user_module/control/home_control/prodcut_provider/product_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/views/user_home_screen/widget/drawer_content.dart';
 import 'package:user_module/widget/logo_drawer.dart';
 
 class DrawerHome extends StatelessWidget {
-  String? customerName;
-
-  DrawerHome({super.key, this.customerName});
+  DrawerHome({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class DrawerHome extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
-              customerName == null ? ' ' : customerName.toString(),
+              context.watch<ProductProvider>().customerName.toString(),
               style: const TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
             ),
           ),

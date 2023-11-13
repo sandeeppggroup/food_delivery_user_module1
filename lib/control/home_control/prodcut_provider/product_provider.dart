@@ -3,6 +3,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';
 import 'package:user_module/control/home_control/service/home_service.dart';
@@ -16,11 +17,17 @@ class ProductProvider extends ChangeNotifier {
   CategoryProvider categoryProvider = CategoryProvider();
   ProductViewProvider productViewProvider = ProductViewProvider();
   CartProvider cartProvider = CartProvider();
+  String? customerName;
 
   List<ProductModel> _productList = [];
 
   ProductProvider() {
     fetchAllProducts();
+  }
+
+  Future<void> getCustomerName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    customerName = prefs.getString('customerName');
   }
 
   List<ProductModel> get productlist => _productList;

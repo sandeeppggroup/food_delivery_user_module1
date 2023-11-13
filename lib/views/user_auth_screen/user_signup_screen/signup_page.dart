@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -156,8 +158,9 @@ class _LonginPageState extends State<UserSignupPage> {
                                       await SharedPreferences.getInstance();
 
                                   final token = prefs.getString('token');
-                                  prefs.setString('customerName', name.text);
-                                  // ignore: use_build_context_synchronously
+                                  await prefs.setString(
+                                      'customerName', name.text);
+
                                   Provider.of<DbAuthService>(context,
                                           listen: false)
                                       .saveUserName(
