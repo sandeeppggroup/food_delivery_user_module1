@@ -50,27 +50,41 @@ class OrderHistoryScreen extends StatelessWidget {
                             fontSize: 17, fontWeight: FontWeight.bold),
                       ),
                       // ${order.isDelivered ? 'Delivered' : 'Not Delivered'}
-                      Padding(
-                        padding: const EdgeInsets.only(top: 8.0, bottom: 8),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey,
-                              borderRadius: BorderRadius.circular(5)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text(
-                              ' ${orderData.orderStatus} ',
-                              style: const TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.bold),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(top: 8.0, bottom: 8),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.grey,
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(5.0),
+                                child: Text(
+                                  ' ${orderData.orderStatus} ',
+                                  style: const TextStyle(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
                           ),
-                        ),
+                          orderData.orderStatus != 'delivered' &&
+                                  orderData.orderStatus != 'cancelled'
+                              ? SizedBox(
+                                  height: height * 0.035,
+                                  child: ElevatedButton(
+                                      onPressed: () {
+                                        orderHistoryprovider.cancelOrder(
+                                            orderData.id.toString());
+                                      },
+                                      child: const Text('Cancel Order')),
+                                )
+                              : const SizedBox.shrink()
+                        ],
                       ),
-                      Text(
-                        'Payment Status  :  ${orderData.paymentStatus}',
-                        style: const TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
+
                       pickupDate != null
                           ? Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -168,13 +182,12 @@ class OrderHistoryScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Row(
+                          Row(
                             children: [
-                              Text('Rating: ',
-                                  style: TextStyle(
+                              Text('Payment Mode: ${orderData.payment}',
+                                  style: const TextStyle(
                                       fontSize: 15,
                                       fontWeight: FontWeight.bold)),
-                              Icon(Icons.star, color: Colors.yellow, size: 24),
                             ],
                           ),
                           Text(
@@ -183,10 +196,14 @@ class OrderHistoryScreen extends StatelessWidget {
                                   fontSize: 15, fontWeight: FontWeight.bold)),
                         ],
                       ),
-
-                      Text('Payment Mode: ${orderData.payment}',
-                          style: const TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.bold)),
+                      const Divider(
+                        thickness: 2,
+                      ),
+                      Text(
+                        'Payment Status  :  ${orderData.paymentStatus}',
+                        style: const TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
                     ],
                   ),
                 ),

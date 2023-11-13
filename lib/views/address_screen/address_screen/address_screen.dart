@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:user_module/control/address_controller/provider/address_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/address_model/address_model.dart';
+import 'package:user_module/widget/button2.dart';
 import 'package:user_module/widget/logo.dart';
 import 'package:user_module/widget/show_dialog.dart';
 
@@ -24,11 +25,11 @@ class AddressScreen extends StatelessWidget {
         child: Column(
           children: [
             SizedBox(
-              height: height * .07,
+              height: height * .04,
             ),
             Logo(height: height * .1),
             SizedBox(
-              height: height * .03,
+              height: height * .01,
             ),
             Container(
               height: height * .77,
@@ -175,6 +176,12 @@ class AddressScreen extends StatelessWidget {
                 ),
               ),
             ),
+            ButtonSmall(
+              label: 'Back',
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )
           ],
         ),
       ),

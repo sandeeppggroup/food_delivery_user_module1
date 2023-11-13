@@ -13,4 +13,5 @@ class ApiEndUrl {
   String verifypayment = '/verifypayment';
   String getAllOrders = '/getOrders';
   String deleteAddress = '/deleteAddress?id=';
+  String cancelOrder = '/cancelOrder?id=';
 }
