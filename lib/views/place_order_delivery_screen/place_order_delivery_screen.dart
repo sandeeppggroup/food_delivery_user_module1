@@ -112,56 +112,94 @@ class _PlaceOrderDeliveryState extends State<PlaceOrderDelivery> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  addressProviderWatch.selectedAddress.name,
-                                  style: const TextStyle(
-                                      color: Color.fromARGB(255, 97, 97, 97),
-                                      fontSize: 17),
-                                ),
-                                Text(
-                                  addressProviderWatch.selectedAddress.address,
-                                  style: const TextStyle(
-                                      color: Color.fromARGB(255, 97, 97, 97),
-                                      fontSize: 17),
-                                ),
-                                Text(
-                                  addressProviderWatch.selectedAddress.post,
-                                  style: const TextStyle(
-                                      color: Color.fromARGB(255, 97, 97, 97),
-                                      fontSize: 17),
-                                ),
-                                Text(
-                                  addressProviderWatch.selectedAddress.street,
-                                  style: const TextStyle(
-                                      color: Color.fromARGB(255, 97, 97, 97),
-                                      fontSize: 17),
-                                ),
-                                Text(
-                                  addressProviderWatch.selectedAddress.city,
-                                  style: const TextStyle(
-                                      color: Color.fromARGB(255, 97, 97, 97),
-                                      fontSize: 17),
-                                ),
-                                Text(
-                                  '${addressProviderWatch.selectedAddress.state} - ${addressProviderWatch.selectedAddress.pin}',
-                                  style: const TextStyle(
-                                      color: Color.fromARGB(255, 97, 97, 97),
-                                      fontSize: 17),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Text(
-                                    'Phone - ${addressProviderWatch.selectedAddress.mobile}',
-                                    style: const TextStyle(
-                                        color: Color.fromARGB(255, 97, 97, 97),
-                                        fontSize: 17),
+                            context
+                                        .read<AddressProvider>()
+                                        .selectedAddress
+                                        .pin ==
+                                    0
+                                ? Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, top: 56),
+                                    child: Column(
+                                      children: [
+                                        const Text(
+                                          'Not address found',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                        TextButton(
+                                            onPressed: () {
+                                              Navigator.pushNamed(
+                                                  context, '/address_screen');
+                                            },
+                                            child: const Text('Add address')),
+                                      ],
+                                    ),
+                                  )
+                                : Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        addressProviderWatch
+                                            .selectedAddress.name,
+                                        style: const TextStyle(
+                                            color:
+                                                Color.fromARGB(255, 97, 97, 97),
+                                            fontSize: 17),
+                                      ),
+                                      Text(
+                                        addressProviderWatch
+                                            .selectedAddress.address,
+                                        style: const TextStyle(
+                                            color:
+                                                Color.fromARGB(255, 97, 97, 97),
+                                            fontSize: 17),
+                                      ),
+                                      Text(
+                                        addressProviderWatch
+                                            .selectedAddress.post,
+                                        style: const TextStyle(
+                                            color:
+                                                Color.fromARGB(255, 97, 97, 97),
+                                            fontSize: 17),
+                                      ),
+                                      Text(
+                                        addressProviderWatch
+                                            .selectedAddress.street,
+                                        style: const TextStyle(
+                                            color:
+                                                Color.fromARGB(255, 97, 97, 97),
+                                            fontSize: 17),
+                                      ),
+                                      Text(
+                                        addressProviderWatch
+                                            .selectedAddress.city,
+                                        style: const TextStyle(
+                                            color:
+                                                Color.fromARGB(255, 97, 97, 97),
+                                            fontSize: 17),
+                                      ),
+                                      Text(
+                                        '${addressProviderWatch.selectedAddress.state} - ${addressProviderWatch.selectedAddress.pin}',
+                                        style: const TextStyle(
+                                            color:
+                                                Color.fromARGB(255, 97, 97, 97),
+                                            fontSize: 17),
+                                      ),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(top: 8.0),
+                                        child: Text(
+                                          'Phone - ${addressProviderWatch.selectedAddress.mobile}',
+                                          style: const TextStyle(
+                                              color: Color.fromARGB(
+                                                  255, 97, 97, 97),
+                                              fontSize: 17),
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                )
-                              ],
-                            ),
                             const Icon(
                               Icons.location_on_outlined,
                               size: 70,
