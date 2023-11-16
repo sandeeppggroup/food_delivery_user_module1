@@ -36,6 +36,7 @@ class FireBaseAuthService extends ChangeNotifier {
                 .setProgress(false);
             return;
           } else {
+            log('firebase error: ${e.message}');
             Fluttertoast.showToast(
                 msg:
                     'An error occurred. Please try again later : ${e.message.toString()}',
