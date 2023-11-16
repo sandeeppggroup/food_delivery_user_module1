@@ -44,37 +44,37 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCaKT9RH3zKy2yn3HsHpPG3LIhfNKUN3eA',
-    appId: '1:890144454001:web:d8b3c6fea8bb35cf7272d0',
-    messagingSenderId: '890144454001',
-    projectId: 'food-delivery-app-26294',
-    authDomain: 'food-delivery-app-26294.firebaseapp.com',
-    storageBucket: 'food-delivery-app-26294.appspot.com',
+    apiKey: 'AIzaSyC3B_PmqPoURZTQeFm0yOiW4_Nirq-v3eA',
+    appId: '1:158685587835:web:48dca95c5b991d9ee635de',
+    messagingSenderId: '158685587835',
+    projectId: 'redrabbitproject-fb661',
+    authDomain: 'redrabbitproject-fb661.firebaseapp.com',
+    storageBucket: 'redrabbitproject-fb661.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAkujv1-SK2f4vPIkV-skXteO_4cWHZ4QM',
-    appId: '1:890144454001:android:b1950c07dd672d877272d0',
-    messagingSenderId: '890144454001',
-    projectId: 'food-delivery-app-26294',
-    storageBucket: 'food-delivery-app-26294.appspot.com',
+    apiKey: 'AIzaSyAntul_Rd7us-T3aynDbtSgBoJUqTXxqcI',
+    appId: '1:158685587835:android:462d584e1a9fb80ae635de',
+    messagingSenderId: '158685587835',
+    projectId: 'redrabbitproject-fb661',
+    storageBucket: 'redrabbitproject-fb661.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAzW14ZJZafwAgRaJqQftLlJslMUZE8aHI',
-    appId: '1:890144454001:ios:51bf50d957711b4c7272d0',
-    messagingSenderId: '890144454001',
-    projectId: 'food-delivery-app-26294',
-    storageBucket: 'food-delivery-app-26294.appspot.com',
+    apiKey: 'AIzaSyC9q8A8tfyy6jWl4KEyCqNp29uT8LAKgdo',
+    appId: '1:158685587835:ios:3de03b22dd3187c8e635de',
+    messagingSenderId: '158685587835',
+    projectId: 'redrabbitproject-fb661',
+    storageBucket: 'redrabbitproject-fb661.appspot.com',
     iosBundleId: 'com.example.userModule',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAzW14ZJZafwAgRaJqQftLlJslMUZE8aHI',
-    appId: '1:890144454001:ios:edcb3c560d61cc897272d0',
-    messagingSenderId: '890144454001',
-    projectId: 'food-delivery-app-26294',
-    storageBucket: 'food-delivery-app-26294.appspot.com',
+    apiKey: 'AIzaSyC9q8A8tfyy6jWl4KEyCqNp29uT8LAKgdo',
+    appId: '1:158685587835:ios:a85b6ce0ed4319b1e635de',
+    messagingSenderId: '158685587835',
+    projectId: 'redrabbitproject-fb661',
+    storageBucket: 'redrabbitproject-fb661.appspot.com',
     iosBundleId: 'com.example.userModule.RunnerTests',
   );
 }

@@ -24,7 +24,7 @@ class FireBaseAuthService extends ChangeNotifier {
           await auth.signInWithCredential(credential);
         },
         verificationFailed: (e) {
-          log(e.toString());
+          log('firebase error:  ${e.message.toString()}');
           if (e.code == 'invalid-phone-number') {
             Fluttertoast.showToast(
                 msg:

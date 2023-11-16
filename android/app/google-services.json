@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "890144454001",
-    "project_id": "food-delivery-app-26294",
-    "storage_bucket": "food-delivery-app-26294.appspot.com"
+    "project_number": "158685587835",
+    "project_id": "redrabbitproject-fb661",
+    "storage_bucket": "redrabbitproject-fb661.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:890144454001:android:b1950c07dd672d877272d0",
+        "mobilesdk_app_id": "1:158685587835:android:462d584e1a9fb80ae635de",
         "android_client_info": {
-          "package_name": "com.example.user_module"
+          "package_name": "in.user_module"
         }
       },
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAkujv1-SK2f4vPIkV-skXteO_4cWHZ4QM"
+          "current_key": "AIzaSyAntul_Rd7us-T3aynDbtSgBoJUqTXxqcI"
         }
       ],
       "services": {
