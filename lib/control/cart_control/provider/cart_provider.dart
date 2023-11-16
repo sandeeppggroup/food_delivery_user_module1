@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:user_module/control/cart_control/service/cart_service.dart';
+import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/cart_model/cart_model.dart';
 
 class CartProvider extends ChangeNotifier {

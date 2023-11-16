@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -112,12 +114,26 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                       radius: 21,
                       backgroundColor: buttonColor,
                       child: IconButton(
-                        onPressed: () {
+                        onPressed: () async {
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return const Center(
+                                child: CircularProgressIndicator(
+                                  backgroundColor: buttonColor,
+                                  color: Colors.amber,
+                                  strokeWidth: 6,
+                                  strokeAlign: 3,
+                                ),
+                              );
+                            },
+                          );
                           log('Customer Name : ${customerName.toString()}');
-                          Navigator.pushNamed(context, '/cart_screen');
 
-                          Provider.of<CartProvider>(context, listen: false)
+                          await Provider.of<CartProvider>(context,
+                                  listen: false)
                               .fetchCartData();
+                          Navigator.pushNamed(context, '/cart_screen');
                         },
                         icon: const Icon(
                           Icons.shopping_cart,
