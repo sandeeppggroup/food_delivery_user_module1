@@ -1,12 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
-
 import 'dart:developer';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:user_module/control/authentication/provider_login/login_provider.dart';
 import 'package:user_module/control/authentication/provider_otp/otp_provider.dart';
 import 'package:user_module/core/constants/api/api_base_url.dart';
 import 'package:user_module/core/constants/api/api_end_url.dart';
@@ -33,8 +30,6 @@ class DbAuthService extends ChangeNotifier {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('token', token);
 
-        Provider.of<LoginProvider>(context, listen: false).setProgress(false);
-
         Provider.of<OtpProvider>(context, listen: false).setProgress(false);
 
         Navigator.pushNamedAndRemoveUntil(
@@ -48,8 +43,6 @@ class DbAuthService extends ChangeNotifier {
 
         showItemSnackBar(context,
             massage: response.data['message'], color: Colors.blue);
-
-        Provider.of<LoginProvider>(context, listen: false).setProgress(false);
 
         Navigator.pushReplacementNamed(context, '/user_signup');
       }

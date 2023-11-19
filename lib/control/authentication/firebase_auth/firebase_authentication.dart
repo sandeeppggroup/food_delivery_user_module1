@@ -2,8 +2,6 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:provider/provider.dart';
-import 'package:user_module/control/authentication/provider_login/login_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/views/user_auth_screen/otp_screen/otp_screen.dart';
 
@@ -27,13 +25,11 @@ class FireBaseAuthService extends ChangeNotifier {
           log('firebase error:  ${e.message.toString()}');
           if (e.code == 'invalid-phone-number') {
             Fluttertoast.showToast(
-                msg:
-                    'An error occurred. Please try again later : ${e.message.toString()}',
+                msg: 'Please Enter a valid phone number',
                 fontSize: 16,
                 backgroundColor: buttonColor,
                 toastLength: Toast.LENGTH_LONG);
-            Provider.of<LoginProvider>(context, listen: false)
-                .setProgress(false);
+            Navigator.pop(context);
             return;
           } else {
             log('firebase error: ${e.message}');
@@ -43,13 +39,13 @@ class FireBaseAuthService extends ChangeNotifier {
                 fontSize: 16,
                 backgroundColor: buttonColor,
                 toastLength: Toast.LENGTH_LONG);
-            Provider.of<LoginProvider>(context, listen: false)
-                .setProgress(false);
+            Navigator.pop(context);
           }
           throw Exception(e.message);
         },
         codeSent: ((String? verificationId, int? resendToken) async {
           log('in signin with phone : ${verificationId.toString()}');
+          Navigator.pop(context);
 
           Navigator.of(context).push(
             MaterialPageRoute(

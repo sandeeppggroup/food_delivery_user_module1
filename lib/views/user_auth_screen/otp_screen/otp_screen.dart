@@ -136,6 +136,7 @@ class _OTPScreenState extends State<OTPScreen> {
                             otpProvider.setProgress(false);
                             showItemSnackBar(context,
                                 massage: 'Invalid Otp !', color: Colors.red);
+                            Navigator.pop(context);
                           }
                         }
                       },

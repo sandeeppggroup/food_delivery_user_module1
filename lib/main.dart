@@ -47,7 +47,6 @@ class MyApp extends StatelessWidget {
             create: (context) =>
                 FireBaseAuthService(auth: FirebaseAuth.instance)),
         ChangeNotifierProvider(create: (context) => DbAuthService()),
-        ChangeNotifierProvider(create: (context) => LoginProvider()),
         ChangeNotifierProvider(create: (context) => OtpProvider()),
         ChangeNotifierProvider(create: (context) => CategoryProvider()),
         ChangeNotifierProvider(create: (context) => ProductProvider()),

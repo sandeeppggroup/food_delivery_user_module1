@@ -66,7 +66,7 @@ class _SplashPageState extends State<SplashPage> {
                 child: NeuBox(
                   child: SizedBox(
                     height: height * 0.22,
-                    child: Image.asset('assets/images/burger_frenchfries.png'),
+                    child: Image.asset('assets/images/burger_three_piece.png'),
                   ),
                 ),
               ),
