@@ -68,83 +68,72 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                 currentFocus.unfocus();
               }
             },
-            child: Column(
-              children: [
-                const Padding(
-                  padding:
-                      EdgeInsets.only(left: 12, right: 12, top: 12, bottom: 4),
-                  child: DrawerAndPersonIcon(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 25),
-                  child: HeadingAndSearchBar(focusNode: focusNode),
-                ),
-                SizedBox(
-                  height: height * 0.02,
-                ),
-                const Align(
-                  alignment: Alignment.topLeft,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(left: 40),
-                        child: Text(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  DrawerAndPersonIcon(),
+                  HeadingAndSearchBar(focusNode: focusNode),
+                  SizedBox(
+                    height: height * 0.02,
+                  ),
+                  const Align(
+                    alignment: Alignment.topLeft,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
                           'Categories',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.w500),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 20,
-                        ),
-                        child: CategoryHomeListView(),
-                      ),
-                    ],
+                        CategoryHomeListView(),
+                      ],
+                    ),
                   ),
-                ),
-                const AllProductAndMore(),
-                Padding(
-                  padding: const EdgeInsets.only(left: 310),
-                  child: CircleAvatar(
-                    radius: 24,
-                    backgroundColor: Colors.grey,
+                  const AllProductAndMore(),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 310),
                     child: CircleAvatar(
-                      radius: 21,
-                      backgroundColor: buttonColor,
-                      child: IconButton(
-                        onPressed: () async {
-                          showDialog(
-                            context: context,
-                            builder: (context) {
-                              return const Center(
-                                child: CircularProgressIndicator(
-                                  backgroundColor: buttonColor,
-                                  color: Colors.amber,
-                                  strokeWidth: 6,
-                                  strokeAlign: 3,
-                                ),
-                              );
-                            },
-                          );
-                          log('Customer Name : ${customerName.toString()}');
+                      radius: 24,
+                      backgroundColor: Colors.grey,
+                      child: CircleAvatar(
+                        radius: 21,
+                        backgroundColor: buttonColor,
+                        child: IconButton(
+                          onPressed: () async {
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return const Center(
+                                  child: CircularProgressIndicator(
+                                    backgroundColor: buttonColor,
+                                    color: Colors.amber,
+                                    strokeWidth: 6,
+                                    strokeAlign: 3,
+                                  ),
+                                );
+                              },
+                            );
+                            log('Customer Name : ${customerName.toString()}');
 
-                          await Provider.of<CartProvider>(context,
-                                  listen: false)
-                              .fetchCartData();
-                          Navigator.pushNamed(context, '/cart_screen');
-                        },
-                        icon: const Icon(
-                          Icons.shopping_cart,
-                          size: 30,
-                          color: Colors.white,
+                            await Provider.of<CartProvider>(context,
+                                    listen: false)
+                                .fetchCartData();
+                            Navigator.pushNamed(context, '/cart_screen');
+                          },
+                          icon: const Icon(
+                            Icons.shopping_cart,
+                            size: 30,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

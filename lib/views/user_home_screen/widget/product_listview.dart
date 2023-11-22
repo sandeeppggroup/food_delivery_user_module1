@@ -99,8 +99,20 @@ class ProductHomeListView extends StatelessWidget {
                                   ),
                                   SizedBox(
                                     height: height * 0.14,
-                                    child:
-                                        Image.network(product.image.imageUrl),
+                                    child: Image.network(
+                                      product.image.imageUrl,
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        } else {
+                                          return Image.asset(
+                                            'assets/images/RED_RABBIT_LOGO_FINAL_new_page-0001__1_-removebg (2).png',
+                                            color: Colors.white,
+                                          );
+                                        }
+                                      },
+                                    ),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 8.0),

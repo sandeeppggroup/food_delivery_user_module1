@@ -31,47 +31,49 @@ class HeadingAndSearchBar extends StatelessWidget {
         SizedBox(
           height: height * 0.02,
         ),
-        Container(
-          height: height * 0.055,
-          width: width * 0.85,
-          decoration: BoxDecoration(
-            boxShadow: const [
-              BoxShadow(
-                color: Color.fromARGB(255, 190, 189, 189),
-                blurRadius: 1,
-                offset: Offset(8, 8),
-              )
-            ],
-            color: userAppBar,
-            // border: Border.all(),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 65.0),
-            child: SizedBox(
-              height: 38,
-              width: 250,
-              child: TextFormField(
-                onChanged: (value) async {
-                  Future.delayed(const Duration(seconds: 1));
-                  log(value.toString());
-                  String searchUrl = value.toString();
-                  productProvider.fetchSortCategoryAndPriceWiseProduct(
-                      searchUrl: searchUrl);
-                },
-                focusNode: focusNode,
-                keyboardType: TextInputType.text,
-                textInputAction: TextInputAction.next,
-                controller: searchController,
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Search Food Here Foody',
-                  hintStyle:
-                      TextStyle(fontWeight: FontWeight.w700, fontSize: 19),
-                  suffixIcon: Icon(
-                    Icons.search_rounded,
-                    size: 50,
-                    color: Color.fromARGB(179, 190, 192, 192),
+        Center(
+          child: Container(
+            height: height * 0.055,
+            width: width * 0.85,
+            decoration: BoxDecoration(
+              boxShadow: const [
+                BoxShadow(
+                  color: Color.fromARGB(255, 190, 189, 189),
+                  blurRadius: 1,
+                  offset: Offset(8, 8),
+                )
+              ],
+              color: userAppBar,
+              // border: Border.all(),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 65.0),
+              child: SizedBox(
+                height: 38,
+                width: 250,
+                child: TextFormField(
+                  onChanged: (value) async {
+                    Future.delayed(const Duration(seconds: 1));
+                    log(value.toString());
+                    String searchUrl = value.toString();
+                    productProvider.fetchSortCategoryAndPriceWiseProduct(
+                        searchUrl: searchUrl);
+                  },
+                  focusNode: focusNode,
+                  keyboardType: TextInputType.text,
+                  textInputAction: TextInputAction.next,
+                  controller: searchController,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Search Food Here Foody',
+                    hintStyle:
+                        TextStyle(fontWeight: FontWeight.w700, fontSize: 19),
+                    suffixIcon: Icon(
+                      Icons.search_rounded,
+                      size: 50,
+                      color: Color.fromARGB(179, 190, 192, 192),
+                    ),
                   ),
                 ),
               ),

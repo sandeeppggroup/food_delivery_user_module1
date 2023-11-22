@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:user_module/control/address_controller/provider/address_provider.dart';
 import 'package:user_module/control/authentication/db_authentication/db_authentication.dart';
 import 'package:user_module/control/authentication/firebase_auth/firebase_authentication.dart';
-import 'package:user_module/control/authentication/provider_login/login_provider.dart';
 import 'package:user_module/control/authentication/provider_otp/otp_provider.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/control/home_control/category_provider/category_provider.dart';

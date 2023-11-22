@@ -20,46 +20,36 @@ class AllProductAndMore extends StatelessWidget {
       alignment: Alignment.topLeft,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: Row(
-              children: [
-                TextButton(
-                  onPressed: () {
-                    productProvider.fetchAllProducts();
-                    categoryProvider.setCategoryName = null;
-                  },
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 15.0),
-                    child: Text('All products'),
-                  ),
-                ),
-                const Spacer(),
-                TextButton(
-                  onPressed: () {
-                    Provider.of<ProductProvider>(context, listen: false)
-                        .fetchAllProducts();
-                    Navigator.pushNamed(context, '/search_screen');
-                  },
-                  child: const Text('More ..'),
-                )
-              ],
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextButton(
+                onPressed: () {
+                  productProvider.fetchAllProducts();
+                  categoryProvider.setCategoryName = null;
+                },
+                child: const Text('All products'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Provider.of<ProductProvider>(context, listen: false)
+                      .fetchAllProducts();
+                  Navigator.pushNamed(context, '/search_screen');
+                },
+                child: const Text('More ..'),
+              )
+            ],
           ),
-          Padding(
-            padding: const EdgeInsets.only(left: 40),
-            child: Text(
-              Provider.of<CategoryProvider>(context).categoryName != null
-                  ? categoryProviderWatch.categoryName.toString()
-                  : 'All Products',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-            ),
+          Text(
+            Provider.of<CategoryProvider>(context).categoryName != null
+                ? categoryProviderWatch.categoryName.toString()
+                : 'All Products',
+            style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 15, right: 10),
-            child: ProductHomeListView(),
-          ),
+          const ProductHomeListView(),
         ],
       ),
     );
