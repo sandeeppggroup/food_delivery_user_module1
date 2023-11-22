@@ -26,7 +26,7 @@ class ProductList extends StatelessWidget {
                   CartItem cartItem = cartItems[index];
 
                   return Card(
-                    elevation: 0,
+                    elevation: 4,
                     color: userAppBar,
                     child: ListTile(
                       leading: Padding(

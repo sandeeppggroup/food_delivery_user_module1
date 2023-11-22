@@ -52,6 +52,7 @@ dependencies:
   fluttertoast: ^8.2.2
   font_awesome_flutter: ^10.6.0
   flutter_country_picker_nm: ^0.0.3
+  flutter_slidable: ^3.0.1
   
   
 

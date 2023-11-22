@@ -73,7 +73,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  DrawerAndPersonIcon(),
+                  const DrawerAndPersonIcon(),
                   HeadingAndSearchBar(focusNode: focusNode),
                   SizedBox(
                     height: height * 0.02,
@@ -93,44 +93,49 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                     ),
                   ),
                   const AllProductAndMore(),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 320),
-                    child: CircleAvatar(
-                      radius: 24,
-                      backgroundColor: Colors.grey,
-                      child: CircleAvatar(
-                        radius: 21,
-                        backgroundColor: buttonColor,
-                        child: IconButton(
-                          onPressed: () async {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return const Center(
-                                  child: CircularProgressIndicator(
-                                    backgroundColor: buttonColor,
-                                    color: Colors.amber,
-                                    strokeWidth: 6,
-                                    strokeAlign: 3,
-                                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: CircleAvatar(
+                          radius: 24,
+                          backgroundColor: Colors.grey,
+                          child: CircleAvatar(
+                            radius: 21,
+                            backgroundColor: buttonColor,
+                            child: IconButton(
+                              onPressed: () async {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return const Center(
+                                      child: CircularProgressIndicator(
+                                        backgroundColor: buttonColor,
+                                        color: Colors.amber,
+                                        strokeWidth: 6,
+                                        strokeAlign: 3,
+                                      ),
+                                    );
+                                  },
                                 );
-                              },
-                            );
-                            log('Customer Name : ${customerName.toString()}');
+                                log('Customer Name : ${customerName.toString()}');
 
-                            await Provider.of<CartProvider>(context,
-                                    listen: false)
-                                .fetchCartData();
-                            Navigator.pushNamed(context, '/cart_screen');
-                          },
-                          icon: const Icon(
-                            Icons.shopping_cart,
-                            size: 30,
-                            color: Colors.white,
+                                await Provider.of<CartProvider>(context,
+                                        listen: false)
+                                    .fetchCartData();
+                                Navigator.pushNamed(context, '/cart_screen');
+                              },
+                              icon: const Icon(
+                                Icons.shopping_cart,
+                                size: 30,
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),

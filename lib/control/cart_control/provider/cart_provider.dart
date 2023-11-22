@@ -3,6 +3,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:user_module/control/cart_control/service/cart_service.dart';
+import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/cart_model/cart_model.dart';
 
 class CartProvider extends ChangeNotifier {
@@ -52,14 +53,29 @@ class CartProvider extends ChangeNotifier {
   }
 
   Future<void> increaseOrDecreaseQuantity(
-      String quantity, String productId) async {
+      String quantity, String productId, BuildContext context) async {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return const Center(
+          child: CircularProgressIndicator(
+            backgroundColor: buttonColor,
+            color: Colors.amber,
+            strokeWidth: 6,
+            strokeAlign: 3,
+          ),
+        );
+      },
+    );
     log('log in cart provider productId : $productId  , $quantity');
     final result =
         await cartService.increaseOrDecreaseQuantityInCart(quantity, productId);
 
     if (result == true) {
-      fetchCartData();
+      await fetchCartData();
+      Navigator.pop(context);
     } else {
+      Navigator.pop(context);
       return;
     }
   }

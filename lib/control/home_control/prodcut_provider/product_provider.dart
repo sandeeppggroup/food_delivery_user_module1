@@ -10,7 +10,6 @@ import 'package:user_module/control/home_control/service/home_service.dart';
 import 'package:user_module/control/product_view_control/provider/product_view_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/model/home_model/product_model.dart';
-import 'package:user_module/widget/show_dialog.dart';
 
 class ProductProvider extends ChangeNotifier {
   HomeService homeService = HomeService();

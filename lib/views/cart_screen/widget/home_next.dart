@@ -79,8 +79,9 @@ class HomeNextContainer extends StatelessWidget {
                             ),
                 ],
               ),
-              Text('Total  ₹$cartSum',
-                  style: const TextStyle(fontWeight: FontWeight.bold))
+              Text('Total : ₹$cartSum',
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 16))
             ],
           ),
           Row(
