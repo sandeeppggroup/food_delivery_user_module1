@@ -94,7 +94,7 @@ class _UserHomeScreenState extends State<UserHomeScreen> {
                   ),
                   const AllProductAndMore(),
                   Padding(
-                    padding: const EdgeInsets.only(left: 310),
+                    padding: const EdgeInsets.only(left: 320),
                     child: CircleAvatar(
                       radius: 24,
                       backgroundColor: Colors.grey,
