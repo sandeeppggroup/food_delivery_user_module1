@@ -176,6 +176,9 @@ class AddressScreen extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(
+              height: height * 0.006,
+            ),
             ButtonSmall(
               label: 'Back',
               onPressed: () {

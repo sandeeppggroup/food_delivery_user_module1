@@ -106,10 +106,16 @@ class ProductHomeListView extends StatelessWidget {
                                         if (loadingProgress == null) {
                                           return child;
                                         } else {
-                                          return Image.asset(
-                                            'assets/images/RED_RABBIT_LOGO_FINAL_new_page-0001__1_-removebg (2).png',
-                                            color: Colors.white,
+                                          return const Center(
+                                            child: CircularProgressIndicator(
+                                              backgroundColor: Colors.white,
+                                              color: Colors.amber,
+                                            ),
                                           );
+                                          // Image.asset(
+                                          //   'assets/images/RED_RABBIT_LOGO_FINAL_new_page-0001__1_-removebg (2).png',
+                                          //   color: Colors.white,
+                                          // );
                                         }
                                       },
                                     ),

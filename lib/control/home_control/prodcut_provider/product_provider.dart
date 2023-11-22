@@ -132,8 +132,11 @@ class ProductProvider extends ChangeNotifier {
     if (result == true) {
       cartProvider.fetchCartData();
 
-      showItemSnackBar(context,
-          massage: 'Item added to cart successfully', color: Colors.green);
+      Fluttertoast.showToast(
+        msg: 'Item added to cart successfully',
+        backgroundColor: Colors.green,
+        fontSize: 17,
+      );
       Navigator.pop(context);
     }
   }

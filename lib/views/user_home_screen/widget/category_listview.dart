@@ -72,8 +72,22 @@ class CategoryHomeListView extends StatelessWidget {
                                 children: [
                                   SizedBox(
                                     height: 50,
-                                    child:
-                                        Image.network(category.image.imageUrl),
+                                    child: Image.network(
+                                      category.image.imageUrl,
+                                      loadingBuilder:
+                                          (context, child, loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        } else {
+                                          return const Center(
+                                            child: CircularProgressIndicator(
+                                              backgroundColor: buttonColor,
+                                              color: Colors.amber,
+                                            ),
+                                          );
+                                        }
+                                      },
+                                    ),
                                   ),
                                   Text(
                                     category.name,

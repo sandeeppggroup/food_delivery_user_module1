@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:user_module/core/colors/colors.dart';
 
 // ignore: must_be_immutable
 class ProductImageContainer extends StatelessWidget {
@@ -25,7 +26,26 @@ class ProductImageContainer extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.only(
                 left: 5.0, right: 15.0, top: 10, bottom: 5),
-            child: Image.network(imageUrl.toString()),
+            child: Image.network(
+              imageUrl.toString(),
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                } else {
+                  return const Center(
+                    child: SizedBox(
+                      height: 60,
+                      width: 60,
+                      child: CircularProgressIndicator(
+                        backgroundColor: buttonColor,
+                        color: Colors.amber,
+                        strokeWidth: 5,
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
           ),
         ),
       ),

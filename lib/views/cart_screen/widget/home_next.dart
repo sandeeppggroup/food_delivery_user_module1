@@ -1,5 +1,4 @@
 // ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +7,6 @@ import 'package:user_module/control/cart_control/provider/cart_provider.dart';
 import 'package:user_module/core/colors/colors.dart';
 import 'package:user_module/views/place_order_delivery_screen/place_order_delivery_screen.dart';
 import 'package:user_module/views/place_order_pickup_screen/place_order_pickep_screen.dart';
-import 'package:user_module/widget/show_dialog.dart';
 
 class HomeNextContainer extends StatelessWidget {
   int? cartSum;
@@ -63,13 +61,25 @@ class HomeNextContainer extends StatelessWidget {
                   SizedBox(
                     width: width * 0.03,
                   ),
-                  Text(
-                    '$cartItemQuantity ITEM ADDED',
-                    style: const TextStyle(fontWeight: FontWeight.bold),
-                  ),
+                  cartItemQuantity == 0
+                      ? const Text(
+                          'NO ITEM ADDED',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )
+                      : cartItemQuantity == 1
+                          ? Text(
+                              '$cartItemQuantity ITEM ADDED',
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          : Text(
+                              ' $cartItemQuantity ITEMS ADDED',
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.bold),
+                            ),
                 ],
               ),
-              Text('Total $cartSum',
+              Text('Total  ₹$cartSum',
                   style: const TextStyle(fontWeight: FontWeight.bold))
             ],
           ),
@@ -107,8 +117,8 @@ class HomeNextContainer extends StatelessWidget {
                     if (cartSum == 0) {
                       Fluttertoast.showToast(
                           msg: 'Please add any item to cart',
-                          backgroundColor: Colors.black,
-                          fontSize: 16);
+                          backgroundColor: buttonColor,
+                          fontSize: 17);
                       return;
                     }
 
@@ -132,9 +142,11 @@ class HomeNextContainer extends StatelessWidget {
                       );
                       context.read<AddressProvider>().getFirstAddress();
                     } else {
-                      showItemSnackBar(context,
-                          massage: 'Please select an option',
-                          color: Colors.red);
+                      Fluttertoast.showToast(
+                          msg:
+                              'Please select an option \n" Pickup or Delivery " ',
+                          backgroundColor: Colors.deepPurple,
+                          fontSize: 17);
                     }
                   },
                   child: const Text('Next'),

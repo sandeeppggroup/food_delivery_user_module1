@@ -173,8 +173,38 @@ class SearchScreen extends StatelessWidget {
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           10)),
-                                              child: Image.network(
-                                                  product.image.imageUrl),
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(4.0),
+                                                child: Image.network(
+                                                  product.image.imageUrl,
+                                                  loadingBuilder: (context,
+                                                      child, loadingProgress) {
+                                                    if (loadingProgress ==
+                                                        null) {
+                                                      return child;
+                                                    } else {
+                                                      return const Center(
+                                                        child: SizedBox(
+                                                          height: 20,
+                                                          width: 20,
+                                                          child:
+                                                              CircularProgressIndicator(
+                                                            strokeWidth: 3,
+                                                            backgroundColor:
+                                                                buttonColor,
+                                                            color: Colors.amber,
+                                                          ),
+                                                        ),
+                                                      );
+                                                      // Image.asset(
+                                                      //   'assets/images/RED_RABBIT_LOGO_FINAL_new_page-0001__1_-removebg (2).png',
+                                                      //   color: Colors.white,
+                                                      // );
+                                                    }
+                                                  },
+                                                ),
+                                              ),
                                             ),
                                           ),
                                           title: Text(
