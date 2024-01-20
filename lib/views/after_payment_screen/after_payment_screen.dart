@@ -1,5 +1,4 @@
-// ignore_for_file: must_be_immutable
-
+// ignore_for_file: deprecated_member_use, must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:user_module/control/cart_control/provider/cart_provider.dart';
